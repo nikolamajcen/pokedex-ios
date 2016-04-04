@@ -1,5 +1,5 @@
 //
-//  PokemonTableViewModel.swift
+//  PokedexViewModel.swift
 //  Pokedex
 //
 //  Created by Nikola Majcen on 04/04/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PokemonTableViewModel: NSObject {
+class PokedexViewModel: NSObject {
     
     var pokemons: [Pokemon]
     

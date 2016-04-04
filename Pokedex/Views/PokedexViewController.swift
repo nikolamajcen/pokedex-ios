@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  PokedexViewController.swift
 //  Pokedex
 //
 //  Created by Nikola Majcen on 04/04/16.
@@ -8,16 +8,20 @@
 
 import UIKit
 
-class PokemonTableViewController: UIViewController {
+class PokedexViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    var viewModel = PokemonTableViewModel()
+    var viewModel: PokedexViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.viewModel = PokedexViewModel()
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        // Removes blank space between navigation bar and table view
+        self.automaticallyAdjustsScrollViewInsets = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,7 +29,7 @@ class PokemonTableViewController: UIViewController {
     }
 }
 
-extension PokemonTableViewController: UITableViewDataSource, UITableViewDelegate {
+extension PokedexViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let pokemon = self.viewModel.pokemons[indexPath.row]

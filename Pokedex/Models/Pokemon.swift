@@ -7,10 +7,20 @@
 //
 
 import Foundation
+import ObjectMapper
 
-class Pokemon: NSObject {
+class Pokemon: NSObject, Mappable {
     
+    var url: NSURL?
     var id: Int?
     var name: String?
+    
+    required init?(_ map: Map) { }
+    
+    func mapping(map: Map) {
+        self.url <- (map["url"], URLTransform())
+        self.id = Int((url?.absoluteURL.lastPathComponent)!)!
+        self.name <- map["name"]
+    }
     
 }

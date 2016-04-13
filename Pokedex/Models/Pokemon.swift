@@ -19,8 +19,41 @@ class Pokemon: NSObject, Mappable {
     
     func mapping(map: Map) {
         self.url <- (map["url"], URLTransform())
-        self.id = Int((url?.absoluteURL.lastPathComponent)!)!
         self.name <- map["name"]
+        
+        self.id = Int((url?.absoluteURL.lastPathComponent)!)!
+        
+        makeFirstLetterInNameUppercase()
+        if isGenderSpecifiedInName() == true {
+            addGenderSign()
+        }
     }
     
+    private func makeFirstLetterInNameUppercase() -> Void {
+        let startIndex = self.name!.startIndex
+        let endIndex = self.name!.startIndex
+        let firstLetterUppercase = String(self.name!.characters.first! as Character).uppercaseString
+        
+        self.name = self.name!
+            .stringByReplacingCharactersInRange(startIndex...endIndex,
+                                                withString: firstLetterUppercase)
+    }
+    
+    private func isGenderSpecifiedInName() -> Bool {
+        return self.id == 29 || self.id == 32
+    }
+    
+    private func addGenderSign() -> Void {
+        let startIndex = self.name!.endIndex.advancedBy(-2)
+        let endIndex = self.name!.endIndex.predecessor()
+        
+        switch self.id! {
+        case 29:
+            self.name?.replaceRange(startIndex...endIndex, with: "♀")
+        case 32:
+            self.name?.replaceRange(startIndex...endIndex, with: "♂")
+        default:
+            break
+        }
+    }
 }

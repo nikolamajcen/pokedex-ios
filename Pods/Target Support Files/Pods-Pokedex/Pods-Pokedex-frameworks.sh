@@ -86,8 +86,16 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Pokedex/Alamofire.framework"
   install_framework "Pods-Pokedex/ObjectMapper.framework"
+  install_framework "Pods-Pokedex/RxBlocking.framework"
+  install_framework "Pods-Pokedex/RxCocoa.framework"
+  install_framework "Pods-Pokedex/RxSwift.framework"
+  install_framework "Pods-Pokedex/RxTests.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Pokedex/Alamofire.framework"
   install_framework "Pods-Pokedex/ObjectMapper.framework"
+  install_framework "Pods-Pokedex/RxBlocking.framework"
+  install_framework "Pods-Pokedex/RxCocoa.framework"
+  install_framework "Pods-Pokedex/RxSwift.framework"
+  install_framework "Pods-Pokedex/RxTests.framework"
 fi

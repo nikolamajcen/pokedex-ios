@@ -16,12 +16,12 @@ class PokedexViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Removes blank space between navigation bar and table view
+        self.automaticallyAdjustsScrollViewInsets = false
+
         self.viewModel = PokedexViewModel(view: self)
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
-        // Removes blank space between navigation bar and table view
-        self.automaticallyAdjustsScrollViewInsets = false
     }
 
     override func didReceiveMemoryWarning() {

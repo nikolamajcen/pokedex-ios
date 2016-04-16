@@ -33,10 +33,7 @@ class Pokemon: NSObject, Mappable {
         let startIndex = self.name!.startIndex
         let endIndex = self.name!.startIndex
         let firstLetterUppercase = String(self.name!.characters.first! as Character).uppercaseString
-        
-        self.name = self.name!
-            .stringByReplacingCharactersInRange(startIndex...endIndex,
-                                                withString: firstLetterUppercase)
+        self.name!.replaceRange(startIndex...endIndex, with: firstLetterUppercase)
     }
     
     private func isGenderSpecifiedInName() -> Bool {
@@ -46,14 +43,19 @@ class Pokemon: NSObject, Mappable {
     private func addGenderSign() -> Void {
         let startIndex = self.name!.endIndex.advancedBy(-2)
         let endIndex = self.name!.endIndex.predecessor()
+        var sign = ""
         
         switch self.id! {
         case 29:
-            self.name?.replaceRange(startIndex...endIndex, with: "♀")
+            sign = "♀"
+            break
         case 32:
-            self.name?.replaceRange(startIndex...endIndex, with: "♂")
+            sign = "♂"
+            break
         default:
             break
         }
+        
+        self.name?.replaceRange(startIndex...endIndex, with: sign)
     }
 }

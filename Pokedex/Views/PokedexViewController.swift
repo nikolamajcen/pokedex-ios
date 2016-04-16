@@ -7,40 +7,34 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class PokedexViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
     var viewModel: PokedexViewModel!
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Removes blank space between navigation bar and table view
         self.automaticallyAdjustsScrollViewInsets = false
 
-        self.viewModel = PokedexViewModel(view: self)
+        self.viewModel = PokedexViewModel()
         self.tableView.delegate = self
-        self.tableView.dataSource = self
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        
+        self.viewModel.getPokemons()
+            .asObservable()
+            .bindTo(self.tableView.rx_itemsWithCellIdentifier("PokemonCell")) { row, element, cell in
+                cell.textLabel!.text = "\(row + 1). \(element.name!)"
+            }
+            .addDisposableTo(disposeBag)
     }
 }
 
-extension PokedexViewController: UITableViewDataSource, UITableViewDelegate {
+extension PokedexViewController: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let pokemon = self.viewModel.pokemons![indexPath.row]
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("PokemonCell")! as UITableViewCell
-        
-        cell.textLabel?.text = pokemon.name
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.pokemons!.count
-    }
 }
 

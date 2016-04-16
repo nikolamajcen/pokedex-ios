@@ -7,33 +7,28 @@
 //
 
 import Foundation
-import Alamofire
+import RxSwift
 
 class PokedexViewModel: NSObject {
     
     var pokedexStore: PokedexStore!
-    // Need to remove (RxSwift)
-    var pokedexView: PokedexViewController!
-    var pokemons: [Pokemon]?
-    
-    // Need to remove parameter
-    init(view: PokedexViewController) {
+
+    override init() {
         super.init()
         self.pokedexStore = PokedexStore()
-        self.pokedexView = view
-        self.pokemons = [Pokemon]()
         self.getPokemons()
     }
     
-    func getPokemons() {
-        pokedexStore.fetchPokemons { (result) in
-            if result == nil {
-                self.pokemons = [Pokemon]()
-            } else {
-                self.pokemons = result
-                // Need to remove
-                self.pokedexView.tableView.reloadData()
-            }
-        }
+    func getPokemons() -> Observable<[Pokemon]> {
+        return Observable.create({ (observer) in
+            _ = self.pokedexStore.fetchPokemons({ (result) in
+                if result != nil {
+                    observer.onNext(result!)
+                    observer.onCompleted()
+                }
+            })
+            
+            return AnonymousDisposable { }
+        })
     }
 }

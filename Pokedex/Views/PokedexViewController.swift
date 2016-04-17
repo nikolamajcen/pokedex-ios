@@ -29,10 +29,11 @@ class PokedexViewController: UIViewController {
             .asObservable()
             .bindTo(self.tableView.rx_itemsWithCellIdentifier("PokemonCell",
                 cellType: PokedexItemCell.self)) { (row, element, cell) in
+                    cell.pokemonImage.image = UIImage(named: (element.name?.lowercaseString)!)
                     cell.pokemonId!.text = "ID: \(element.id!)"
                     cell.pokemonName!.text = element.name!
-                    cell.pokemonTypeFirst!.text = "\(element.id!)"
-                    cell.pokemonTypeFirst!.backgroundColor = UIColor.redColor()
+                    cell.pokemonTypeFirst!.text = "grass".uppercaseString
+                    cell.pokemonTypeFirst!.backgroundColor = TypeColor.getColorByType("grass")
             }
             .addDisposableTo(disposeBag)
     }
@@ -41,4 +42,3 @@ class PokedexViewController: UIViewController {
 extension PokedexViewController: UITableViewDelegate {
     
 }
-

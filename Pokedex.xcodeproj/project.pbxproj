@@ -10,6 +10,8 @@
 		3D480DABAE9DD8B3744182A4 /* Pods_Pokedex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A8150540711DA3F5D202CDA /* Pods_Pokedex.framework */; };
 		4F287D4E1CB3A9A10033618A /* PokedexStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F287D4D1CB3A9A10033618A /* PokedexStore.swift */; };
 		4FCA97881CC399130053EB5E /* PokedexItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA97871CC399130053EB5E /* PokedexItemCell.swift */; };
+		4FCA978B1CC3E9AC0053EB5E /* PokemonTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA978A1CC3E9AC0053EB5E /* PokemonTypes.swift */; };
+		4FCA978D1CC3ED590053EB5E /* TypeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA978C1CC3ED590053EB5E /* TypeColor.swift */; };
 		4FF3579E1CB2E8D2008A0F63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3579D1CB2E8D2008A0F63 /* AppDelegate.swift */; };
 		4FF357A01CB2E8D2008A0F63 /* PokedexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3579F1CB2E8D2008A0F63 /* PokedexViewController.swift */; };
 		4FF357A21CB2E8D2008A0F63 /* TrainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF357A11CB2E8D2008A0F63 /* TrainerViewController.swift */; };
@@ -24,6 +26,8 @@
 		384203C33AB40340922BA4C6 /* Pods-Pokedex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pokedex.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pokedex/Pods-Pokedex.release.xcconfig"; sourceTree = "<group>"; };
 		4F287D4D1CB3A9A10033618A /* PokedexStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokedexStore.swift; sourceTree = "<group>"; };
 		4FCA97871CC399130053EB5E /* PokedexItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokedexItemCell.swift; sourceTree = "<group>"; };
+		4FCA978A1CC3E9AC0053EB5E /* PokemonTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonTypes.swift; sourceTree = "<group>"; };
+		4FCA978C1CC3ED590053EB5E /* TypeColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeColor.swift; sourceTree = "<group>"; };
 		4FF3579A1CB2E8D2008A0F63 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FF3579D1CB2E8D2008A0F63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FF3579F1CB2E8D2008A0F63 /* PokedexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +71,15 @@
 			path = Stores;
 			sourceTree = "<group>";
 		};
+		4FCA97891CC3E9850053EB5E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4FCA978A1CC3E9AC0053EB5E /* PokemonTypes.swift */,
+				4FCA978C1CC3ED590053EB5E /* TypeColor.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		4FF357911CB2E8D2008A0F63 = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				4FF357B11CB2E8F9008A0F63 /* Application */,
+				4FCA97891CC3E9850053EB5E /* Helpers */,
 				4FF357B21CB2E8FE008A0F63 /* Models */,
 				4F287D4C1CB3A9800033618A /* Stores */,
 				4FF357B31CB2E906008A0F63 /* ViewModels */,
@@ -266,8 +280,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FCA97881CC399130053EB5E /* PokedexItemCell.swift in Sources */,
+				4FCA978B1CC3E9AC0053EB5E /* PokemonTypes.swift in Sources */,
 				4F287D4E1CB3A9A10033618A /* PokedexStore.swift in Sources */,
 				4FF357B91CB2EEBD008A0F63 /* PokedexViewModel.swift in Sources */,
+				4FCA978D1CC3ED590053EB5E /* TypeColor.swift in Sources */,
 				4FF357A21CB2E8D2008A0F63 /* TrainerViewController.swift in Sources */,
 				4FF357B71CB2EE34008A0F63 /* Pokemon.swift in Sources */,
 				4FF3579E1CB2E8D2008A0F63 /* AppDelegate.swift in Sources */,

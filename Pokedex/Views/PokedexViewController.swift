@@ -25,10 +25,14 @@ class PokedexViewController: UIViewController {
         self.viewModel = PokedexViewModel()
         self.tableView.delegate = self
         
-        self.viewModel.getPokemons()
+        self.viewModel.pokemons!
             .asObservable()
-            .bindTo(self.tableView.rx_itemsWithCellIdentifier("PokemonCell")) { row, element, cell in
-                cell.textLabel!.text = "\(row + 1). \(element.name!)"
+            .bindTo(self.tableView.rx_itemsWithCellIdentifier("PokemonCell",
+                cellType: PokedexItemCell.self)) { (row, element, cell) in
+                    cell.pokemonId!.text = "ID: \(element.id!)"
+                    cell.pokemonName!.text = element.name!
+                    cell.pokemonTypeFirst!.text = "\(element.id!)"
+                    cell.pokemonTypeFirst!.backgroundColor = UIColor.redColor()
             }
             .addDisposableTo(disposeBag)
     }

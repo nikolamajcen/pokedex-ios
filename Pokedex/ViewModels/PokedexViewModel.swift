@@ -12,11 +12,12 @@ import RxSwift
 class PokedexViewModel: NSObject {
     
     var pokedexStore: PokedexStore!
+    var pokemons: Observable<[Pokemon]>?
 
     override init() {
         super.init()
         self.pokedexStore = PokedexStore()
-        self.getPokemons()
+        pokemons = self.getPokemons()
     }
     
     func getPokemons() -> Observable<[Pokemon]> {

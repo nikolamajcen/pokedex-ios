@@ -30,12 +30,8 @@ class PokedexViewController: UIViewController {
             .bindTo(self.tableView.rx_itemsWithCellIdentifier("PokemonCell",
                 cellType: PokedexItemCell.self)) { (row, element, cell) in
                     cell.pokemonImage.image = UIImage(named: (self.getListImageName(element.id!)))
-                    cell.pokemonId!.text = "ID: \(element.id!)"
+                    cell.pokemonId!.text = "#\(element.id!)"
                     cell.pokemonName!.text = element.name!
-                    cell.pokemonTypeFirst!.text = "grass".uppercaseString
-                    cell.pokemonTypeFirst!.backgroundColor = TypeColor.getColorByType("grass")
-                    cell.pokemonTypeSecond!.text = "poison".uppercaseString
-                    cell.pokemonTypeSecond!.backgroundColor = TypeColor.getColorByType("poison")
             }
             .addDisposableTo(disposeBag)
     }
@@ -57,4 +53,10 @@ class PokedexViewController: UIViewController {
 
 extension PokedexViewController: UITableViewDelegate {
     
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        if self.tableView.editing == true {
+            return UITableViewCellEditingStyle.Delete;
+        }
+        return UITableViewCellEditingStyle.None;
+    }
 }

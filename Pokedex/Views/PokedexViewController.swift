@@ -29,13 +29,29 @@ class PokedexViewController: UIViewController {
             .asObservable()
             .bindTo(self.tableView.rx_itemsWithCellIdentifier("PokemonCell",
                 cellType: PokedexItemCell.self)) { (row, element, cell) in
-                    cell.pokemonImage.image = UIImage(named: (element.name?.lowercaseString)!)
+                    cell.pokemonImage.image = UIImage(named: (self.getListImageName(element.id!)))
                     cell.pokemonId!.text = "ID: \(element.id!)"
                     cell.pokemonName!.text = element.name!
                     cell.pokemonTypeFirst!.text = "grass".uppercaseString
                     cell.pokemonTypeFirst!.backgroundColor = TypeColor.getColorByType("grass")
+                    cell.pokemonTypeSecond!.text = "poison".uppercaseString
+                    cell.pokemonTypeSecond!.backgroundColor = TypeColor.getColorByType("poison")
             }
             .addDisposableTo(disposeBag)
+    }
+    
+    func getListImageName(id: Int) -> String {
+        var number = ""
+        
+        if id < 10 {
+            number = "00\(id)"
+        } else if id < 100 {
+            number = "0\(id)"
+        } else {
+            number = "\(id)"
+        }
+        
+        return "P\(number)S"
     }
 }
 

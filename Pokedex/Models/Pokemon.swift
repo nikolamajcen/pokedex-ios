@@ -21,7 +21,11 @@ class Pokemon: NSObject, Mappable {
         self.url <- (map["url"], URLTransform())
         self.name <- map["name"]
         
-        self.id = Int((url?.absoluteURL.lastPathComponent)!)!
+        if self.url != nil {
+            self.id = Int((url?.absoluteURL.lastPathComponent)!)!
+        } else {
+            self.id <- map["id"]
+        }
         
         makeFirstLetterInNameUppercase()
         if isGenderSpecifiedInName() == true {

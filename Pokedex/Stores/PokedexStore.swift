@@ -26,7 +26,6 @@ class PokedexStore: NSObject {
                 }
                 
                 let pokemons = Mapper<Pokemon>().mapArray(value)
-                print("Count: \(pokemons?.count)")
                 completion(pokemons)
         }
     }

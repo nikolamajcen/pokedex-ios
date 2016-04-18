@@ -98,17 +98,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M0v-bA-yzN">
-                                <rect key="frame" x="142" y="113" width="133" height="21"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wae-20-VaA" userLabel="Pokemon Image">
+                                <rect key="frame" x="20" y="84" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="4tV-Ze-ROX"/>
+                                    <constraint firstAttribute="height" constant="120" id="azO-QY-iRs"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y98-jt-7NW">
+                                <rect key="frame" x="179" y="84" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4E-3M-EUA">
+                                <rect key="frame" x="179" y="133" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="K4E-3M-EUA" firstAttribute="top" secondItem="Y98-jt-7NW" secondAttribute="bottom" constant="28" id="FwR-Zw-6aO"/>
+                            <constraint firstItem="Y98-jt-7NW" firstAttribute="leading" secondItem="wae-20-VaA" secondAttribute="trailing" constant="39" id="Hz1-Yl-Ung"/>
+                            <constraint firstItem="wae-20-VaA" firstAttribute="top" secondItem="a2f-Km-thP" secondAttribute="bottom" constant="20" id="O5m-lG-sk6"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="wae-20-VaA" secondAttribute="leading" id="QdS-B4-0bM"/>
+                            <constraint firstItem="Y98-jt-7NW" firstAttribute="top" secondItem="a2f-Km-thP" secondAttribute="bottom" constant="20" id="WBm-kx-IXH"/>
+                            <constraint firstItem="K4E-3M-EUA" firstAttribute="leading" secondItem="wae-20-VaA" secondAttribute="trailing" constant="39" id="twq-Tg-WPx"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="label" destination="M0v-bA-yzN" id="gp2-83-Q9U"/>
+                        <outlet property="idLabel" destination="Y98-jt-7NW" id="GQk-0o-L7J"/>
+                        <outlet property="nameLabel" destination="K4E-3M-EUA" id="hKp-36-nQ4"/>
+                        <outlet property="pokemonImage" destination="wae-20-VaA" id="YuI-Ub-wwB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a7B-uH-l4Z" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -13,7 +13,9 @@ import RxCocoa
 class PokemonDetailViewController: UIViewController {
     
     
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var pokemonImage: UIImageView!
+    @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     
     var viewModel: PokemonDetailsViewModel!
     let disposeBag = DisposeBag()
@@ -22,8 +24,33 @@ class PokemonDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewModel = PokemonDetailsViewModel()
+        self.viewModel = PokemonDetailsViewModel(id: identifier!)
         
-        label.text = String(identifier!)
+        pokemonImage.image = UIImage(named: getListImageName(identifier!))
+        
+        self.idLabel.text = ""
+        self.nameLabel.text = ""
+        
+        self.viewModel.pokemon!
+            .asObservable()
+            .subscribeNext { (pokemon) in
+                self.idLabel.text = String(pokemon.id!)
+                self.nameLabel.text = pokemon.name
+            }
+            .addDisposableTo(disposeBag)
+    }
+    
+    func getListImageName(id: Int) -> String {
+        var number = ""
+        
+        if id < 10 {
+            number = "00\(id)"
+        } else if id < 100 {
+            number = "0\(id)"
+        } else {
+            number = "\(id)"
+        }
+        
+        return "P\(number)S"
     }
 }

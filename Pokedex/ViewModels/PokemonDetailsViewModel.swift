@@ -1,29 +1,29 @@
 //
-//  PokedexViewModel.swift
+//  PokemonDetailsViewModel.swift
 //  Pokedex
 //
-//  Created by Nikola Majcen on 04/04/16.
+//  Created by Nikola Majcen on 18/04/16.
 //  Copyright © 2016 Nikola Majcen. All rights reserved.
 //
 
 import RxSwift
 
-class PokedexViewModel: NSObject {
+class PokemonDetailsViewModel: NSObject {
     
     var pokedexStore: PokedexStore!
-    var pokemons: Observable<[Pokemon]>?
-
+    var pokemon: Observable<Pokemon>?
+    
     override init() {
         super.init()
         self.pokedexStore = PokedexStore()
-        pokemons = self.getPokemons()
+        pokemon = self.getPokemonDetails(1)
     }
     
-    func getPokemons() -> Observable<[Pokemon]> {
+    func getPokemonDetails(id: Int) -> Observable<Pokemon> {
         return Observable.create({ (observer) in
-            _ = self.pokedexStore.fetchPokemons({ (result) in
+            _ = self.pokedexStore.fetchPokemonDetails(id, completion: { (result) in
                 if result != nil {
-                    observer.onNext(result!)
+                    observer.onNext(result)
                     observer.onCompleted()
                 }
             })

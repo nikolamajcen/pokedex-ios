@@ -49,6 +49,12 @@ class PokedexViewController: UIViewController {
         
         return "P\(number)S"
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let path = self.tableView.indexPathForSelectedRow
+        let detailViewController = segue.destinationViewController as! PokemonDetailViewController
+        detailViewController.identifier = (path?.row)! + 1
+    }
 }
 
 extension PokedexViewController: UITableViewDelegate {

@@ -12,7 +12,7 @@ import ObjectMapper
 
 class PokedexStore: NSObject {
     
-    func fetchPokemons(completion: ([Pokemon]!) -> Void) {
+    func fetchPokemons(completion: ([Pokemon]!) -> Void) -> Void {
         Alamofire.request(.GET, "https://pokeapi.co/api/v2/pokemon/?limit=151&offset=0")
             .responseJSON { response in
                 guard response.result.isSuccess else {
@@ -26,7 +26,26 @@ class PokedexStore: NSObject {
                 }
                 
                 let pokemons = Mapper<Pokemon>().mapArray(value)
+                print("Count: \(pokemons?.count)")
                 completion(pokemons)
+        }
+    }
+    
+    func fetchPokemonDetails(id: Int, completion: (Pokemon!) -> Void) -> Void {
+        Alamofire.request(.GET, "https://pokeapi.co/api/v2/pokemon/\(id)/")
+            .responseJSON { (response) in
+                guard response.result.isSuccess else {
+                    completion(nil)
+                    return
+                }
+                
+                guard let value = response.result.value else {
+                    completion(nil)
+                    return
+                }
+                
+                let pokemon = Mapper<Pokemon>().map(value)
+                completion(pokemon)
         }
     }
 }

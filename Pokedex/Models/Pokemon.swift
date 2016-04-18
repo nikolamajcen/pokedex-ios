@@ -14,6 +14,7 @@ class Pokemon: NSObject, Mappable {
     var url: NSURL?
     var id: Int?
     var name: String?
+    var types: [PokemonType]?
     
     required init?(_ map: Map) { }
     
@@ -31,6 +32,8 @@ class Pokemon: NSObject, Mappable {
         if isGenderSpecifiedInName() == true {
             addGenderSign()
         }
+        
+        self.types <- map["types"]
     }
     
     private func makeFirstLetterInNameUppercase() -> Void {

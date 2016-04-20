@@ -29,8 +29,6 @@ class PokemonDetailViewController: UIViewController {
         super.viewDidLoad()
         self.viewModel = PokemonDetailsViewModel(id: identifier!)
         
-        pokemonImage.image = UIImage(named: getListImageName(identifier!))
-        
         self.idLabel.text = ""
         self.nameLabel.text = ""
         self.typeLabelFirst.text = ""
@@ -40,15 +38,19 @@ class PokemonDetailViewController: UIViewController {
             .asObservable()
             .subscribeNext { (pokemon) in
                 self.title = pokemon.name
+                self.pokemonImage.image = UIImage(named: self.getListImageName(self.identifier!))
                 
                 self.idLabel.text =  "#\(pokemon.id!)"
                 self.nameLabel.text = pokemon.name
+                
+                if pokemon.types?.count == 1 {
+                    self.typeLabelSecond.hidden = true
+                }
                 
                 for index in  0...((pokemon.types?.count)! - 1) {
                     guard let typeName = (pokemon.types![index]).name else {
                         break
                     }
-                    print(index)
                     
                     if index == 0 {
                         self.typeLabelFirst.text = typeName.uppercaseString
@@ -77,7 +79,6 @@ class PokemonDetailViewController: UIViewController {
         } else {
             number = "\(id)"
         }
-        
         return "P\(number)S"
     }
 }

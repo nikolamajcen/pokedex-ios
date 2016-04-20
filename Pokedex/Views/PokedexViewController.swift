@@ -15,6 +15,7 @@ class PokedexViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var viewModel: PokedexViewModel!
+    var errorLabel : UILabel!
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {

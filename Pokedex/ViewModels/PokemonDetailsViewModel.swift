@@ -21,10 +21,12 @@ class PokemonDetailsViewModel: NSObject {
     
     func getPokemonDetails(id: Int) -> Observable<Pokemon> {
         return Observable.create({ (observer) in
-            _ = self.pokedexStore.fetchPokemonDetails(id, completion: { (result) in
+            _ = self.pokedexStore.fetchPokemonDetails(id, completion: { (result, error) in
                 if result != nil {
                     observer.onNext(result)
                     observer.onCompleted()
+                } else {
+                    observer.onError(error)
                 }
             })
             return AnonymousDisposable { }

@@ -34,6 +34,7 @@ class Pokemon: NSObject, Mappable {
         }
         
         self.types <- map["types"]
+        self.types = self.types?.reverse()
     }
     
     private func makeFirstLetterInNameUppercase() -> Void {

@@ -6,6 +6,7 @@ use_frameworks!
 target 'Pokedex' do
     pod 'Alamofire', '~> 3.0'
     pod 'ObjectMapper', '~> 1.2'
-    pod 'RxSwift',    '~> 2.0'
     pod 'RxCocoa',    '~> 2.0'
+    pod 'RxSwift',    '~> 2.0'
+    pod "StatefulViewController", "~> 1.0"
 end

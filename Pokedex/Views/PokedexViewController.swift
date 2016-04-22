@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import StatefulViewController
 
 class PokedexViewController: UIViewController {
 
@@ -17,14 +18,47 @@ class PokedexViewController: UIViewController {
     var viewModel: PokedexViewModel!
     let disposeBag = DisposeBag()
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.viewModel = PokedexViewModel()
+        
+        loadingView = LoadingView(frame: view.frame)
+        emptyView = EmptyView(frame: view.frame)
+        errorView = ErrorView(frame: view.frame)
+        
         // Removes blank space between navigation bar and table view
         self.automaticallyAdjustsScrollViewInsets = false
-
-        self.viewModel = PokedexViewModel()
         self.tableView.delegate = self
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
         
+        setupInitialViewState()
+        startLoading()
+        
+        self.viewModel.pokemons!
+            .asObservable()
+            .subscribeCompleted {
+                self.endLoading()
+                self.putDataInTable()
+            }
+            .addDisposableTo(disposeBag)
+        
+        self.viewModel.pokemons!
+            .asObservable()
+            .subscribeError { (error) in
+                self.endLoading(error: nil)
+            }
+            .addDisposableTo(disposeBag)
+    }
+    
+    func putDataInTable() {
         self.viewModel.pokemons!
             .asObservable()
             .bindTo(self.tableView.rx_itemsWithCellIdentifier("PokemonCell",
@@ -54,6 +88,17 @@ class PokedexViewController: UIViewController {
         let path = self.tableView.indexPathForSelectedRow
         let detailViewController = segue.destinationViewController as! PokemonDetailViewController
         detailViewController.identifier = (path?.row)! + 1
+    }
+}
+
+extension PokedexViewController: StatefulViewController {
+    
+    func hasContent() -> Bool {
+        return false
+    }
+    
+    func handleErrorWhenContentAvailable(error: ErrorType) {
+        // Something...
     }
 }
 

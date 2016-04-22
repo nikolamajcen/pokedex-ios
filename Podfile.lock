@@ -4,17 +4,20 @@ PODS:
   - RxCocoa (2.4):
     - RxSwift (~> 2.4)
   - RxSwift (2.4)
+  - StatefulViewController (1.0)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
   - ObjectMapper (~> 1.2)
   - RxCocoa (~> 2.0)
   - RxSwift (~> 2.0)
+  - StatefulViewController (~> 1.0)
 
 SPEC CHECKSUMS:
   Alamofire: 9054db4a1b1ca9e363223183e01cea380159a27c
   ObjectMapper: b1e9c7c8a9f6400b72690c80072c131504caa66f
   RxCocoa: 7d6cd877de99f5640306b3d6cf87f580c1d91b61
   RxSwift: 67b9ef4e8b34fb394e200e754c6a09cc16559f94
+  StatefulViewController: 2a0e5ab30d9ade8e366253fb759baa9fbf458f3e
 
 COCOAPODS: 0.39.0

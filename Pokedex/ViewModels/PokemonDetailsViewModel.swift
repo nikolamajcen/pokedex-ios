@@ -13,9 +13,12 @@ class PokemonDetailsViewModel: NSObject {
     var pokedexStore: PokedexStore!
     var pokemon: Observable<Pokemon>?
     
-    init(id: Int) {
+    override init() {
         super.init()
         self.pokedexStore = PokedexStore()
+    }
+    
+    func getData(id: Int) {
         pokemon = self.getPokemonDetails(id)
     }
     

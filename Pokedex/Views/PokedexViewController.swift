@@ -29,6 +29,21 @@ class PokedexViewController: UIViewController {
         
         self.viewModel = PokedexViewModel()
         
+        // Removes blank space between navigation bar and table view
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.tableView.delegate = self
+        
+        setupInitialViewState()
+        initializeStateViews()
+        
+        self.getData()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+    }
+    
+    func initializeStateViews() {
         loadingView = LoadingView(frame: view.frame)
         emptyView = EmptyView(frame: view.frame)
         
@@ -38,18 +53,6 @@ class PokedexViewController: UIViewController {
                        forControlEvents: UIControlEvents.TouchUpInside)
         
         errorView = customErrorView
-        
-        // Removes blank space between navigation bar and table view
-        self.automaticallyAdjustsScrollViewInsets = false
-        self.tableView.delegate = self
-        
-        setupInitialViewState()
-        
-        self.getData()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
     }
     
     func putDataInTable() {
@@ -106,5 +109,9 @@ extension PokedexViewController: UITableViewDelegate {
             return UITableViewCellEditingStyle.Delete;
         }
         return UITableViewCellEditingStyle.None;
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }

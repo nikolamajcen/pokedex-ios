@@ -18,6 +18,8 @@ class PokedexViewController: UIViewController {
     var viewModel: PokedexViewModel!
     let disposeBag = DisposeBag()
     
+    var downloadSuccess = false
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -29,22 +31,47 @@ class PokedexViewController: UIViewController {
         
         loadingView = LoadingView(frame: view.frame)
         emptyView = EmptyView(frame: view.frame)
-        errorView = ErrorView(frame: view.frame)
+        
+        let customErrorView = ErrorView(frame: view.frame)
+        customErrorView.reloadButton
+            .addTarget(self, action: #selector(PokedexViewController.getData),
+                       forControlEvents: UIControlEvents.TouchUpInside)
+        
+        errorView = customErrorView
         
         // Removes blank space between navigation bar and table view
         self.automaticallyAdjustsScrollViewInsets = false
         self.tableView.delegate = self
+        
+        setupInitialViewState()
+        
+        self.getData()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        
-        setupInitialViewState()
+    }
+    
+    func putDataInTable() {
+        self.viewModel.pokemons!
+            .asObservable()
+            .bindTo(self.tableView.rx_itemsWithCellIdentifier("PokemonCell",
+                cellType: PokedexItemCell.self)) { (row, element, cell) in
+                    cell.pokemonImage.image = UIImage(named: (element.getListImageName()))
+                    cell.pokemonId!.text = "#\(element.id!)"
+                    cell.pokemonName!.text = element.name!
+            }
+            .addDisposableTo(disposeBag)
+    }
+    
+    func getData() {
         startLoading()
+        self.viewModel.getData()
         
         self.viewModel.pokemons!
             .asObservable()
             .subscribeCompleted {
+                self.downloadSuccess = true
                 self.endLoading()
                 self.putDataInTable()
             }
@@ -53,35 +80,10 @@ class PokedexViewController: UIViewController {
         self.viewModel.pokemons!
             .asObservable()
             .subscribeError { (error) in
-                self.endLoading(error: nil)
+                self.downloadSuccess = false
+                self.endLoading(error: error)
             }
             .addDisposableTo(disposeBag)
-    }
-    
-    func putDataInTable() {
-        self.viewModel.pokemons!
-            .asObservable()
-            .bindTo(self.tableView.rx_itemsWithCellIdentifier("PokemonCell",
-                cellType: PokedexItemCell.self)) { (row, element, cell) in
-                    cell.pokemonImage.image = UIImage(named: (self.getListImageName(element.id!)))
-                    cell.pokemonId!.text = "#\(element.id!)"
-                    cell.pokemonName!.text = element.name!
-            }
-            .addDisposableTo(disposeBag)
-    }
-    
-    func getListImageName(id: Int) -> String {
-        var number = ""
-        
-        if id < 10 {
-            number = "00\(id)"
-        } else if id < 100 {
-            number = "0\(id)"
-        } else {
-            number = "\(id)"
-        }
-        
-        return "P\(number)S"
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -92,13 +94,8 @@ class PokedexViewController: UIViewController {
 }
 
 extension PokedexViewController: StatefulViewController {
-    
     func hasContent() -> Bool {
-        return false
-    }
-    
-    func handleErrorWhenContentAvailable(error: ErrorType) {
-        // Something...
+        return downloadSuccess
     }
 }
 

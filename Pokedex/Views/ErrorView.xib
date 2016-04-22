@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ErrorView" customModule="Pokedex" customModuleProvider="target">
+            <connections>
+                <outlet property="messageLabel" destination="KYD-PN-xEI" id="afR-ag-OLr"/>
+                <outlet property="reloadButton" destination="dKl-2n-p2H" id="Nwo-o0-Qkv"/>
+                <outlet property="view" destination="iN0-l3-epB" id="2qo-bP-RCq"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dKl-2n-p2H">
+                    <rect key="frame" x="277" y="328" width="47" height="30"/>
+                    <state key="normal" title="Reload"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something went wrong." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KYD-PN-xEI">
+                    <rect key="frame" x="219" y="291" width="162" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="KYD-PN-xEI" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Pwz-2K-m05"/>
+                <constraint firstItem="dKl-2n-p2H" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Zyd-27-qrM"/>
+                <constraint firstItem="KYD-PN-xEI" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gJY-VB-ZpT"/>
+                <constraint firstItem="dKl-2n-p2H" firstAttribute="top" secondItem="KYD-PN-xEI" secondAttribute="bottom" constant="19" id="m3N-jD-pRC"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

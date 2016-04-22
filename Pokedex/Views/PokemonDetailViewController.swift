@@ -38,7 +38,7 @@ class PokemonDetailViewController: UIViewController {
             .asObservable()
             .subscribeNext { (pokemon) in
                 self.title = pokemon.name
-                self.pokemonImage.image = UIImage(named: self.getListImageName(self.identifier!))
+                self.pokemonImage.image = UIImage(named: pokemon.getListImageName())
                 
                 self.idLabel.text =  "#\(pokemon.id!)"
                 self.nameLabel.text = pokemon.name
@@ -67,18 +67,5 @@ class PokemonDetailViewController: UIViewController {
         self.typeLabelFirst.clipsToBounds = true
         self.typeLabelSecond.layer.cornerRadius = 5
         self.typeLabelSecond.clipsToBounds = true
-    }
-    
-    func getListImageName(id: Int) -> String {
-        var number = ""
-        
-        if id < 10 {
-            number = "00\(id)"
-        } else if id < 100 {
-            number = "0\(id)"
-        } else {
-            number = "\(id)"
-        }
-        return "P\(number)S"
     }
 }

@@ -8,19 +8,14 @@
 
 import UIKit
 
-class ErrorView: UIView {
+class ErrorView: StateView {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-    }
+    @IBOutlet var view: UIView!
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var reloadButton: UIButton!
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupView()
-    }
-    
-    func setupView() {
-        backgroundColor = UIColor.redColor()
+    override func setupView() {
+        initializeNib(self, viewName: "ErrorView")
+        initializeView(self, view: view)
     }
 }

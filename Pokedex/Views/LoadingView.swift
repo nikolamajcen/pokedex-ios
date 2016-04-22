@@ -8,23 +8,17 @@
 
 import UIKit
 
-class LoadingView: UIView {
-
+class LoadingView: StateView {
+    
+    @IBOutlet var view: UIView!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var loadingLabel: UILabel!
-
-    let view = UIView()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupView()
-    }
-    
-    func setupView() {
-        backgroundColor = UIColor.cyanColor()
+    override func setupView() {
+        initializeNib(self, viewName: "LoadingView")
+        initializeView(self, view: view)
+        
+        loadingLabel.text = "Loading..."
+        loadingIndicator.startAnimating()
     }
 }

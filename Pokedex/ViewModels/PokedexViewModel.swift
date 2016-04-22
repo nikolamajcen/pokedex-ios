@@ -16,6 +16,10 @@ class PokedexViewModel: NSObject {
     override init() {
         super.init()
         self.pokedexStore = PokedexStore()
+        self.getData()
+    }
+    
+    func getData() {
         pokemons = self.getPokemons()
     }
     

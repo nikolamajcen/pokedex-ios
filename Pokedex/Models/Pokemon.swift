@@ -37,6 +37,20 @@ class Pokemon: NSObject, Mappable {
         self.types = self.types?.reverse()
     }
     
+    func getListImageName() -> String {
+        var number = ""
+        
+        if self.id < 10 {
+            number = "00\(self.id!)"
+        } else if id < 100 {
+            number = "0\(self.id!)"
+        } else {
+            number = "\(self.id!)"
+        }
+        
+        return "P\(number)S"
+    }
+    
     private func makeFirstLetterInNameUppercase() -> Void {
         let startIndex = self.name!.startIndex
         let endIndex = self.name!.startIndex

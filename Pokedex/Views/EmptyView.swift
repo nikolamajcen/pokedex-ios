@@ -8,29 +8,15 @@
 
 import UIKit
 
-class EmptyView: UIView {
+class EmptyView: StateView {
     
     @IBOutlet var view: UIView!
     @IBOutlet weak var messageLabel: UILabel!
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setupView()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.setupView()
-    }
-    
-    private func setupView() {
-        NSBundle.mainBundle()
-            .loadNibNamed("EmptyView", owner: self, options: nil)
+    override func setupView() {
+        initializeNib(self, viewName: "EmptyView")
+        initializeView(self, view: view)
         
-        self.messageLabel.text = "No internet connection."
-        
-        self.view.backgroundColor = UIColor.redColor()
-        self.view.frame = self.bounds
-        self.addSubview(self.view)
+        self.messageLabel.text = "No data."
     }
 }

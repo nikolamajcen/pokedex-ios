@@ -20,10 +20,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="77" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="B8d-MQ-lV8">
-                                <rect key="frame" x="0.0" y="72" width="600" height="471"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PokemonCell" rowHeight="77" id="Erc-7Y-Bdw" customClass="PokedexItemCell" customModule="Pokedex" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PokedexCell" rowHeight="77" id="Erc-7Y-Bdw" customClass="PokedexCell" customModule="Pokedex" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="600" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Erc-7Y-Bdw" id="eFX-Tz-o0g">
@@ -60,9 +60,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="pokemonId" destination="mXv-Me-Ed8" id="Lak-JJ-4dQ"/>
+                                            <outlet property="idLabel" destination="mXv-Me-Ed8" id="dUf-yG-1Ec"/>
+                                            <outlet property="nameLabel" destination="Rr9-7f-ube" id="7j4-6u-qv6"/>
                                             <outlet property="pokemonImage" destination="GNz-VJ-Ajf" id="itc-Bh-qNg"/>
-                                            <outlet property="pokemonName" destination="Rr9-7f-ube" id="Ax3-Cb-65h"/>
                                             <segue destination="2Ug-k6-aS1" kind="show" identifier="showPokemonDetails" id="m16-aZ-BeG"/>
                                         </connections>
                                     </tableViewCell>
@@ -72,8 +72,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="B8d-MQ-lV8" secondAttribute="trailing" constant="-20" id="FdK-Su-xfJ"/>
-                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="B8d-MQ-lV8" secondAttribute="bottom" constant="8" id="jeh-px-uuA"/>
-                            <constraint firstItem="B8d-MQ-lV8" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="8" id="uub-1D-2So"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="B8d-MQ-lV8" secondAttribute="bottom" id="jeh-px-uuA"/>
+                            <constraint firstItem="B8d-MQ-lV8" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="uub-1D-2So"/>
                             <constraint firstItem="B8d-MQ-lV8" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="xyf-ED-Lyw"/>
                         </constraints>
                     </view>

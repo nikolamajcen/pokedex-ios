@@ -95,9 +95,9 @@ extension PokedexViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let pokemon = self.pokemons[indexPath.row]
-        let cell = tableView.dequeueReusableCellWithIdentifier("PokemonCell", forIndexPath: indexPath) as! PokedexItemCell
-        cell.pokemonId.text = "#\(pokemon.id!)"
-        cell.pokemonName.text = pokemon.name
+        let cell = tableView.dequeueReusableCellWithIdentifier("PokedexCell", forIndexPath: indexPath) as! PokedexCell
+        cell.idLabel.text = "#\(pokemon.id!)"
+        cell.nameLabel.text = pokemon.name
         cell.pokemonImage.image = UIImage(named: pokemon.getListImageName())
         return cell
     }

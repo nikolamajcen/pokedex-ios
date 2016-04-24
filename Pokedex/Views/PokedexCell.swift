@@ -1,5 +1,5 @@
 //
-//  PokedexItemCell.swift
+//  PokedexCell.swift
 //  Pokedex
 //
 //  Created by Nikola Majcen on 17/04/16.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class PokedexItemCell: UITableViewCell {
+class PokedexCell: UITableViewCell {
     
     @IBOutlet weak var pokemonImage: UIImageView!
-    @IBOutlet weak var pokemonId: UILabel!
-    @IBOutlet weak var pokemonName: UILabel!
+    @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
 }

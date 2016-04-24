@@ -59,7 +59,8 @@ class PokedexStore: NSObject {
     }
     
     func fetchPokemonDetails(id: Int, completion: (Pokemon!, NSError!) -> Void) -> Void {
-        Alamofire.request(.GET, "https://pokeapi.co/api/v2/pokemon/\(id)/")
+        alamofireManager!
+            .request(.GET, "https://pokeapi.co/api/v2/pokemon/\(id)/")
             .responseJSON { (response) in
                 if response.response == nil {
                     completion(nil,

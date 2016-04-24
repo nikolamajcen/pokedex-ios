@@ -79,7 +79,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Pokedex" id="Tab-So-reb"/>
                     <connections>
-                        <outlet property="tableView" destination="B8d-MQ-lV8" id="6BY-fj-aZJ"/>
+                        <outlet property="pokedexTable" destination="B8d-MQ-lV8" id="sKA-dS-Phh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>

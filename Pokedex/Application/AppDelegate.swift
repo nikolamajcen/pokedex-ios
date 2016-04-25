@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,13 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabController = window?.rootViewController
         let tabBar = (tabController as! UITabBarController).tabBar
         tabBar.barStyle = UIBarStyle.Black
-        tabBar.tintColor = UIColor.whiteColor()
+        tabBar.tintColor = UIColor.flatWhiteColor()
         
         let navigationControllers = tabController!.childViewControllers
         for navigationController in navigationControllers {
             let navigationBar = (navigationController as! UINavigationController).navigationBar
             navigationBar.barStyle = UIBarStyle.Black
-            navigationBar.tintColor = UIColor.whiteColor()
+            navigationBar.tintColor = UIColor.flatWhiteColor()
         }
         
         return true

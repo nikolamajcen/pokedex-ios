@@ -54,10 +54,10 @@ class PokedexViewController: UIViewController {
     
     func initializeUIColors() {
         let navigationBar = self.navigationController?.navigationBar
-        navigationBar?.barTintColor = UIColor.redColor()
+        navigationBar?.barTintColor = UIColor.flatRedColor()
         
         let tabBar = self.tabBarController?.tabBar
-        tabBar?.barTintColor = UIColor.redColor()
+        tabBar?.barTintColor = UIColor.flatRedColor()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -109,6 +109,8 @@ extension PokedexViewController: UITableViewDataSource {
         cell.idLabel.text = "#\(pokemon.id!)"
         cell.nameLabel.text = pokemon.name
         cell.pokemonImage.image = UIImage(named: pokemon.getListImageName())
+        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
         return cell
     }
     

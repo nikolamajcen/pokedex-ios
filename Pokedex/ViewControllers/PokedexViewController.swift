@@ -31,11 +31,13 @@ class PokedexViewController: UIViewController {
         
         self.setupInitialViewState()
         self.initializeStateViews()
+        
+        self.getPokedexData()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        self.getPokedexData()
+        self.initializeUIColors()
     }
     
     func initializeStateViews() {
@@ -48,6 +50,14 @@ class PokedexViewController: UIViewController {
                        forControlEvents: UIControlEvents.TouchUpInside)
         
         self.errorView = customErrorView
+    }
+    
+    func initializeUIColors() {
+        let navigationBar = self.navigationController?.navigationBar
+        navigationBar?.barTintColor = UIColor.redColor()
+        
+        let tabBar = self.tabBarController?.tabBar
+        tabBar?.barTintColor = UIColor.redColor()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

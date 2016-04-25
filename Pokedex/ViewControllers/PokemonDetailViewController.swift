@@ -82,6 +82,8 @@ class PokemonDetailViewController: UIViewController, StatefulViewController {
             
             if index == 0 {
                 self.typeLabelFirst.text = typeName.uppercaseString
+                let navigationBar = self.navigationController?.navigationBar
+                navigationBar?.barTintColor = TypeColor.getColorByType(typeName)
                 self.typeLabelFirst.backgroundColor = TypeColor.getColorByType(typeName)
                 self.typeLabelFirst.layer.cornerRadius = 5
                 self.typeLabelFirst.clipsToBounds = true
@@ -92,6 +94,16 @@ class PokemonDetailViewController: UIViewController, StatefulViewController {
                 self.typeLabelSecond.clipsToBounds = true
             }
         }
+        
+        initializeUIColors(self.typeLabelFirst.backgroundColor!)
+    }
+    
+    func initializeUIColors(color: UIColor) {
+        let navigationBar = self.navigationController?.navigationBar
+        navigationBar?.barTintColor = color
+        
+        let tabBar = self.tabBarController?.tabBar
+        tabBar?.barTintColor = color
     }
     
     func hasContent() -> Bool {

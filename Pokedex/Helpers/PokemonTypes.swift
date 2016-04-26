@@ -10,7 +10,7 @@ enum PokemonTypes: String {
     case Bug = "bug"
     case Dragon = "dragon"
     case Dark = "dark"
-    case Eletric = "eletric"
+    case Eletric = "electric"
     case Fairy = "fairy"
     case Fighting = "fighting"
     case Fire = "fire"

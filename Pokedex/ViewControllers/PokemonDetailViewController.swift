@@ -11,7 +11,6 @@ import StatefulViewController
 
 class PokemonDetailViewController: UIViewController, StatefulViewController {
     
-    
     @IBOutlet weak var pokemonImage: UIImageView!
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
@@ -51,17 +50,14 @@ class PokemonDetailViewController: UIViewController, StatefulViewController {
         self.typeLabelSecond.text = ""
     }
     
-    func getPokemonData() {
-        self.startLoading()
-        self.pokedexStore.fetchPokemonDetails(identifier!) { (pokemon, error) in
-            if error == nil {
-                self.pokemon = pokemon
-                self.showPokemonData(pokemon)
-                self.endLoading()
-            } else {
-                self.endLoading(error: error)
-            }
-        }
+    func initializeUIColors() {
+        let color = self.typeLabelFirst.backgroundColor
+        
+        let navigationBar = self.navigationController?.navigationBar
+        navigationBar?.barTintColor = color
+        
+        let tabBar = self.tabBarController?.tabBar
+        tabBar?.tintColor = color
     }
     
     func showPokemonData(pokemon: Pokemon) {
@@ -95,15 +91,20 @@ class PokemonDetailViewController: UIViewController, StatefulViewController {
             }
         }
         
-        initializeUIColors(self.typeLabelFirst.backgroundColor!)
+        initializeUIColors()
     }
     
-    func initializeUIColors(color: UIColor) {
-        let navigationBar = self.navigationController?.navigationBar
-        navigationBar?.barTintColor = color
-        
-        let tabBar = self.tabBarController?.tabBar
-        tabBar?.barTintColor = color
+    func getPokemonData() {
+        self.startLoading()
+        self.pokedexStore.fetchPokemonDetails(identifier!) { (pokemon, error) in
+            if error == nil {
+                self.pokemon = pokemon
+                self.showPokemonData(pokemon)
+                self.endLoading()
+            } else {
+                self.endLoading(error: error)
+            }
+        }
     }
     
     func hasContent() -> Bool {

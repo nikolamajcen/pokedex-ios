@@ -29,7 +29,10 @@ class PokedexViewController: UIViewController {
         
         // Removes blank space between navigation bar and table view
         self.automaticallyAdjustsScrollViewInsets = false
-                
+        
+        // Removes black screen when search is on and tab is changed
+        self.definesPresentationContext = true
+        
         self.searchController = ({
             let controller = UISearchController(searchResultsController: nil)
             controller.searchResultsUpdater = self
@@ -61,6 +64,22 @@ class PokedexViewController: UIViewController {
         self.searchController.searchBar.hidden = false
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let path = self.pokedexTable.indexPathForSelectedRow
+        let detailViewController = segue.destinationViewController as! PokemonDetailViewController
+        
+        let pokemon: Pokemon
+        if self.searchController.active == true {
+            pokemon = (self.searchData[(path?.row)!] as Pokemon)
+        } else {
+            pokemon = (self.pokedexData[(path?.row)!] as Pokemon)
+            
+        }
+        
+        detailViewController.identifier = pokemon.id
+        detailViewController.title = pokemon.name
+    }
+    
     func initializeStateViews() {
         self.loadingView = LoadingView(frame: view.frame)
         self.emptyView = EmptyView(frame: view.frame)
@@ -85,22 +104,6 @@ class PokedexViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = nil
         self.navigationItem.titleView = self.searchController.searchBar
         self.searchController.active = true
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let path = self.pokedexTable.indexPathForSelectedRow
-        let detailViewController = segue.destinationViewController as! PokemonDetailViewController
-        
-        let pokemon: Pokemon
-        if self.searchController.active == true {
-            pokemon = (self.searchData[(path?.row)!] as Pokemon)
-        } else {
-            pokemon = (self.pokedexData[(path?.row)!] as Pokemon)
-
-        }
-        
-        detailViewController.identifier = pokemon.id
-        detailViewController.title = pokemon.name
     }
     
     func getPokedexData() {

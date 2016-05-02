@@ -85,7 +85,7 @@ class PokedexStore: NSObject {
                             userInfo: nil))
                     return
                 }
-                
+                                
                 let pokemon = Mapper<Pokemon>().map(value)
                 completion(pokemon, nil)
         }

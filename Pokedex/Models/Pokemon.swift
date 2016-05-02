@@ -15,6 +15,8 @@ class Pokemon: NSObject, Mappable {
     var id: Int?
     var name: String?
     var types: [PokemonType]?
+    var weigth: Float?
+    var height: Float?
     
     required init?(_ map: Map) { }
     
@@ -35,6 +37,17 @@ class Pokemon: NSObject, Mappable {
         
         self.types <- map["types"]
         self.types = self.types?.reverse()
+        
+        self.weigth <- map["weight"]
+        self.height <- map["height"]
+        
+        if self.weigth != nil {
+            self.weigth = self.weigth! / 10
+        }
+        
+        if self.height != nil {
+            self.height = self.height! / 10
+        }
     }
     
     func getListImageName() -> String {

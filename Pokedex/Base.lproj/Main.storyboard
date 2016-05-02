@@ -101,8 +101,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ha6-6v-QcF" userLabel="Details">
-                                <rect key="frame" x="20" y="72" width="560" height="214"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ha6-6v-QcF" userLabel="Details">
+                                <rect key="frame" x="20" y="72" width="560" height="255"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wae-20-VaA" userLabel="Image">
                                         <rect key="frame" x="220" y="0.0" width="120" height="120"/>
@@ -128,8 +128,31 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JyG-Qs-B3s" userLabel="Types">
-                                        <rect key="frame" x="195" y="184" width="170" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ShJ-aG-VgT" userLabel="Height &amp; Weight">
+                                        <rect key="frame" x="195" y="184" width="170" height="21"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2O-KR-vBJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="75" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="75" id="Ini-Il-3K8"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWJ-Ym-Z1D">
+                                                <rect key="frame" x="95" y="0.0" width="75" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="75" id="9Kc-Vy-lg2"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JyG-Qs-B3s" userLabel="Types">
+                                        <rect key="frame" x="195" y="225" width="170" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iq-jB-ADJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
@@ -164,11 +187,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="heightLabel" destination="Z2O-KR-vBJ" id="Mwr-CF-iGt"/>
                         <outlet property="idLabel" destination="4Ap-J8-dkb" id="ZkD-TD-Djh"/>
                         <outlet property="nameLabel" destination="4DD-CG-z1p" id="Meg-aH-cVb"/>
                         <outlet property="pokemonImage" destination="wae-20-VaA" id="YuI-Ub-wwB"/>
                         <outlet property="typeLabelFirst" destination="7iq-jB-ADJ" id="jbb-6I-OFw"/>
                         <outlet property="typeLabelSecond" destination="4tt-Un-Zmz" id="Fey-zX-DeH"/>
+                        <outlet property="weightLabel" destination="tWJ-Ym-Z1D" id="iCr-OD-Ceu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a7B-uH-l4Z" userLabel="First Responder" sceneMemberID="firstResponder"/>

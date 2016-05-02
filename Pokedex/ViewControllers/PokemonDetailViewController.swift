@@ -16,6 +16,8 @@ class PokemonDetailViewController: UIViewController, StatefulViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var typeLabelFirst: UILabel!
     @IBOutlet weak var typeLabelSecond: UILabel!
+    @IBOutlet weak var weightLabel: UILabel!
+    @IBOutlet weak var heightLabel: UILabel!
     
     let pokedexStore = PokedexStore()
     var identifier: Int?
@@ -60,6 +62,19 @@ class PokemonDetailViewController: UIViewController, StatefulViewController {
         tabBar?.tintColor = color
     }
     
+    func getPokemonData() {
+        self.startLoading()
+        self.pokedexStore.fetchPokemonDetails(identifier!) { (pokemon, error) in
+            if error == nil {
+                self.pokemon = pokemon
+                self.showPokemonData(pokemon)
+                self.endLoading()
+            } else {
+                self.endLoading(error: error)
+            }
+        }
+    }
+    
     func showPokemonData(pokemon: Pokemon) {
         self.title = pokemon.name
         self.pokemonImage.image = UIImage(named: pokemon.getListImageName())
@@ -67,6 +82,18 @@ class PokemonDetailViewController: UIViewController, StatefulViewController {
         self.idLabel.text =  "#\(pokemon.id!)"
         self.nameLabel.text = pokemon.name
         
+        showHeightAndWeight(pokemon)
+        showTypes(pokemon)
+        
+        initializeUIColors()
+    }
+    
+    func showHeightAndWeight(pokemon: Pokemon) {
+        self.heightLabel.text = "\(pokemon.height!)m"
+        self.weightLabel.text = "\(pokemon.weigth!)kg"
+    }
+    
+    func showTypes(pokemon: Pokemon) {
         if pokemon.types?.count == 1 {
             self.typeLabelSecond.hidden = true
         }
@@ -88,21 +115,6 @@ class PokemonDetailViewController: UIViewController, StatefulViewController {
                 self.typeLabelSecond.backgroundColor = TypeColor.getColorByType(typeName)
                 self.typeLabelSecond.layer.cornerRadius = 5
                 self.typeLabelSecond.clipsToBounds = true
-            }
-        }
-        
-        initializeUIColors()
-    }
-    
-    func getPokemonData() {
-        self.startLoading()
-        self.pokedexStore.fetchPokemonDetails(identifier!) { (pokemon, error) in
-            if error == nil {
-                self.pokemon = pokemon
-                self.showPokemonData(pokemon)
-                self.endLoading()
-            } else {
-                self.endLoading(error: error)
             }
         }
     }

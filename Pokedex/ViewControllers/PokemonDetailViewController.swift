@@ -9,7 +9,7 @@
 import UIKit
 import StatefulViewController
 
-class PokemonDetailViewController: UIViewController, StatefulViewController {
+class PokemonDetailViewController: UIViewController {
     
     @IBOutlet weak var pokemonImage: UIImageView!
     @IBOutlet weak var idLabel: UILabel!
@@ -18,6 +18,9 @@ class PokemonDetailViewController: UIViewController, StatefulViewController {
     @IBOutlet weak var typeLabelSecond: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var heightLabel: UILabel!
+    
+    @IBOutlet weak var segmentControl: UISegmentedControl!
+    @IBOutlet weak var contentView: UIView!
     
     let pokedexStore = PokedexStore()
     var identifier: Int?
@@ -60,6 +63,8 @@ class PokemonDetailViewController: UIViewController, StatefulViewController {
         
         let tabBar = self.tabBarController?.tabBar
         tabBar?.tintColor = color
+        
+        self.segmentControl.tintColor = color
     }
     
     func getPokemonData() {
@@ -118,7 +123,9 @@ class PokemonDetailViewController: UIViewController, StatefulViewController {
             }
         }
     }
-    
+}
+
+extension PokemonDetailViewController: StatefulViewController {
     func hasContent() -> Bool {
         return self.pokemon != nil
     }

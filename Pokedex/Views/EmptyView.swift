@@ -18,5 +18,6 @@ class EmptyView: StateView {
         initializeView(self, view: view)
         
         self.messageLabel.text = "No data."
+        self.messageLabel.textColor = UIColor.flatRedColor()
     }
 }

@@ -19,6 +19,7 @@ class LoadingView: StateView {
         initializeView(self, view: view)
         
         loadingLabel.text = "Loading..."
+        loadingLabel.textColor = UIColor.flatRedColor()
         loadingIndicator.startAnimating()
     }
 }

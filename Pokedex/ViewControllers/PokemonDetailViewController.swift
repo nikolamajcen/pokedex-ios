@@ -22,9 +22,12 @@ class PokemonDetailViewController: UIViewController {
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var contentView: UIView!
     
+    var currentViewController: UIViewController?
+    
     let pokedexStore = PokedexStore()
     var identifier: Int?
     var pokemon: Pokemon?
+    var pokemonDescription: PokemonDescription?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +37,10 @@ class PokemonDetailViewController: UIViewController {
         self.initializeUI()
         
         self.getPokemonData()
+    }
+    
+    @IBAction func valueChanged(sender: UISegmentedControl) {
+        self.changePokemonDetailsViewController(sender.selectedSegmentIndex)
     }
     
     private func initializeStateViews() {
@@ -53,6 +60,8 @@ class PokemonDetailViewController: UIViewController {
         self.nameLabel.text = ""
         self.typeLabelFirst.text = ""
         self.typeLabelSecond.text = ""
+        
+        self.segmentControl.selectedSegmentIndex = 0
     }
     
     func initializeUIColors() {
@@ -65,6 +74,38 @@ class PokemonDetailViewController: UIViewController {
         tabBar?.tintColor = color
         
         self.segmentControl.tintColor = color
+    }
+    
+    func changePokemonDetailsViewController(index: Int) {
+        self.currentViewController?.view.removeFromSuperview()
+        self.currentViewController?.removeFromParentViewController()
+        
+        switch index {
+        case 0:
+            let viewController = self.storyboard?
+                .instantiateViewControllerWithIdentifier("PokemonDescriptionViewController")
+                as! PokemonDescriptionViewController
+            viewController.identifier = identifier
+            addSubviewToContentArea(viewController)
+            break
+        case 1:
+            let viewController = (self.storyboard?
+                .instantiateViewControllerWithIdentifier("EvolutionChainViewController"))!
+            addSubviewToContentArea(viewController)
+            break
+        default:
+            let viewController = UIViewController()
+            addSubviewToContentArea(viewController)
+        }
+    }
+    
+    func addSubviewToContentArea(viewController: UIViewController) {
+        self.addChildViewController(viewController)
+        viewController.view.frame = self.contentView.bounds
+        viewController.didMoveToParentViewController(self)
+        self.contentView.addSubview(viewController.view)
+        
+        self.currentViewController = viewController
     }
     
     func getPokemonData() {
@@ -91,6 +132,7 @@ class PokemonDetailViewController: UIViewController {
         showTypes(pokemon)
         
         initializeUIColors()
+        changePokemonDetailsViewController(0)
     }
     
     func showHeightAndWeight(pokemon: Pokemon) {

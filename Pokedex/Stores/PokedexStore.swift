@@ -90,4 +90,37 @@ class PokedexStore: NSObject {
                 completion(pokemon, nil)
         }
     }
+    
+    func fetchPokemonAdditionInfo(id: Int, completion: (PokemonSpecies!, NSError!) -> Void) -> Void {
+        alamofireManager!
+            .request(.GET, "https://pokeapi.co/api/v2/pokemon-species/\(id)/")
+            .responseJSON { (response) in
+                if response.response == nil {
+                    completion(nil,
+                        NSError(domain: "No network connection.",
+                            code: 0,
+                            userInfo: nil))
+                    return
+                }
+                
+                guard response.result.isSuccess else {
+                    completion(nil,
+                        NSError(domain: "Bad request.",
+                            code: (response.response?.statusCode)!,
+                            userInfo: nil))
+                    return
+                }
+                
+                guard let value = response.result.value else {
+                    completion(nil,
+                        NSError(domain: "No data.",
+                            code: (response.response?.statusCode)!,
+                            userInfo: nil))
+                    return
+                }
+                
+                let pokemonSpecies = Mapper<PokemonSpecies>().map(value)
+                completion(pokemonSpecies, nil)
+        }
+    }
 }

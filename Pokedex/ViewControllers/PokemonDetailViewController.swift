@@ -86,6 +86,8 @@ class PokemonDetailViewController: UIViewController {
                 .instantiateViewControllerWithIdentifier("PokemonDescriptionViewController")
                 as! PokemonDescriptionViewController
             viewController.identifier = identifier
+            viewController.pokemonName = self.pokemon?.name
+            viewController.setTypeString((self.pokemon?.types)!)
             addSubviewToContentArea(viewController)
             break
         case 1:

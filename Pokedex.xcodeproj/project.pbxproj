@@ -15,6 +15,7 @@
 		4FA5B9011CCA6536006BCC98 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA5B9001CCA6536006BCC98 /* EmptyView.swift */; };
 		4FA5B9031CCA6875006BCC98 /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FA5B9021CCA6875006BCC98 /* EmptyView.xib */; };
 		4FB127881CC5017D0081EC07 /* PokemonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB127871CC5017D0081EC07 /* PokemonDetailViewController.swift */; };
+		4FBA89211CD8B5F40036089C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBA89201CD8B5F40036089C /* AVFoundation.framework */; };
 		4FCA01F71CCA8BE3003EAEE4 /* StateSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA01F61CCA8BE3003EAEE4 /* StateSubview.swift */; };
 		4FCA01F91CCA95AB003EAEE4 /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FCA01F81CCA95AB003EAEE4 /* ErrorView.xib */; };
 		4FCA01FB1CCA9614003EAEE4 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FCA01FA1CCA9614003EAEE4 /* LoadingView.xib */; };
@@ -42,6 +43,7 @@
 		4FA5B9001CCA6536006BCC98 /* EmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		4FA5B9021CCA6875006BCC98 /* EmptyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyView.xib; sourceTree = "<group>"; };
 		4FB127871CC5017D0081EC07 /* PokemonDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewController.swift; sourceTree = "<group>"; };
+		4FBA89201CD8B5F40036089C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4FCA01F61CCA8BE3003EAEE4 /* StateSubview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateSubview.swift; sourceTree = "<group>"; };
 		4FCA01F81CCA95AB003EAEE4 /* ErrorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorView.xib; sourceTree = "<group>"; };
 		4FCA01FA1CCA9614003EAEE4 /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FBA89211CD8B5F40036089C /* AVFoundation.framework in Frameworks */,
 				3D480DABAE9DD8B3744182A4 /* Pods_Pokedex.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +188,7 @@
 		CFE65F1F444B9223724FF63A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4FBA89201CD8B5F40036089C /* AVFoundation.framework */,
 				6A8150540711DA3F5D202CDA /* Pods_Pokedex.framework */,
 			);
 			name = Frameworks;

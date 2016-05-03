@@ -106,7 +106,6 @@ class PokemonDetailViewController: UIViewController {
         viewController.view.frame = self.contentView.bounds
         viewController.didMoveToParentViewController(self)
         self.contentView.addSubview(viewController.view)
-        
         self.currentViewController = viewController
     }
     

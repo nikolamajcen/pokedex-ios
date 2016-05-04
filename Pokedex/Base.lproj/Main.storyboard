@@ -105,7 +105,7 @@
                                 <rect key="frame" x="20" y="64" width="560" height="487"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ha6-6v-QcF" userLabel="Header">
-                                        <rect key="frame" x="0.0" y="0.0" width="560" height="240"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="204"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wae-20-VaA" userLabel="Image">
                                                 <rect key="frame" x="220" y="0.0" width="120" height="120"/>
@@ -131,31 +131,8 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="ShJ-aG-VgT" userLabel="Height &amp; Weight">
-                                                <rect key="frame" x="196" y="174" width="168" height="21"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2O-KR-vBJ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="21"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="75" id="Ini-Il-3K8"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWJ-Ym-Z1D">
-                                                        <rect key="frame" x="93" y="0.0" width="75" height="21"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="75" id="9Kc-Vy-lg2"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                            </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JyG-Qs-B3s" userLabel="Types">
-                                                <rect key="frame" x="195" y="210" width="170" height="30"/>
+                                                <rect key="frame" x="195" y="174" width="170" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iq-jB-ADJ">
                                                         <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
@@ -185,7 +162,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="F3a-1V-Adq" userLabel="Tabs">
-                                        <rect key="frame" x="0.0" y="260" width="560" height="227"/>
+                                        <rect key="frame" x="0.0" y="224" width="560" height="263"/>
                                         <subviews>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="mac-48-Qe3">
                                                 <rect key="frame" x="20" y="0.0" width="520" height="29"/>
@@ -202,7 +179,7 @@
                                                 </connections>
                                             </segmentedControl>
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QIj-bV-kAD">
-                                                <rect key="frame" x="0.0" y="27" width="560" height="200"/>
+                                                <rect key="frame" x="0.0" y="27" width="560" height="236"/>
                                                 <connections>
                                                     <segue destination="nDc-db-pO5" kind="embed" identifier="showContainer" id="rav-bc-RnP"/>
                                                 </connections>
@@ -227,15 +204,13 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="contentView" destination="QIj-bV-kAD" id="GdK-OP-106"/>
-                        <outlet property="heightLabel" destination="Z2O-KR-vBJ" id="Mwr-CF-iGt"/>
-                        <outlet property="idLabel" destination="4Ap-J8-dkb" id="ZkD-TD-Djh"/>
-                        <outlet property="nameLabel" destination="4DD-CG-z1p" id="Meg-aH-cVb"/>
+                        <outlet property="pokemonIdLabel" destination="4Ap-J8-dkb" id="7L4-Wv-Ocg"/>
                         <outlet property="pokemonImage" destination="wae-20-VaA" id="YuI-Ub-wwB"/>
-                        <outlet property="segmentControl" destination="mac-48-Qe3" id="pDp-8D-oVL"/>
-                        <outlet property="typeLabelFirst" destination="7iq-jB-ADJ" id="jbb-6I-OFw"/>
-                        <outlet property="typeLabelSecond" destination="4tt-Un-Zmz" id="Fey-zX-DeH"/>
-                        <outlet property="weightLabel" destination="tWJ-Ym-Z1D" id="iCr-OD-Ceu"/>
+                        <outlet property="pokemonNameLabel" destination="4DD-CG-z1p" id="CuN-dR-6c5"/>
+                        <outlet property="pokemonTypeLabelFirst" destination="7iq-jB-ADJ" id="wvV-Ky-m3o"/>
+                        <outlet property="pokemonTypeLabelSecond" destination="4tt-Un-Zmz" id="Mxv-Cr-zjH"/>
+                        <outlet property="tabContentView" destination="QIj-bV-kAD" id="W16-LZ-jY4"/>
+                        <outlet property="tabSegmentControl" destination="mac-48-Qe3" id="bam-Tg-vIx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a7B-uH-l4Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -340,7 +315,7 @@
                         <viewControllerLayoutGuide type="bottom" id="8Pm-UE-TAh"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4RC-cW-xfM">
-                        <rect key="frame" x="0.0" y="0.0" width="560" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="560" height="236"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

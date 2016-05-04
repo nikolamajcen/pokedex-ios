@@ -12,35 +12,66 @@ import StatefulViewController
 class PokemonDetailViewController: UIViewController {
     
     @IBOutlet weak var pokemonImage: UIImageView!
-    @IBOutlet weak var idLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var typeLabelFirst: UILabel!
-    @IBOutlet weak var typeLabelSecond: UILabel!
-    @IBOutlet weak var weightLabel: UILabel!
-    @IBOutlet weak var heightLabel: UILabel!
+    @IBOutlet weak var pokemonIdLabel: UILabel!
+    @IBOutlet weak var pokemonNameLabel: UILabel!
+    @IBOutlet weak var pokemonTypeLabelFirst: UILabel!
+    @IBOutlet weak var pokemonTypeLabelSecond: UILabel!
     
-    @IBOutlet weak var segmentControl: UISegmentedControl!
-    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var tabSegmentControl: UISegmentedControl!
+    @IBOutlet weak var tabContentView: UIView!
     
-    var currentViewController: UIViewController?
+    private var currentViewController: UIViewController?
     
-    let pokedexStore = PokedexStore()
     var identifier: Int?
-    var pokemon: Pokemon?
-    var pokemonDescription: PokemonDescription?
+    
+    private let pokedexStore = PokedexStore()
+    private var pokemon: Pokemon?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupInitialViewState()
         self.initializeStateViews()
-        self.initializeUI()
+        self.initializeUIControls()
         
-        self.getPokemonData()
+        self.getPokemonDetails()
     }
     
     @IBAction func valueChanged(sender: UISegmentedControl) {
-        self.changePokemonDetailsViewController(sender.selectedSegmentIndex)
+        // TODO: Implement logic
+    }
+    
+    func getPokemonDetails() {
+        self.startLoading()
+        self.pokedexStore.fetchPokemonDetails(identifier!) { (pokemon, error) in
+            if error == nil {
+                self.pokemon = pokemon
+                self.showPokemonDetails(pokemon)
+                self.endLoading()
+            } else {
+                self.endLoading(error: error)
+            }
+        }
+    }
+    
+    func getPokemonDescription() {
+        // TODO: Show loading when downloading description
+        pokedexStore.fetchPokemonAdditionInfo(identifier!) { (result, error) in
+            if error == nil {
+                self.pokemon!.descriptionInfo = result.pokemonDescription
+            } else {
+                // TODO: Show error on fail
+                print("Download error")
+            }
+        }
+    }
+    
+    func getPokemonEvolutionChain() {
+        // TODO: Handling evolution chain
+    }
+    
+    func getPokemonStats() {
+        // TODO: Handling stats
     }
     
     private func initializeStateViews() {
@@ -49,23 +80,23 @@ class PokemonDetailViewController: UIViewController {
         
         let customErrorView = ErrorView(frame: view.frame)
         customErrorView.reloadButton
-            .addTarget(self, action: #selector(PokemonDetailViewController.getPokemonData),
+            .addTarget(self, action: #selector(PokemonDetailViewController.getPokemonDetails),
                        forControlEvents: UIControlEvents.TouchUpInside)
         
         errorView = customErrorView
     }
     
-    func initializeUI() {
-        self.idLabel.text = ""
-        self.nameLabel.text = ""
-        self.typeLabelFirst.text = ""
-        self.typeLabelSecond.text = ""
+    private func initializeUIControls() {
+        self.pokemonIdLabel.text = ""
+        self.pokemonNameLabel.text = ""
+        self.pokemonTypeLabelFirst.text = ""
+        self.pokemonTypeLabelSecond.text = ""
         
-        self.segmentControl.selectedSegmentIndex = 0
+        self.tabSegmentControl.selectedSegmentIndex = 0
     }
     
-    func initializeUIColors() {
-        let color = self.typeLabelFirst.backgroundColor
+    private func initializeUIColors() {
+        let color = self.pokemonTypeLabelFirst.backgroundColor
         
         let navigationBar = self.navigationController?.navigationBar
         navigationBar?.barTintColor = color
@@ -73,77 +104,24 @@ class PokemonDetailViewController: UIViewController {
         let tabBar = self.tabBarController?.tabBar
         tabBar?.tintColor = color
         
-        self.segmentControl.tintColor = color
+        self.tabSegmentControl.tintColor = color
     }
     
-    func changePokemonDetailsViewController(index: Int) {
-        self.currentViewController?.view.removeFromSuperview()
-        self.currentViewController?.removeFromParentViewController()
-        
-        switch index {
-        case 0:
-            let viewController = self.storyboard?
-                .instantiateViewControllerWithIdentifier("PokemonDescriptionViewController")
-                as! PokemonDescriptionViewController
-            viewController.identifier = identifier
-            viewController.pokemonName = self.pokemon?.name
-            viewController.setTypeString((self.pokemon?.types)!)
-            addSubviewToContentArea(viewController)
-            break
-        case 1:
-            let viewController = (self.storyboard?
-                .instantiateViewControllerWithIdentifier("EvolutionChainViewController"))!
-            addSubviewToContentArea(viewController)
-            break
-        default:
-            let viewController = UIViewController()
-            addSubviewToContentArea(viewController)
-        }
-    }
-    
-    func addSubviewToContentArea(viewController: UIViewController) {
-        self.addChildViewController(viewController)
-        viewController.view.frame = self.contentView.bounds
-        viewController.didMoveToParentViewController(self)
-        self.contentView.addSubview(viewController.view)
-        self.currentViewController = viewController
-    }
-    
-    func getPokemonData() {
-        self.startLoading()
-        self.pokedexStore.fetchPokemonDetails(identifier!) { (pokemon, error) in
-            if error == nil {
-                self.pokemon = pokemon
-                self.showPokemonData(pokemon)
-                self.endLoading()
-            } else {
-                self.endLoading(error: error)
-            }
-        }
-    }
-    
-    func showPokemonData(pokemon: Pokemon) {
+    private func showPokemonDetails(pokemon: Pokemon) {
         self.title = pokemon.name
         self.pokemonImage.image = UIImage(named: pokemon.getListImageName())
         
-        self.idLabel.text =  "#\(pokemon.id!)"
-        self.nameLabel.text = pokemon.name
+        self.pokemonIdLabel.text =  "#\(pokemon.id!)"
+        self.pokemonNameLabel.text = pokemon.name
+        self.showTypes(pokemon)
         
-        showHeightAndWeight(pokemon)
-        showTypes(pokemon)
-        
-        initializeUIColors()
-        changePokemonDetailsViewController(0)
+        self.initializeUIColors()
+        // self.changeTabContentView(0)
     }
     
-    func showHeightAndWeight(pokemon: Pokemon) {
-        self.heightLabel.text = "\(pokemon.height!)m"
-        self.weightLabel.text = "\(pokemon.weigth!)kg"
-    }
-    
-    func showTypes(pokemon: Pokemon) {
+    private func showTypes(pokemon: Pokemon) {
         if pokemon.types?.count == 1 {
-            self.typeLabelSecond.hidden = true
+            self.pokemonTypeLabelSecond.hidden = true
         }
         
         for index in  0...((pokemon.types?.count)! - 1) {
@@ -152,18 +130,50 @@ class PokemonDetailViewController: UIViewController {
             }
             
             if index == 0 {
-                self.typeLabelFirst.text = typeName.uppercaseString
                 let navigationBar = self.navigationController?.navigationBar
                 navigationBar?.barTintColor = TypeColor.getColorByType(typeName)
-                self.typeLabelFirst.backgroundColor = TypeColor.getColorByType(typeName)
-                self.typeLabelFirst.layer.cornerRadius = 5
-                self.typeLabelFirst.clipsToBounds = true
+                self.pokemonTypeLabelFirst.text = typeName.uppercaseString
+                self.pokemonTypeLabelFirst.backgroundColor = TypeColor.getColorByType(typeName)
+                self.pokemonTypeLabelFirst.layer.cornerRadius = 5
+                self.pokemonTypeLabelFirst.clipsToBounds = true
             } else if index == 1 {
-                self.typeLabelSecond.text = typeName.uppercaseString
-                self.typeLabelSecond.backgroundColor = TypeColor.getColorByType(typeName)
-                self.typeLabelSecond.layer.cornerRadius = 5
-                self.typeLabelSecond.clipsToBounds = true
+                self.pokemonTypeLabelSecond.text = typeName.uppercaseString
+                self.pokemonTypeLabelSecond.backgroundColor = TypeColor.getColorByType(typeName)
+                self.pokemonTypeLabelSecond.layer.cornerRadius = 5
+                self.pokemonTypeLabelSecond.clipsToBounds = true
             }
+        }
+    }
+    
+    private func addSubviewToTabContentView(viewController: UIViewController) {
+        self.addChildViewController(viewController)
+        viewController.view.frame = self.tabContentView.bounds
+        viewController.didMoveToParentViewController(self)
+        self.tabContentView.addSubview(viewController.view)
+        self.currentViewController = viewController
+    }
+    
+    private func changeTabContentView(index: Int) {
+        self.currentViewController?.view.removeFromSuperview()
+        self.currentViewController?.removeFromParentViewController()
+        switch index {
+        case 0:
+            let viewController = self.storyboard?
+                .instantiateViewControllerWithIdentifier("PokemonDescriptionViewController")
+                as! PokemonDescriptionViewController
+            viewController.createDescriptionText(name: (pokemon?.name)!,
+                                                 types: (pokemon?.types)!,
+                                                 description: (pokemon?.descriptionInfo?.text)!)
+            self.addSubviewToTabContentView(viewController)
+            break
+        case 1:
+            let viewController = (self.storyboard?
+                .instantiateViewControllerWithIdentifier("EvolutionChainViewController"))!
+            self.addSubviewToTabContentView(viewController)
+            break
+        default:
+            let viewController = UIViewController()
+            self.addSubviewToTabContentView(viewController)
         }
     }
 }

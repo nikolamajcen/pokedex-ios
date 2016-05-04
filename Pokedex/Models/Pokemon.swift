@@ -17,6 +17,7 @@ class Pokemon: NSObject, Mappable {
     var types: [PokemonType]?
     var weigth: Float?
     var height: Float?
+    var descriptionInfo: PokemonDescription?
     
     required init?(_ map: Map) { }
     

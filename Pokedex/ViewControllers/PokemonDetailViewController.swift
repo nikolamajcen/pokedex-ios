@@ -38,7 +38,25 @@ class PokemonDetailViewController: UIViewController {
     }
     
     @IBAction func valueChanged(sender: UISegmentedControl) {
-        // TODO: Implement logic
+        switch sender.selectedSegmentIndex {
+        case 0:
+            if pokemon?.descriptionInfo == nil {
+                self.getPokemonDescription()
+            } else {
+                self.showDescriptionTabContentView()
+            }
+            break
+        case 1:
+            // TODO: See if evolution chain is already fetched
+            self.showEvolutionChainTabContentView()
+            break
+        case 2:
+            // TODO: See if stats are already fetched
+            self.showStatsTabContentView()
+            break
+        default:
+            break
+        }
     }
     
     func getPokemonDetails() {
@@ -48,6 +66,7 @@ class PokemonDetailViewController: UIViewController {
                 self.pokemon = pokemon
                 self.showPokemonDetails(pokemon)
                 self.endLoading()
+                self.getPokemonDescription()
             } else {
                 self.endLoading(error: error)
             }
@@ -55,10 +74,11 @@ class PokemonDetailViewController: UIViewController {
     }
     
     func getPokemonDescription() {
-        // TODO: Show loading when downloading description
+        // TODO: Show loading in subview when downloading description
         pokedexStore.fetchPokemonAdditionInfo(identifier!) { (result, error) in
             if error == nil {
                 self.pokemon!.descriptionInfo = result.pokemonDescription
+                self.showDescriptionTabContentView()
             } else {
                 // TODO: Show error on fail
                 print("Download error")
@@ -116,7 +136,6 @@ class PokemonDetailViewController: UIViewController {
         self.showTypes(pokemon)
         
         self.initializeUIColors()
-        // self.changeTabContentView(0)
     }
     
     private func showTypes(pokemon: Pokemon) {
@@ -153,28 +172,31 @@ class PokemonDetailViewController: UIViewController {
         self.currentViewController = viewController
     }
     
-    private func changeTabContentView(index: Int) {
-        self.currentViewController?.view.removeFromSuperview()
-        self.currentViewController?.removeFromParentViewController()
-        switch index {
-        case 0:
-            let viewController = self.storyboard?
-                .instantiateViewControllerWithIdentifier("PokemonDescriptionViewController")
-                as! PokemonDescriptionViewController
-            viewController.createDescriptionText(name: (pokemon?.name)!,
-                                                 types: (pokemon?.types)!,
-                                                 description: (pokemon?.descriptionInfo?.text)!)
-            self.addSubviewToTabContentView(viewController)
-            break
-        case 1:
-            let viewController = (self.storyboard?
-                .instantiateViewControllerWithIdentifier("EvolutionChainViewController"))!
-            self.addSubviewToTabContentView(viewController)
-            break
-        default:
-            let viewController = UIViewController()
-            self.addSubviewToTabContentView(viewController)
-        }
+    private func showDescriptionTabContentView() {
+        let viewController = self.storyboard?
+            .instantiateViewControllerWithIdentifier("PokemonDescriptionViewController")
+            as! PokemonDescriptionViewController
+        viewController.createDescriptionText(name: (pokemon?.name)!,
+                                             types: (pokemon?.types)!,
+                                             description: (pokemon?.descriptionInfo?.text)!)
+        self.addSubviewToTabContentView(viewController)
+    }
+    
+    private func showEvolutionChainTabContentView() {
+        let viewController = (self.storyboard?
+            .instantiateViewControllerWithIdentifier("PokemonEvolutionChainViewController"))!
+        self.addSubviewToTabContentView(viewController)
+    }
+    
+    private func showStatsTabContentView() {
+        let viewController = (self.storyboard?
+            .instantiateViewControllerWithIdentifier("PokemonStatsViewController"))!
+        self.addSubviewToTabContentView(viewController)
+    }
+    
+    private func showErrorTabContentView() {
+        let viewController = UIViewController()
+        self.addSubviewToTabContentView(viewController)
     }
 }
 

@@ -322,6 +322,7 @@
                     <connections>
                         <segue destination="J4T-vl-Kg8" kind="custom" identifier="showDescription" customClass="EmptySegue" id="d5a-h6-5on"/>
                         <segue destination="Vvw-OE-uMz" kind="custom" identifier="showEvolutionChain" customClass="EmptySegue" id="viy-NY-XLL"/>
+                        <segue destination="656-Su-9St" kind="custom" identifier="showStats" customClass="EmptySegue" id="CdV-Zf-P9q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q6P-be-fuM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -390,12 +391,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BrJ-kg-St3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3714" y="-648"/>
+            <point key="canvasLocation" x="3702" y="-978"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="fCW-CR-Mlp">
             <objects>
-                <viewController storyboardIdentifier="EvolutionChainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Vvw-OE-uMz" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PokemonEvolutionChainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Vvw-OE-uMz" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jVy-Bi-pxg"/>
                         <viewControllerLayoutGuide type="bottom" id="Laj-ec-vvw"/>
@@ -420,7 +421,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BWg-cM-Moq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3714" y="14"/>
+            <point key="canvasLocation" x="3702" y="-320"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="JaG-6Q-kyy">
+            <objects>
+                <viewController storyboardIdentifier="PokemonStatsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="656-Su-9St" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SBf-ud-Rda"/>
+                        <viewControllerLayoutGuide type="bottom" id="Iyl-aL-eKs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tv9-2c-e8d">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HJF-49-gDE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3702" y="340"/>
         </scene>
     </scenes>
     <resources>

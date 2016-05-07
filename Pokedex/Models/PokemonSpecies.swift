@@ -14,12 +14,17 @@ class PokemonSpecies: NSObject, Mappable {
     private var descriptions: [PokemonDescription]?
     
     var pokemonDescription: PokemonDescription?
+    var pokemonEvolutionChainId: Int?
+    var pokemonEvolutionChainUrl: NSURL?
     
     required init?(_ map: Map) { }
     
     func mapping(map: Map) {
         self.descriptions <- map["flavor_text_entries"]
         self.setEnglishDescriptionDefault()
+        
+        self.pokemonEvolutionChainUrl <- (map["evolution_chain.url"], URLTransform())
+        self.pokemonEvolutionChainId = Int((self.pokemonEvolutionChainUrl?.absoluteURL.lastPathComponent)!)!
     }
     
     private func setEnglishDescriptionDefault() {

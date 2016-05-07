@@ -18,6 +18,8 @@ class Pokemon: NSObject, Mappable {
     var weigth: Float?
     var height: Float?
     var descriptionInfo: PokemonDescription?
+    var evolutionChainId: Int?
+    var evolutionChain: [PokemonEvolution]?
     
     required init?(_ map: Map) { }
     

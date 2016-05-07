@@ -124,7 +124,7 @@ class PokedexStore: NSObject {
         }
     }
     
-    func fetchPokemonEvolutionChain(id: Int, completion: (PokemonEvolution!, NSError!) -> Void) -> Void {
+    func fetchPokemonEvolutionChain(id: Int, completion: (PokemonEvolutionChain!, NSError!) -> Void) -> Void {
         alamofireManager!
             .request(.GET, "https://pokeapi.co/api/v2/evolution-chain/\(id)/")
             .responseJSON { (response) in
@@ -152,7 +152,7 @@ class PokedexStore: NSObject {
                     return
                 }
                 
-                let pokemonEvolution = Mapper<PokemonEvolution>().map(value["chain"])
-                completion(pokemonEvolution, nil)
+                let pokemonEvolutionChain = Mapper<PokemonEvolutionChain>().map(value)
+                completion(pokemonEvolutionChain, nil)
         }
     }}

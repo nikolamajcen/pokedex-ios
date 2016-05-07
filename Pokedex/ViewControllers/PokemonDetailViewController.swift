@@ -47,10 +47,11 @@ class PokemonDetailViewController: UIViewController {
             }
             break
         case 1:
-            // TODO: See if evolution chain is already fetched
-            
-            self.getPokemonEvolutionChain()
-            // self.showEvolutionChainTabContentView()
+            if pokemon?.evolutionChain == nil {
+                self.getPokemonEvolutionChain()
+            } else {
+                self.showEvolutionChainTabContentView()
+            }
             break
         case 2:
             // TODO: See if stats are already fetched
@@ -90,11 +91,19 @@ class PokemonDetailViewController: UIViewController {
     }
     
     func getPokemonEvolutionChain() {
+        // TODO: Show loading in subview when downloading description
         pokedexStore.fetchPokemonEvolutionChain((pokemon?.evolutionChainId)!) { (result, error) in
             if error == nil {
                 self.pokemon?.evolutionChain = result.evolutionChain
+                
+                // TODO: Remove printing and add showing on screen
+                for evolution: PokemonEvolution in (self.pokemon?.evolutionChain)! {
+                    print("#\(evolution.identifier!) \(evolution.name!)")
+                }
+                
                 self.showEvolutionChainTabContentView()
             } else {
+                // TODO: Show error on fail
                 print("Download error")
             }
         }

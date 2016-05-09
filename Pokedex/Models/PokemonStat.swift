@@ -19,5 +19,19 @@ class PokemonStat: NSObject, Mappable {
     func mapping(map: Map) {
         self.name <- map["stat.name"]
         self.value <- map["base_stat"]
+        
+        self.capitalizeName()
+        self.changeSpecialStatsForm()
+    }
+    
+    private func capitalizeName() {
+        self.name = self.name?.uppercaseString
+    }
+    
+    private func changeSpecialStatsForm() {
+        if self.name?.containsString("-") == true {
+            self.name = self.name?
+                .stringByReplacingOccurrencesOfString("SPECIAL-", withString: "SP.")
+        }
     }
 }

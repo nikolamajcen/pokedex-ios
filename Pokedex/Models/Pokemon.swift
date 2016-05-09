@@ -18,12 +18,14 @@ class Pokemon: NSObject, Mappable {
     var weigth: Float?
     var height: Float?
     var descriptionInfo: PokemonDescription?
-    var evolutionChainId: Int?
-    var evolutionChain: [PokemonEvolution]?
+    var evolutionChain: PokemonEvolutionChain?
+    var stats: [PokemonStat]?
     
     required init?(_ map: Map) { }
     
     func mapping(map: Map) {
+        self.evolutionChain = PokemonEvolutionChain()
+        
         self.url <- (map["url"], URLTransform())
         self.name <- map["name"]
         
@@ -51,6 +53,9 @@ class Pokemon: NSObject, Mappable {
         if self.height != nil {
             self.height = self.height! / 10
         }
+        
+        self.stats <- map["stats"]
+        self.stats = self.stats?.reverse()
     }
     
     func getListImageName() -> String {

@@ -47,7 +47,7 @@ class PokemonDetailViewController: UIViewController {
             }
             break
         case 1:
-            if pokemon?.evolutionChain == nil {
+            if pokemon?.evolutionChain?.evolutions.count == 0 {
                 self.getPokemonEvolutionChain()
             } else {
                 self.showEvolutionChainTabContentView()
@@ -68,6 +68,12 @@ class PokemonDetailViewController: UIViewController {
             if error == nil {
                 self.pokemon = pokemon
                 self.showPokemonDetails(pokemon)
+                
+                // TODO: Remove printing and add showing on screen
+                for stat: PokemonStat in pokemon.stats! {
+                    print("\(stat.name!) - \(stat.value!)")
+                }
+                
                 self.endLoading()
                 self.getPokemonDescription()
             } else {
@@ -78,10 +84,10 @@ class PokemonDetailViewController: UIViewController {
     
     func getPokemonDescription() {
         // TODO: Show loading in subview when downloading description
-        pokedexStore.fetchPokemonAdditionInfo(identifier!) { (result, error) in
+        pokedexStore.fetchPokemonSpecies(identifier!) { (result, error) in
             if error == nil {
                 self.pokemon!.descriptionInfo = result.pokemonDescription
-                self.pokemon?.evolutionChainId = result.pokemonEvolutionChainId
+                self.pokemon?.evolutionChain!.identifier = result.pokemonEvolutionChainId
                 self.showDescriptionTabContentView()
             } else {
                 // TODO: Show error on fail
@@ -92,12 +98,12 @@ class PokemonDetailViewController: UIViewController {
     
     func getPokemonEvolutionChain() {
         // TODO: Show loading in subview when downloading description
-        pokedexStore.fetchPokemonEvolutionChain((pokemon?.evolutionChainId)!) { (result, error) in
+        pokedexStore.fetchPokemonEvolutionChain((pokemon?.evolutionChain!.identifier)!) { (result, error) in
             if error == nil {
-                self.pokemon?.evolutionChain = result.evolutionChain
+                self.pokemon?.evolutionChain? = result
                 
                 // TODO: Remove printing and add showing on screen
-                for evolution: PokemonEvolution in (self.pokemon?.evolutionChain)! {
+                for evolution: PokemonEvolution in (self.pokemon?.evolutionChain!.evolutions)! {
                     print("#\(evolution.identifier!) \(evolution.name!)")
                 }
                 
@@ -107,10 +113,6 @@ class PokemonDetailViewController: UIViewController {
                 print("Download error")
             }
         }
-    }
-    
-    func getPokemonStats() {
-        // TODO: Handling stats
     }
     
     private func initializeStateViews() {

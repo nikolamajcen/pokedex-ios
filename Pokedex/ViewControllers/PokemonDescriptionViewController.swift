@@ -39,8 +39,6 @@ class PokemonDescriptionViewController: UIViewController {
     }
     
     @IBAction func startAudio(sender: UIButton) {
-        self.activityIndicatorView.hidden = false
-        self.activityIndicatorView.startAnimating()
         speechUtterance = AVSpeechUtterance(string: " \(self.speechText!)")
         synth.speakUtterance(speechUtterance)
     }
@@ -75,6 +73,14 @@ class PokemonDescriptionViewController: UIViewController {
 }
 
 extension PokemonDescriptionViewController: AVSpeechSynthesizerDelegate {
+    
+    func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didStartSpeechUtterance utterance: AVSpeechUtterance) {
+        if self.activityIndicatorView.animating == false {
+            self.activityIndicatorView.startAnimating()
+            self.activityIndicatorView.hidden = false
+        }
+    }
+    
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
         if self.activityIndicatorView.animating == true {
             self.activityIndicatorView.stopAnimating()

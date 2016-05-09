@@ -91,7 +91,7 @@ class PokedexStore: NSObject {
         }
     }
     
-    func fetchPokemonAdditionInfo(id: Int, completion: (PokemonSpecies!, NSError!) -> Void) -> Void {
+    func fetchPokemonSpecies(id: Int, completion: (PokemonSpecies!, NSError!) -> Void) -> Void {
         alamofireManager!
             .request(.GET, "https://pokeapi.co/api/v2/pokemon-species/\(id)/")
             .responseJSON { (response) in

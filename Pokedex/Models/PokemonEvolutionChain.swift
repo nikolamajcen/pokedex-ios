@@ -12,7 +12,11 @@ import ObjectMapper
 class PokemonEvolutionChain: NSObject, Mappable {
     
     var identifier: Int?
-    var evolutionChain = [PokemonEvolution]()
+    var evolutions = [PokemonEvolution]()
+    
+    override init() {
+        super.init()
+    }
     
     required init?(_ map: Map) { }
     
@@ -23,7 +27,7 @@ class PokemonEvolutionChain: NSObject, Mappable {
         let evolution = Mapper<PokemonEvolution>().map(json)
         
         if isPokemonFromFirstGeneration((evolution?.identifier)!) {
-            self.evolutionChain.append(evolution!)
+            self.evolutions.append(evolution!)
         }
         
         var jsonArray = json!["evolves_to"]!! as! [AnyObject]
@@ -36,7 +40,7 @@ class PokemonEvolutionChain: NSObject, Mappable {
             if let evolution = Mapper<PokemonEvolution>().map(jsonObject) {
                 // Only adds evolutions from first generation
                 if isPokemonFromFirstGeneration(evolution.identifier!) {
-                    self.evolutionChain.append(evolution)
+                    self.evolutions.append(evolution)
                 }
             } else {
                 break

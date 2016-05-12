@@ -67,11 +67,9 @@ class PokemonDetailViewController: UIViewController {
             if error == nil {
                 self.pokemon = pokemon
                 // Download chain
-                print("Download success: Details")
                 self.getPokemonDescription()
             } else {
                 self.endLoading(error: error)
-                print("Download error: Details")
             }
         }
     }
@@ -82,11 +80,9 @@ class PokemonDetailViewController: UIViewController {
                 self.pokemon!.descriptionInfo = result.pokemonDescription
                 self.pokemon?.evolutionChain!.identifier = result.pokemonEvolutionChainId
                 // Download chain
-                print("Download success: Description")
                 self.getPokemonEvolutionChain()
             } else {
                 self.endLoading(error: error)
-                print("Download error: Description")
             }
         }
     }
@@ -95,12 +91,10 @@ class PokemonDetailViewController: UIViewController {
         pokedexStore.fetchPokemonEvolutionChain((pokemon?.evolutionChain!.identifier)!) { (result, error) in
             if error == nil {
                 self.pokemon?.evolutionChain? = result
-                print("Download success: Evolution chain")
                 self.showPokemonDetalView()
                 self.endLoading()
             } else {
                 self.endLoading(error: error)
-                print("Download error: Evolution chain")
             }
         }
     }

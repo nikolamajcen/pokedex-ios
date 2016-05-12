@@ -43,19 +43,18 @@ class PokemonDetailViewController: UIViewController {
             if pokemon?.descriptionInfo == nil {
                 self.getPokemonDescription()
             } else {
-                self.showDescriptionTabContentView()
+                self.openDescriptionTabContentView()
             }
             break
         case 1:
             if pokemon?.evolutionChain?.evolutions.count == 0 {
                 self.getPokemonEvolutionChain()
             } else {
-                self.showEvolutionChainTabContentView()
+                self.openEvolutionChainTabContentView()
             }
             break
         case 2:
-            // TODO: See if stats are already fetched
-            self.showStatsTabContentView()
+            self.openStatsTabContentView()
             break
         default:
             break
@@ -67,50 +66,41 @@ class PokemonDetailViewController: UIViewController {
         self.pokedexStore.fetchPokemonDetails(identifier!) { (pokemon, error) in
             if error == nil {
                 self.pokemon = pokemon
-                self.showPokemonDetails(pokemon)
-                
-                // TODO: Remove printing and add showing on screen
-                for stat: PokemonStat in pokemon.stats! {
-                    print("\(stat.name!) - \(stat.value!)")
-                }
-                
-                self.endLoading()
+                // Download chain
+                print("Download success: Details")
                 self.getPokemonDescription()
             } else {
                 self.endLoading(error: error)
+                print("Download error: Details")
             }
         }
     }
     
     func getPokemonDescription() {
-        // TODO: Show loading in subview when downloading description
         pokedexStore.fetchPokemonSpecies(identifier!) { (result, error) in
             if error == nil {
                 self.pokemon!.descriptionInfo = result.pokemonDescription
                 self.pokemon?.evolutionChain!.identifier = result.pokemonEvolutionChainId
-                self.showDescriptionTabContentView()
+                // Download chain
+                print("Download success: Description")
+                self.getPokemonEvolutionChain()
             } else {
-                // TODO: Show error on fail
-                print("Download error")
+                self.endLoading(error: error)
+                print("Download error: Description")
             }
         }
     }
     
     func getPokemonEvolutionChain() {
-        // TODO: Show loading in subview when downloading description
         pokedexStore.fetchPokemonEvolutionChain((pokemon?.evolutionChain!.identifier)!) { (result, error) in
             if error == nil {
                 self.pokemon?.evolutionChain? = result
-                
-                // TODO: Remove printing and add showing on screen
-                for evolution: PokemonEvolution in (self.pokemon?.evolutionChain!.evolutions)! {
-                    print("#\(evolution.identifier!) \(evolution.name!)")
-                }
-                
-                self.showEvolutionChainTabContentView()
+                print("Download success: Evolution chain")
+                self.showPokemonDetalView()
+                self.endLoading()
             } else {
-                // TODO: Show error on fail
-                print("Download error")
+                self.endLoading(error: error)
+                print("Download error: Evolution chain")
             }
         }
     }
@@ -148,15 +138,16 @@ class PokemonDetailViewController: UIViewController {
         self.tabSegmentControl.tintColor = color
     }
     
-    private func showPokemonDetails(pokemon: Pokemon) {
-        self.title = pokemon.name
-        self.pokemonImage.image = UIImage(named: pokemon.getListImageName())
+    private func showPokemonDetalView() {
+        self.title = self.pokemon!.name
+        self.pokemonImage.image = UIImage(named: self.pokemon!.getListImageName())
         
-        self.pokemonIdLabel.text =  "#\(pokemon.id!)"
-        self.pokemonNameLabel.text = pokemon.name
-        self.showTypes(pokemon)
+        self.pokemonIdLabel.text =  "#\(self.pokemon!.id!)"
+        self.pokemonNameLabel.text = self.pokemon!.name
+        self.showTypes(self.pokemon!)
         
         self.initializeUIColors()
+        self.openDescriptionTabContentView()
     }
     
     private func showTypes(pokemon: Pokemon) {
@@ -193,7 +184,7 @@ class PokemonDetailViewController: UIViewController {
         self.currentViewController = viewController
     }
     
-    private func showDescriptionTabContentView() {
+    private func openDescriptionTabContentView() {
         let viewController = self.storyboard?
             .instantiateViewControllerWithIdentifier("PokemonDescriptionViewController")
             as! PokemonDescriptionViewController
@@ -203,20 +194,15 @@ class PokemonDetailViewController: UIViewController {
         self.addSubviewToTabContentView(viewController)
     }
     
-    private func showEvolutionChainTabContentView() {
+    private func openEvolutionChainTabContentView() {
         let viewController = (self.storyboard?
             .instantiateViewControllerWithIdentifier("PokemonEvolutionChainViewController"))!
         self.addSubviewToTabContentView(viewController)
     }
     
-    private func showStatsTabContentView() {
+    private func openStatsTabContentView() {
         let viewController = (self.storyboard?
             .instantiateViewControllerWithIdentifier("PokemonStatsViewController"))!
-        self.addSubviewToTabContentView(viewController)
-    }
-    
-    private func showErrorTabContentView() {
-        let viewController = UIViewController()
         self.addSubviewToTabContentView(viewController)
     }
 }

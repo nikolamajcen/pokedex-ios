@@ -10,6 +10,10 @@ import UIKit
 
 class PokemonEvolutionViewController: UIViewController {
     
+    @IBOutlet weak var evolutionFirstView: UIStackView!
+    @IBOutlet weak var evolutionSecondView: UIStackView!
+    @IBOutlet weak var evolutionThirdView: UIStackView!
+    
     @IBOutlet weak var evolutionFirstImage: UIImageView!
     @IBOutlet weak var evolutionSecondImage: UIImageView!
     @IBOutlet weak var evolutionThirdImage: UIImageView!
@@ -43,6 +47,18 @@ class PokemonEvolutionViewController: UIViewController {
     }
     
     private func showEvolutions() {
+        switch (self.evolutions?.count)! {
+        case 1:
+            self.evolutionSecondView.hidden = true
+            self.evolutionThirdView.hidden = true
+            break
+        case 2:
+            self.evolutionThirdView.hidden = true
+            break
+        default:
+            break
+        }
+        
         for evolution: PokemonEvolution in self.evolutions! {
             showEvolution(evolution, evolutionNumber: (self.evolutions?.indexOf(evolution))!)
         }

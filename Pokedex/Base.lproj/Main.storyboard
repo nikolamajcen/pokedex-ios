@@ -90,10 +90,10 @@
             </objects>
             <point key="canvasLocation" x="1562" y="-320"/>
         </scene>
-        <!--Pokemon Detail View Controller-->
+        <!--Pokemon Details-->
         <scene sceneID="1zM-Pr-SPs">
             <objects>
-                <viewController id="2Ug-k6-aS1" customClass="PokemonDetailViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="2Ug-k6-aS1" userLabel="Pokemon Details" customClass="PokemonDetailViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="a2f-Km-thP"/>
                         <viewControllerLayoutGuide type="bottom" id="gCi-Sq-TWB"/>
@@ -132,13 +132,12 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JyG-Qs-B3s" userLabel="Types">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JyG-Qs-B3s" userLabel="Types">
                                                 <rect key="frame" x="195" y="157" width="170" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iq-jB-ADJ">
                                                         <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="30" id="bON-h2-cIA"/>
                                                             <constraint firstAttribute="width" constant="80" id="p6u-I4-9mK"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -147,17 +146,13 @@
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tt-Un-Zmz">
                                                         <rect key="frame" x="90" y="0.0" width="80" height="30"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="30" id="P9Z-zj-vSF"/>
-                                                            <constraint firstAttribute="width" constant="80" id="Tj2-Du-Ydp"/>
-                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="UMb-PK-e9i"/>
+                                                    <constraint firstAttribute="height" constant="30" id="6rY-nw-af4"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
@@ -222,10 +217,10 @@
             </objects>
             <point key="canvasLocation" x="2318" y="-320"/>
         </scene>
-        <!--Trainer details-->
+        <!--Trainer Details-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="TrainerViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8rJ-Kc-sve" userLabel="Trainer Details" customClass="TrainerViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
@@ -254,10 +249,10 @@
             </objects>
             <point key="canvasLocation" x="1562" y="360"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" userLabel="Main Tab Bar" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
@@ -273,10 +268,10 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
-        <!--Pokedex-->
+        <!--Pokedex Navigation Bar-->
         <scene sceneID="FFS-UO-osQ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gTq-Sn-fi2" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gTq-Sn-fi2" userLabel="Pokedex Navigation Bar" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Pokedex" image="first" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LBq-Yg-I4d">
@@ -292,10 +287,10 @@
             </objects>
             <point key="canvasLocation" x="750" y="-320"/>
         </scene>
-        <!--Trainer details-->
+        <!--Trainer Navigation Bar-->
         <scene sceneID="mzN-ve-JyT">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hKH-xl-wuo" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hKH-xl-wuo" userLabel="Trainer Navigation Bar" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Trainer details" image="second" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="0WK-or-dx3">
@@ -334,10 +329,10 @@
             </objects>
             <point key="canvasLocation" x="3003" y="-320.5"/>
         </scene>
-        <!--Pokemon Description View Controller-->
+        <!--Pokemon Description-->
         <scene sceneID="bGO-V8-4Fd">
             <objects>
-                <viewController storyboardIdentifier="PokemonDescriptionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="J4T-vl-Kg8" customClass="PokemonDescriptionViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PokemonDescriptionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="J4T-vl-Kg8" userLabel="Pokemon Description" customClass="PokemonDescriptionViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="teY-Lz-8F1"/>
                         <viewControllerLayoutGuide type="bottom" id="8zS-Mq-uOr"/>
@@ -400,10 +395,10 @@
             </objects>
             <point key="canvasLocation" x="3702" y="-978"/>
         </scene>
-        <!--Pokemon Evolution View Controller-->
+        <!--Pokemon Evolution-->
         <scene sceneID="fCW-CR-Mlp">
             <objects>
-                <viewController storyboardIdentifier="PokemonEvolutionChainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Vvw-OE-uMz" customClass="PokemonEvolutionViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PokemonEvolutionChainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Vvw-OE-uMz" userLabel="Pokemon Evolution" customClass="PokemonEvolutionViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jVy-Bi-pxg"/>
                         <viewControllerLayoutGuide type="bottom" id="Laj-ec-vvw"/>
@@ -421,7 +416,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oya-eh-5ab">
                                                 <rect key="frame" x="0.0" y="0.0" width="167" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g2y-FI-RRg" userLabel="Image">
@@ -433,7 +428,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="094-Mf-bqj" userLabel="Name">
                                                 <rect key="frame" x="0.0" y="184" width="167" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -444,7 +439,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7jo-km-gRR">
                                                 <rect key="frame" x="0.0" y="0.0" width="166" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vf6-be-vMJ" userLabel="Image">
@@ -456,7 +451,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6X-Do-2uO" userLabel="Name">
                                                 <rect key="frame" x="0.0" y="184" width="166" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -467,7 +462,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReW-sE-WjB">
                                                 <rect key="frame" x="0.0" y="0.0" width="167" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mkI-1t-RFF" userLabel="Image">
@@ -479,7 +474,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4d-Mv-Pao" userLabel="Name">
                                                 <rect key="frame" x="0.0" y="184" width="167" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -511,10 +506,11 @@
             </objects>
             <point key="canvasLocation" x="3702" y="-320"/>
         </scene>
-        <!--View Controller-->
+        <!--Pokemon Stats-->
         <scene sceneID="JaG-6Q-kyy">
             <objects>
-                <viewController storyboardIdentifier="PokemonStatsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="656-Su-9St" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HJF-49-gDE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="PokemonStatsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="656-Su-9St" userLabel="Pokemon Stats" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SBf-ud-Rda"/>
                         <viewControllerLayoutGuide type="bottom" id="Iyl-aL-eKs"/>
@@ -525,7 +521,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HJF-49-gDE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3702" y="340"/>
         </scene>

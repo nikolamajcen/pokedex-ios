@@ -36,6 +36,10 @@ class PokemonEvolutionViewController: UIViewController {
         self.evolutionFirstNameLabel.text = ""
         self.evolutionSecondNameLabel.text = ""
         self.evolutionThirdNameLabel.text = ""
+        
+        self.evolutionFirstIdentifierLabel.text = ""
+        self.evolutionSecondIdentifierLabel.text = ""
+        self.evolutionThirdIdentifierLabel.text = ""
     }
     
     private func showEvolutions() {

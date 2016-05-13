@@ -130,6 +130,8 @@ class PokemonDetailViewController: UIViewController {
         tabBar?.tintColor = color
         
         self.tabSegmentControl.tintColor = color
+        
+        // COLOR
     }
     
     private func showPokemonDetalView() {
@@ -185,12 +187,16 @@ class PokemonDetailViewController: UIViewController {
         viewController.createDescriptionText(name: (pokemon?.name)!,
                                              types: (pokemon?.types)!,
                                              description: (pokemon?.descriptionInfo?.text)!)
+        viewController.addColorStylesToView(primaryColor: TypeColor.getColorByType(self.pokemon!.types![0].name!),
+                                            accentColor: UIColor.flatWhiteColor())
         self.addSubviewToTabContentView(viewController)
     }
     
     private func openEvolutionChainTabContentView() {
-        let viewController = (self.storyboard?
-            .instantiateViewControllerWithIdentifier("PokemonEvolutionChainViewController"))!
+        let viewController = self.storyboard?
+            .instantiateViewControllerWithIdentifier("PokemonEvolutionChainViewController")
+        as! PokemonEvolutionViewController
+        viewController.evolutions = self.pokemon?.evolutionChain?.evolutions
         self.addSubviewToTabContentView(viewController)
     }
     

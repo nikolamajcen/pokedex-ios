@@ -76,6 +76,7 @@ class PokedexViewController: UIViewController {
             
         }
         
+        detailViewController.hidesBottomBarWhenPushed = true
         detailViewController.identifier = pokemon.id
         detailViewController.title = pokemon.name
     }

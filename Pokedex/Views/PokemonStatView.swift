@@ -48,6 +48,7 @@ class PokemonStatView: StateView {
         if barWidthMultiplier > 1 {
             barWidthMultiplier = 1
         }
+        
         self.statBarFrontLayerWidth = NSLayoutConstraint(item: self.statBarFrontLayer,
                                                          attribute: NSLayoutAttribute.Width,
                                                          relatedBy: .Equal,

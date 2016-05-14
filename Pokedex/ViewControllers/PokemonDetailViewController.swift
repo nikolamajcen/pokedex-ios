@@ -26,6 +26,7 @@ class PokemonDetailViewController: UIViewController {
     
     private let pokedexStore = PokedexStore()
     private var pokemon: Pokemon?
+    private var isContentDownloaded = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +93,7 @@ class PokemonDetailViewController: UIViewController {
             if error == nil {
                 self.pokemon?.evolutionChain? = result
                 self.showPokemonDetalView()
+                self.isContentDownloaded = true
                 self.endLoading()
             } else {
                 self.endLoading(error: error)
@@ -211,6 +213,6 @@ class PokemonDetailViewController: UIViewController {
 
 extension PokemonDetailViewController: StatefulViewController {
     func hasContent() -> Bool {
-        return self.pokemon != nil
+        return self.isContentDownloaded
     }
 }

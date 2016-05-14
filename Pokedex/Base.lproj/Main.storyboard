@@ -531,8 +531,7 @@
         <!--Pokemon Stats-->
         <scene sceneID="JaG-6Q-kyy">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HJF-49-gDE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="PokemonStatsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="656-Su-9St" userLabel="Pokemon Stats" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PokemonStatsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="656-Su-9St" userLabel="Pokemon Stats" customClass="PokemonStatsViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SBf-ud-Rda"/>
                         <viewControllerLayoutGuide type="bottom" id="Iyl-aL-eKs"/>
@@ -540,9 +539,24 @@
                     <view key="view" contentMode="scaleToFill" id="tv9-2c-e8d">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="61P-ss-gR9" userLabel="Stats Container">
+                                <rect key="frame" x="40" y="15" width="520" height="565"/>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="61P-ss-gR9" secondAttribute="trailing" constant="20" id="FaX-kP-v18"/>
+                            <constraint firstItem="Iyl-aL-eKs" firstAttribute="top" secondItem="61P-ss-gR9" secondAttribute="bottom" constant="20" id="J14-Sf-TGE"/>
+                            <constraint firstItem="61P-ss-gR9" firstAttribute="leading" secondItem="tv9-2c-e8d" secondAttribute="leadingMargin" constant="20" id="L46-jS-Msj"/>
+                            <constraint firstItem="61P-ss-gR9" firstAttribute="top" secondItem="SBf-ud-Rda" secondAttribute="bottom" constant="15" id="nmA-cw-3TN"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="statsContainerView" destination="61P-ss-gR9" id="HG7-cj-AKu"/>
+                    </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HJF-49-gDE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3702" y="340"/>
         </scene>

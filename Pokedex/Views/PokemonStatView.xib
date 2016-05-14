@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PokemonStatView" customModule="Pokedex" customModuleProvider="target">
+            <connections>
+                <outlet property="statBarBackLayer" destination="Pjl-hK-yta" id="DdF-Ky-U0z"/>
+                <outlet property="statBarFrontLayer" destination="yDw-WR-mf3" id="vfk-GN-9Z9"/>
+                <outlet property="statBarFrontLayerWidth" destination="quS-eA-F1C" id="sOK-PX-nGS"/>
+                <outlet property="statLabel" destination="9BW-9X-Sr2" id="DC8-xT-Ond"/>
+                <outlet property="view" destination="iN0-l3-epB" id="oiX-EQ-gCt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="100"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Nk9-RT-zwS" userLabel="Container View">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="100"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9BW-9X-Sr2">
+                            <rect key="frame" x="0.0" y="0.0" width="175" height="100"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pjl-hK-yta" userLabel="Bar Back Layer">
+                            <rect key="frame" x="185" y="0.0" width="315" height="100"/>
+                            <subviews>
+                                <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="yDw-WR-mf3" userLabel="Bar Front Layer">
+                                    <rect key="frame" x="0.0" y="0.0" width="315" height="100"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="yDw-WR-mf3" firstAttribute="leading" secondItem="Pjl-hK-yta" secondAttribute="leading" id="axy-4X-8gX"/>
+                                <constraint firstAttribute="bottom" secondItem="yDw-WR-mf3" secondAttribute="bottom" id="l29-aV-72y"/>
+                                <constraint firstItem="yDw-WR-mf3" firstAttribute="width" secondItem="Pjl-hK-yta" secondAttribute="width" priority="999" id="quS-eA-F1C"/>
+                                <constraint firstItem="yDw-WR-mf3" firstAttribute="top" secondItem="Pjl-hK-yta" secondAttribute="top" id="rzZ-aV-eSq"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="9BW-9X-Sr2" firstAttribute="width" secondItem="Nk9-RT-zwS" secondAttribute="width" multiplier="0.35" id="mCj-xa-iz7"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Nk9-RT-zwS" secondAttribute="trailing" id="E00-8A-cMs"/>
+                <constraint firstItem="Nk9-RT-zwS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Noh-yF-DyF"/>
+                <constraint firstAttribute="bottom" secondItem="Nk9-RT-zwS" secondAttribute="bottom" id="jaq-hv-KVw"/>
+                <constraint firstItem="Nk9-RT-zwS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="yqh-6c-r17"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="275" y="127"/>
+        </view>
+    </objects>
+</document>

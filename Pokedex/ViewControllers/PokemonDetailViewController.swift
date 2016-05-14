@@ -201,8 +201,10 @@ class PokemonDetailViewController: UIViewController {
     }
     
     private func openStatsTabContentView() {
-        let viewController = (self.storyboard?
-            .instantiateViewControllerWithIdentifier("PokemonStatsViewController"))!
+        let viewController = self.storyboard?
+            .instantiateViewControllerWithIdentifier("PokemonStatsViewController")
+        as! PokemonStatsViewController
+        viewController.stats = self.pokemon?.stats
         self.addSubviewToTabContentView(viewController)
     }
 }

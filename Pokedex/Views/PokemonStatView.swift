@@ -50,7 +50,7 @@ class PokemonStatView: StateView {
         }
         
         self.statBarFrontLayerWidth = NSLayoutConstraint(item: self.statBarFrontLayer,
-                                                         attribute: NSLayoutAttribute.Width,
+                                                         attribute: .Width,
                                                          relatedBy: .Equal,
                                                          toItem: self.statBarBackLayer,
                                                          attribute: .Width,

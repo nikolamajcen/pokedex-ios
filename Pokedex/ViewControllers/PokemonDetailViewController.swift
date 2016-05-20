@@ -175,6 +175,11 @@ class PokemonDetailViewController: UIViewController {
     }
     
     private func addSubviewToTabContentView(viewController: UIViewController) {
+        let currentViewController = self.childViewControllers.last
+        currentViewController?.willMoveToParentViewController(nil)
+        currentViewController!.view.removeFromSuperview()
+        currentViewController?.removeFromParentViewController()
+        
         self.addChildViewController(viewController)
         viewController.view.frame = self.tabContentView.bounds
         viewController.didMoveToParentViewController(self)

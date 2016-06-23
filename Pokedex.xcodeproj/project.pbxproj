@@ -54,8 +54,8 @@
 		4F325CAF1CC56048004A00FA /* PokemonType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonType.swift; sourceTree = "<group>"; };
 		4F572BAB1CDEB70F00695F37 /* PokemonEvolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonEvolution.swift; sourceTree = "<group>"; };
 		4F6019ED1CE0CB8D0021FED6 /* PokemonStat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonStat.swift; sourceTree = "<group>"; };
-		4F8A03161CEFA9C5003F3532 /* Pokemon.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Pokemon.storyboard; sourceTree = "<group>"; };
-		4F8A03181CEFAABD003F3532 /* Trainer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Trainer.storyboard; sourceTree = "<group>"; };
+		4F8A03161CEFA9C5003F3532 /* Pokemon.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Pokemon.storyboard; path = Base.lproj/Pokemon.storyboard; sourceTree = "<group>"; };
+		4F8A03181CEFAABD003F3532 /* Trainer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Trainer.storyboard; path = Base.lproj/Trainer.storyboard; sourceTree = "<group>"; };
 		4FA5B8FC1CCA5DCE006BCC98 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		4FA5B8FE1CCA6525006BCC98 /* ErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		4FA5B9001CCA6536006BCC98 /* EmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };

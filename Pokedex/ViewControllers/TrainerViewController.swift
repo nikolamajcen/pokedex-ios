@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  TrainerViewController.swift
 //  Pokedex
 //
 //  Created by Nikola Majcen on 04/04/16.
@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import PNChart
 
 class TrainerViewController: UIViewController {
 
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
+    
     @IBOutlet weak var trainerImage: UIImageView!
     @IBOutlet weak var trainerName: UILabel!
+    @IBOutlet weak var chartView: UIView!
+    
+    var captureRatioChart: PNCircleChart?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,10 +27,36 @@ class TrainerViewController: UIViewController {
     }
     
     private func initializeUI() {
+        self.scrollView.backgroundColor = UIColor.flatWhiteColor()
+        self.contentView.backgroundColor = UIColor.flatWhiteColor()
+        
+        self.trainerName.textColor = UIColor.flatWhiteColorDark()
+        
         self.trainerImage.clipsToBounds = true
         self.trainerImage.layer.cornerRadius = self.trainerImage.frame.width / 2
-        self.trainerImage.layer.borderWidth = 2.5
-        self.trainerImage.layer.borderColor = UIColor.flatGrayColor().CGColor
+        self.trainerImage.layer.borderWidth = 5
+        self.trainerImage.layer.borderColor = UIColor.flatWhiteColorDark().CGColor
+        
+        self.captureRatioChart = PNCircleChart(frame: self.chartView.bounds,
+                                               total: 100,
+                                               current: 60,
+                                               clockwise: true,
+                                               shadow: true,
+                                               shadowColor: UIColor.flatWhiteColorDark())
+        
+        self.captureRatioChart?.backgroundColor = UIColor.flatWhiteColor()
+        self.captureRatioChart!.strokeColor = UIColor.flatRedColorDark()
+        self.captureRatioChart!.countingLabel.textColor = UIColor.flatWhiteColorDark()
+        self.captureRatioChart!.strokeChart()
+        self.chartView.addSubview(self.captureRatioChart!)
+        
+        if UserDefaultsManager.trainerImage != nil {
+            self.trainerImage.image = UserDefaultsManager.trainerImage
+        }
+        
+        if UserDefaultsManager.trainerName != nil {
+            self.trainerName.text = UserDefaultsManager.trainerName
+        }
     }
     
     private func initializeControls() {
@@ -62,12 +95,14 @@ class TrainerViewController: UIViewController {
     }
     
     internal func changeTrainerName() {
+        let trainerName = UserDefaultsManager.trainerName
+        
         let changeNameController = UIAlertController(title: "Trainer name",
                                                      message: "Enter new name: ",
                                                      preferredStyle: .Alert)
         
         changeNameController.addTextFieldWithConfigurationHandler { (textField) in
-            if (self.trainerName.text?.characters.count == 0) {
+            if (trainerName == nil || trainerName!.characters.count == 0) {
                 textField.placeholder = "Enter your name"
             } else {
                 textField.text = self.trainerName.text
@@ -81,6 +116,7 @@ class TrainerViewController: UIViewController {
                 let name = changeNameController.textFields![0].text
                 if (name?.characters.count > 0) {
                     self.trainerName.text = name
+                    UserDefaultsManager.trainerName = name
             }
         }
         
@@ -93,6 +129,7 @@ class TrainerViewController: UIViewController {
 extension TrainerViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         self.trainerImage.image = image
+        UserDefaultsManager.trainerImage = image
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
 }

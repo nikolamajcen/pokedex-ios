@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kvt-DA-lrQ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="599"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TD7-oR-pQv" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="599"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8QW-am-QMc">
                                                 <rect key="frame" x="236" y="80" width="128" height="128"/>
@@ -32,17 +32,27 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trainer name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="664-3e-mEH">
-                                                <rect key="frame" x="250" y="239" width="100" height="21"/>
+                                                <rect key="frame" x="250" y="238" width="100" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WzZ-dV-7vN">
+                                                <rect key="frame" x="236" y="319" width="128" height="128"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="WzZ-dV-7vN" secondAttribute="height" multiplier="1:1" id="Hnh-bB-dmf"/>
+                                                    <constraint firstAttribute="width" constant="128" id="OIT-Ia-ygp"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="664-3e-mEH" firstAttribute="top" secondItem="8QW-am-QMc" secondAttribute="bottom" constant="31" id="0ti-50-lDr"/>
+                                            <constraint firstItem="664-3e-mEH" firstAttribute="top" secondItem="8QW-am-QMc" secondAttribute="bottom" constant="30" id="0ti-50-lDr"/>
+                                            <constraint firstItem="WzZ-dV-7vN" firstAttribute="centerX" secondItem="TD7-oR-pQv" secondAttribute="centerX" id="AAI-nx-Vvp"/>
                                             <constraint firstItem="664-3e-mEH" firstAttribute="centerX" secondItem="TD7-oR-pQv" secondAttribute="centerX" id="Bwr-fq-R5b"/>
                                             <constraint firstItem="8QW-am-QMc" firstAttribute="centerX" secondItem="TD7-oR-pQv" secondAttribute="centerX" id="Svo-Us-hr1"/>
+                                            <constraint firstItem="WzZ-dV-7vN" firstAttribute="top" secondItem="664-3e-mEH" secondAttribute="bottom" constant="60" id="odX-j9-0TI"/>
                                             <constraint firstItem="8QW-am-QMc" firstAttribute="top" secondItem="TD7-oR-pQv" secondAttribute="top" constant="80" id="zPa-13-Gug"/>
                                         </constraints>
                                     </view>
@@ -62,11 +72,14 @@
                             <constraint firstAttribute="trailing" secondItem="Kvt-DA-lrQ" secondAttribute="trailing" id="8Oe-cT-gl2"/>
                             <constraint firstItem="Kvt-DA-lrQ" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="DAO-q0-XyE"/>
                             <constraint firstItem="Kvt-DA-lrQ" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="-64" id="rbB-S1-7eM"/>
-                            <constraint firstItem="Kvt-DA-lrQ" firstAttribute="bottom" secondItem="Djb-ko-YwX" secondAttribute="top" constant="48" id="rfu-8F-VHU"/>
+                            <constraint firstItem="Kvt-DA-lrQ" firstAttribute="bottom" secondItem="Djb-ko-YwX" secondAttribute="top" constant="49" id="rfu-8F-VHU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Trainer details" id="bYx-Uf-Xbv"/>
                     <connections>
+                        <outlet property="chartView" destination="WzZ-dV-7vN" id="Kjf-gq-NME"/>
+                        <outlet property="contentView" destination="TD7-oR-pQv" id="L2E-f4-Xtm"/>
+                        <outlet property="scrollView" destination="Kvt-DA-lrQ" id="m7f-uG-LMf"/>
                         <outlet property="trainerImage" destination="8QW-am-QMc" id="bMt-4g-lqd"/>
                         <outlet property="trainerName" destination="664-3e-mEH" id="bqY-JG-xgf"/>
                     </connections>

@@ -88,16 +88,20 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Pokedex/ChameleonFramework.framework"
   install_framework "Pods-Pokedex/DGActivityIndicatorView.framework"
   install_framework "Pods-Pokedex/ObjectMapper.framework"
+  install_framework "Pods-Pokedex/PNChart.framework"
   install_framework "Pods-Pokedex/RxCocoa.framework"
   install_framework "Pods-Pokedex/RxSwift.framework"
   install_framework "Pods-Pokedex/StatefulViewController.framework"
+  install_framework "Pods-Pokedex/UICountingLabel.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Pokedex/Alamofire.framework"
   install_framework "Pods-Pokedex/ChameleonFramework.framework"
   install_framework "Pods-Pokedex/DGActivityIndicatorView.framework"
   install_framework "Pods-Pokedex/ObjectMapper.framework"
+  install_framework "Pods-Pokedex/PNChart.framework"
   install_framework "Pods-Pokedex/RxCocoa.framework"
   install_framework "Pods-Pokedex/RxSwift.framework"
   install_framework "Pods-Pokedex/StatefulViewController.framework"
+  install_framework "Pods-Pokedex/UICountingLabel.framework"
 fi

@@ -5,16 +5,20 @@ PODS:
     - ChameleonFramework/Default
   - DGActivityIndicatorView (2.0)
   - ObjectMapper (1.2.0)
+  - PNChart (0.8.9):
+    - UICountingLabel (~> 1.2.0)
   - RxCocoa (2.4):
     - RxSwift (~> 2.4)
   - RxSwift (2.4)
   - StatefulViewController (1.0)
+  - UICountingLabel (1.2.0)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
   - ChameleonFramework/Swift
   - DGActivityIndicatorView
   - ObjectMapper (~> 1.2)
+  - PNChart
   - RxCocoa (~> 2.0)
   - RxSwift (~> 2.0)
   - StatefulViewController (~> 1.0)
@@ -24,8 +28,10 @@ SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   DGActivityIndicatorView: 52875b025a6ccf6a431a905285c12e2bb95eb559
   ObjectMapper: b1e9c7c8a9f6400b72690c80072c131504caa66f
+  PNChart: 84774d225c2126ded6c93d4dbe6ae98c3a73c2d2
   RxCocoa: 7d6cd877de99f5640306b3d6cf87f580c1d91b61
   RxSwift: 67b9ef4e8b34fb394e200e754c6a09cc16559f94
   StatefulViewController: 2a0e5ab30d9ade8e366253fb759baa9fbf458f3e
+  UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
 
 COCOAPODS: 0.39.0

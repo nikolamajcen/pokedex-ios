@@ -17,7 +17,7 @@ class PokemonType: NSObject, Mappable {
     required init?(_ map: Map) { }
     
     func mapping(map: Map) {
-        self.name <- map["type.name"]
-        self.url <- (map["type.url"], URLTransform())
+        name <- map["type.name"]
+        url <- (map["type.url"], URLTransform())
     }
 }

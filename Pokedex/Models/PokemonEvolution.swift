@@ -18,17 +18,17 @@ class PokemonEvolution: NSObject, Mappable {
     required init?(_ map: Map) { }
     
     func mapping(map: Map) {
-        self.name <- map["species.name"]
-        self.url <- (map["species.url"], URLTransform())
+        name <- map["species.name"]
+        name = formatName(name!)
         
-        self.identifier = Int((self.url?.absoluteURL.lastPathComponent)!)!
-        makeFirstLetterInNameUppercase()
+        url <- (map["species.url"], URLTransform())
+        identifier = Int((self.url?.absoluteURL.lastPathComponent)!)!
     }
     
-    private func makeFirstLetterInNameUppercase() -> Void {
-        let startIndex = self.name!.startIndex
-        let endIndex = self.name!.startIndex
-        let firstLetterUppercase = String(self.name!.characters.first! as Character).uppercaseString
-        self.name!.replaceRange(startIndex...endIndex, with: firstLetterUppercase)
+    private func formatName(name: String) -> String {
+        let startIndex = name.startIndex
+        let endIndex = name.startIndex
+        let firstLetter = String(name.characters.first! as Character).uppercaseString
+        return name.stringByReplacingCharactersInRange(startIndex...endIndex, withString: firstLetter)
     }
 }

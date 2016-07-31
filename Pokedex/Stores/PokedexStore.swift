@@ -16,7 +16,63 @@ class PokedexStore: NSObject {
     
     override init() {
         super.init()
-        self.configurateRequestTimeout()
+        configurateRequestTimeout()
+    }
+    
+    func fetchPokemons(completion: ([Pokemon]!, NSError!) -> Void) -> Void {
+        alamofireManager!
+            .request(.GET, "https://pokeapi.co/api/v2/pokemon/?limit=151&offset=0")
+            .responseJSON { response in
+                
+                if let error = self.evaluateResponse(response) {
+                    completion(nil, error)
+                } else {
+                    let pokemons = Mapper<Pokemon>().mapArray(response.result.value!["results"])
+                    completion(pokemons, nil)
+                }
+        }
+    }
+    
+    func fetchPokemonDetails(id: Int, completion: (Pokemon!, NSError!) -> Void) -> Void {
+        alamofireManager!
+            .request(.GET, "https://pokeapi.co/api/v2/pokemon/\(id)/")
+            .responseJSON { (response) in
+                
+                if let error = self.evaluateResponse(response) {
+                    completion(nil, error)
+                } else {
+                    let pokemon = Mapper<Pokemon>().map(response.result.value)
+                    completion(pokemon, nil)
+                }
+        }
+    }
+    
+    func fetchPokemonSpecies(id: Int, completion: (PokemonSpecies!, NSError!) -> Void) -> Void {
+        alamofireManager!
+            .request(.GET, "https://pokeapi.co/api/v2/pokemon-species/\(id)/")
+            .responseJSON { (response) in
+
+                if let error = self.evaluateResponse(response) {
+                    completion(nil, error)
+                } else {
+                    let pokemonSpecies = Mapper<PokemonSpecies>().map(response.result.value)
+                    completion(pokemonSpecies, nil)
+                }
+        }
+    }
+    
+    func fetchPokemonEvolutionChain(id: Int, completion: (PokemonEvolutionChain!, NSError!) -> Void) -> Void {
+        alamofireManager!
+            .request(.GET, "https://pokeapi.co/api/v2/evolution-chain/\(id)/")
+            .responseJSON { (response) in
+                
+                if let error = self.evaluateResponse(response) {
+                    completion(nil, error)
+                } else {
+                    let pokemonEvolutionChain = Mapper<PokemonEvolutionChain>().map(response.result.value)
+                    completion(pokemonEvolutionChain, nil)
+                }
+        }
     }
     
     private func configurateRequestTimeout() {
@@ -25,134 +81,19 @@ class PokedexStore: NSObject {
         self.alamofireManager = Alamofire.Manager(configuration: configuration)
     }
     
-    func fetchPokemons(completion: ([Pokemon]!, NSError!) -> Void) -> Void {
-        alamofireManager!
-            .request(.GET, "https://pokeapi.co/api/v2/pokemon/?limit=151&offset=0")
-            .responseJSON { response in
-                if response.response == nil {
-                    completion(nil,
-                        NSError(domain: "No network connection.",
-                            code: 0,
-                            userInfo: nil))
-                    return
-                }
-                
-                guard response.result.isSuccess else {
-                    completion(nil,
-                        NSError(domain: "Bad request.",
-                            code: (response.response?.statusCode)!,
-                            userInfo: nil))
-                    return
-                }
-                
-                guard let value = response.result.value!["results"] else {
-                    completion(nil,
-                        NSError(domain: "No data.",
-                            code: (response.response?.statusCode)!,
-                            userInfo: nil))
-                    return
-                }
-                
-                let pokemons = Mapper<Pokemon>().mapArray(value)
-                completion(pokemons, nil)
+    private func evaluateResponse(response: Response<AnyObject, NSError>) -> NSError! {
+        if response.response == nil {
+            return NSError(domain: "No network connection.", code: 0, userInfo: nil)
         }
+        
+        if response.result.isFailure {
+            return NSError(domain: "Bad request.", code: (response.response?.statusCode)!, userInfo: nil)
+            
+        }
+        
+        if response.result.value == nil {
+            return NSError(domain: "No data.", code: (response.response?.statusCode)!, userInfo: nil)
+        }
+        return nil
     }
-    
-    func fetchPokemonDetails(id: Int, completion: (Pokemon!, NSError!) -> Void) -> Void {
-        alamofireManager!
-            .request(.GET, "https://pokeapi.co/api/v2/pokemon/\(id)/")
-            .responseJSON { (response) in
-                if response.response == nil {
-                    completion(nil,
-                        NSError(domain: "No network connection.",
-                            code: 0,
-                            userInfo: nil))
-                    return
-                }
-                
-                guard response.result.isSuccess else {
-                    completion(nil,
-                        NSError(domain: "Bad request.",
-                            code: (response.response?.statusCode)!,
-                            userInfo: nil))
-                    return
-                }
-                
-                guard let value = response.result.value else {
-                    completion(nil,
-                        NSError(domain: "No data.",
-                            code: (response.response?.statusCode)!,
-                            userInfo: nil))
-                    return
-                }
-                                
-                let pokemon = Mapper<Pokemon>().map(value)
-                completion(pokemon, nil)
-        }
-    }
-    
-    func fetchPokemonSpecies(id: Int, completion: (PokemonSpecies!, NSError!) -> Void) -> Void {
-        alamofireManager!
-            .request(.GET, "https://pokeapi.co/api/v2/pokemon-species/\(id)/")
-            .responseJSON { (response) in
-                if response.response == nil {
-                    completion(nil,
-                        NSError(domain: "No network connection.",
-                            code: 0,
-                            userInfo: nil))
-                    return
-                }
-                
-                guard response.result.isSuccess else {
-                    completion(nil,
-                        NSError(domain: "Bad request.",
-                            code: (response.response?.statusCode)!,
-                            userInfo: nil))
-                    return
-                }
-                
-                guard let value = response.result.value else {
-                    completion(nil,
-                        NSError(domain: "No data.",
-                            code: (response.response?.statusCode)!,
-                            userInfo: nil))
-                    return
-                }
-                
-                let pokemonSpecies = Mapper<PokemonSpecies>().map(value)
-                completion(pokemonSpecies, nil)
-        }
-    }
-    
-    func fetchPokemonEvolutionChain(id: Int, completion: (PokemonEvolutionChain!, NSError!) -> Void) -> Void {
-        alamofireManager!
-            .request(.GET, "https://pokeapi.co/api/v2/evolution-chain/\(id)/")
-            .responseJSON { (response) in
-                if response.response == nil {
-                    completion(nil,
-                        NSError(domain: "No network connection.",
-                            code: 0,
-                            userInfo: nil))
-                    return
-                }
-                
-                guard response.result.isSuccess else {
-                    completion(nil,
-                        NSError(domain: "Bad request.",
-                            code: (response.response?.statusCode)!,
-                            userInfo: nil))
-                    return
-                }
-                
-                guard let value = response.result.value else {
-                    completion(nil,
-                        NSError(domain: "No data.",
-                            code: (response.response?.statusCode)!,
-                            userInfo: nil))
-                    return
-                }
-                
-                let pokemonEvolutionChain = Mapper<PokemonEvolutionChain>().map(value)
-                completion(pokemonEvolutionChain, nil)
-        }
-    }}
+}

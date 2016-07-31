@@ -20,7 +20,6 @@ class UserDefaultsManager {
         set {
             let defaults = initializeUserDefaults()
             defaults.setValue(newValue, forKey: "trainerName")
-            defaults.synchronize()
         }
     }
     
@@ -39,7 +38,6 @@ class UserDefaultsManager {
         set {
             let defaults = initializeUserDefaults()
             defaults.setValue(UIImageJPEGRepresentation(newValue, 100), forKey: "trainerImage")
-            defaults.synchronize()
         }
     }
     

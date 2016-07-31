@@ -1,4 +1,4 @@
-        //
+//
 //  PokedexViewController.swift
 //  Pokedex
 //
@@ -70,7 +70,7 @@ class PokedexViewController: UIViewController {
         
         let pokemon: Pokemon
         if self.searchController.active == true {
-            pokemon = (self.searchData[(path?.row)!] as Pokemon)
+            pokemon = (self.searchData[(path?.row)!] as Pokemon) 
         } else {
             pokemon = (self.pokedexData[(path?.row)!] as Pokemon)
             

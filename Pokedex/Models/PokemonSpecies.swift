@@ -20,26 +20,24 @@ class PokemonSpecies: NSObject, Mappable {
     required init?(_ map: Map) { }
     
     func mapping(map: Map) {
-        self.descriptions <- map["flavor_text_entries"]
-        self.setEnglishDescriptionDefault()
+        descriptions <- map["flavor_text_entries"]
+        setEnglishDescriptionDefault()
         
-        self.pokemonEvolutionChainUrl <- (map["evolution_chain.url"], URLTransform())
-        self.pokemonEvolutionChainId = Int((self.pokemonEvolutionChainUrl?.absoluteURL.lastPathComponent)!)!
+        pokemonEvolutionChainUrl <- (map["evolution_chain.url"], URLTransform())
+        pokemonEvolutionChainId = Int((pokemonEvolutionChainUrl?.absoluteURL.lastPathComponent)!)!
     }
     
     private func setEnglishDescriptionDefault() {
-        for pokemonDescription: PokemonDescription in descriptions! {
-            if pokemonDescription.language == "en" {
-                self.pokemonDescription = pokemonDescription
-                self.formatDescriptionText()
+        for description: PokemonDescription in descriptions! {
+            if description.language == "en" {
+                pokemonDescription = formatDescriptionText(description)
                 break
             }
         }
     }
     
-    private func formatDescriptionText() {
-        let text = self.pokemonDescription?.text?
-            .stringByReplacingOccurrencesOfString("\n", withString: " ")
-        self.pokemonDescription!.text = text
+    private func formatDescriptionText(description: PokemonDescription) -> PokemonDescription {
+        description.text = description.text?.stringByReplacingOccurrencesOfString("\n", withString: " ")
+        return description
     }
 }

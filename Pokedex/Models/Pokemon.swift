@@ -15,8 +15,6 @@ class Pokemon: NSObject, Mappable {
     var id: Int?
     var name: String?
     var types: [PokemonType]?
-    var weigth: Float?
-    var height: Float?
     var descriptionInfo: PokemonDescription?
     var evolutionChain: PokemonEvolutionChain?
     var stats: [PokemonStat]?
@@ -24,81 +22,71 @@ class Pokemon: NSObject, Mappable {
     required init?(_ map: Map) { }
     
     func mapping(map: Map) {
-        self.evolutionChain = PokemonEvolutionChain()
+        evolutionChain = PokemonEvolutionChain()
         
-        self.url <- (map["url"], URLTransform())
-        self.name <- map["name"]
-        
-        if self.url != nil {
-            self.id = Int((url?.absoluteURL.lastPathComponent)!)!
+        url <- (map["url"], URLTransform())
+
+        if url != nil {
+            id = Int((url?.absoluteURL.lastPathComponent)!)!
         } else {
-            self.id <- map["id"]
+            id <- map["id"]
         }
         
-        makeFirstLetterInNameUppercase()
-        if isGenderSpecifiedInName() == true {
-            addGenderSign()
-        }
+        name <- map["name"]
+        name = formatName(name!)
         
-        self.types <- map["types"]
-        self.types = self.types?.reverse()
+        types <- map["types"]
+        types = types?.reverse()
         
-        self.weigth <- map["weight"]
-        self.height <- map["height"]
-        
-        if self.weigth != nil {
-            self.weigth = self.weigth! / 10
-        }
-        
-        if self.height != nil {
-            self.height = self.height! / 10
-        }
-        
-        self.stats <- map["stats"]
-        self.stats = self.stats?.reverse()
+        stats <- map["stats"]
+        stats = stats?.reverse()
     }
     
     func getListImageName() -> String {
-        var number = ""
-        
-        if self.id < 10 {
-            number = "00\(self.id!)"
+        let number: String
+        if id < 10 {
+            number = "00\(id!)"
         } else if id < 100 {
-            number = "0\(self.id!)"
+            number = "0\(id!)"
         } else {
-            number = "\(self.id!)"
+            number = "\(id!)"
         }
-        
         return "P\(number)S"
     }
     
-    private func makeFirstLetterInNameUppercase() -> Void {
-        let startIndex = self.name!.startIndex
-        let endIndex = self.name!.startIndex
-        let firstLetterUppercase = String(self.name!.characters.first! as Character).uppercaseString
-        self.name!.replaceRange(startIndex...endIndex, with: firstLetterUppercase)
-    }
-    
-    private func isGenderSpecifiedInName() -> Bool {
-        return self.id == 29 || self.id == 32
-    }
-    
-    private func addGenderSign() -> Void {
-        let startIndex = self.name!.endIndex.advancedBy(-2)
-        let endIndex = self.name!.endIndex.predecessor()
-        var sign = ""
+    private func formatName(name: String) -> String {
+        var formattedName = formatFirstLetterToUppercase(name)
         
+        if isGenderSpecified() == true {
+            formattedName = addGenderSign(formattedName)
+        }
+        return formattedName
+    }
+    
+    private func formatFirstLetterToUppercase(name: String) -> String {
+        let startIndex = name.startIndex
+        let endIndex = name.startIndex
+        let firstLetter = String(name.characters.first! as Character).uppercaseString
+        return name.stringByReplacingCharactersInRange(startIndex...endIndex, withString: firstLetter)
+    }
+    
+    private func isGenderSpecified() -> Bool {
+        return id == 29 || id == 32
+    }
+    
+    private func addGenderSign(name: String) -> String {
+        let startIndex = name.endIndex.advancedBy(-2)
+        let endIndex = name.endIndex.predecessor()
+        
+        let sign: String
         switch self.id! {
         case 29:
             sign = "♀"
-            break
         case 32:
             sign = "♂"
-            break
         default:
-            break
+            sign = ""
         }
-        
-        self.name?.replaceRange(startIndex...endIndex, with: sign)
+        return name.stringByReplacingCharactersInRange(startIndex...endIndex, withString: sign)
     }
 }

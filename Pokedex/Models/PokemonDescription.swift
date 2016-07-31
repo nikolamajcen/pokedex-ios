@@ -18,8 +18,8 @@ class PokemonDescription: NSObject, Mappable {
     required init?(_ map: Map) { }
     
     func mapping(map: Map) {
-        self.version <- map["version.name"]
-        self.text <- map["flavor_text"]
-        self.language <- map["language.name"]
+        version <- map["version.name"]
+        text <- map["flavor_text"]
+        language <- map["language.name"]
     }
 }

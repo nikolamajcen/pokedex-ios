@@ -17,21 +17,16 @@ class PokemonStat: NSObject, Mappable {
     required init?(_ map: Map) { }
     
     func mapping(map: Map) {
-        self.name <- map["stat.name"]
-        self.value <- map["base_stat"]
+        name <- map["stat.name"]
+        name = name?.uppercaseString
         
-        self.capitalizeName()
-        self.changeSpecialStatsForm()
+        value <- map["base_stat"]
+        formatSpecialStatsForm()
     }
     
-    private func capitalizeName() {
-        self.name = self.name?.uppercaseString
-    }
-    
-    private func changeSpecialStatsForm() {
-        if self.name?.containsString("-") == true {
-            self.name = self.name?
-                .stringByReplacingOccurrencesOfString("SPECIAL-", withString: "SP.")
+    private func formatSpecialStatsForm() {
+        if name?.containsString("-") == true {
+            name = name?.stringByReplacingOccurrencesOfString("SPECIAL-", withString: "SP.")
         }
     }
 }

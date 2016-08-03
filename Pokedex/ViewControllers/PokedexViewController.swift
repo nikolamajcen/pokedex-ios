@@ -18,62 +18,31 @@ class PokedexViewController: UIViewController {
     var searchData = [Pokemon]()
     
     @IBOutlet weak var pokedexTable: UITableView!
-    @IBOutlet weak var searchButton: UIBarButtonItem!
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Removes blank space between navigation bar and table view
-        self.automaticallyAdjustsScrollViewInsets = false
+        definesPresentationContext = true
         
-        // Removes black screen when search is on and tab is changed
-        self.definesPresentationContext = true
+        pokedexTable.delegate = self
+        pokedexTable.dataSource = self
         
-        self.searchController = ({
-            let controller = UISearchController(searchResultsController: nil)
-            controller.searchResultsUpdater = self
-            controller.dimsBackgroundDuringPresentation = false
-            controller.hidesNavigationBarDuringPresentation = false
-            controller.searchBar.sizeToFit()
-            controller.searchBar.tintColor = UIColor.flatWhiteColor()
-            return controller
-        })()
+        initializeSearch()
+        initializeStateViews()
+        initializeUIColors()
         
-        self.searchController.searchBar.delegate = self
-        
-        self.pokedexTable.delegate = self
-        self.pokedexTable.dataSource = self
-        
-        self.setupInitialViewState()
-        self.initializeStateViews()
-        
-        
-        self.searchButton.target = self
-        self.searchButton.action = #selector(PokedexViewController.showSearch)
-        
-        self.getPokedexData()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        self.initializeUIColors()
-        self.searchController.searchBar.hidden = false
+        getPokedexData()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let path = self.pokedexTable.indexPathForSelectedRow
+        let path = pokedexTable.indexPathForSelectedRow
         let detailViewController = segue.destinationViewController as! PokemonDetailViewController
         
         let pokemon: Pokemon
-        if self.searchController.active == true {
-            pokemon = (self.searchData[(path?.row)!] as Pokemon) 
+        if searchController.active == true {
+            pokemon = (searchData[(path?.row)!] as Pokemon)
         } else {
-            pokemon = (self.pokedexData[(path?.row)!] as Pokemon)
-            
+            pokemon = (pokedexData[(path?.row)!] as Pokemon)
         }
         
         detailViewController.hidesBottomBarWhenPushed = true
@@ -81,69 +50,66 @@ class PokedexViewController: UIViewController {
         detailViewController.title = pokemon.name
     }
     
-    func initializeStateViews() {
-        self.loadingView = LoadingView(frame: view.frame)
-        self.emptyView = EmptyView(frame: view.frame)
+    func getPokedexData() {
+        startLoading()
+        pokedexStore.fetchPokemons { (pokemons, error) in
+            if error == nil {
+                self.pokedexData = pokemons
+                self.pokedexTable.reloadData()
+                self.endLoading()
+            } else {
+                self.endLoading(error: error)
+            }
+        }
+    }
+    
+    private func initializeStateViews() {
+        setupInitialViewState()
+        
+        loadingView = LoadingView(frame: view.frame)
+        emptyView = EmptyView(frame: view.frame)
         
         let customErrorView = ErrorView(frame: view.frame)
         customErrorView.reloadButton
             .addTarget(self, action: #selector(PokedexViewController.getPokedexData),
                        forControlEvents: UIControlEvents.TouchUpInside)
         
-        self.errorView = customErrorView
+        errorView = customErrorView
     }
     
-    func initializeUIColors() {
-        let navigationBar = self.navigationController?.navigationBar
+    private func initializeSearch() {
+        searchController = ({
+            let controller = UISearchController(searchResultsController: nil)
+            controller.searchResultsUpdater = self
+            controller.searchBar.delegate = self
+            controller.searchBar.sizeToFit()
+            controller.dimsBackgroundDuringPresentation = false
+            controller.hidesNavigationBarDuringPresentation = false
+            return controller
+        })()
+        navigationItem.titleView = searchController.searchBar
+    }
+    
+    
+    private func initializeUIColors() {
+        let navigationBar = navigationController?.navigationBar
         navigationBar?.barTintColor = UIColor.flatRedColor()
         
-        let tabBar = self.tabBarController?.tabBar
+        let tabBar = tabBarController?.tabBar
         tabBar?.tintColor = UIColor.flatRedColor()
-    }
-    
-    func showSearch() {
-        self.navigationItem.rightBarButtonItem = nil
-        self.navigationItem.titleView = self.searchController.searchBar
-        self.searchController.active = true
-    }
-    
-    func getPokedexData() {
-        self.startLoading()
-        self.pokedexStore.fetchPokemons { (pokemons, error) in
-            if error == nil {
-                self.pokedexData = pokemons
-                self.endLoading()
-                self.pokedexTable.reloadData()
-            } else {
-                self.endLoading(error: error)
-            }
-        }
     }
 }
 
 extension PokedexViewController: StatefulViewController {
     func hasContent() -> Bool {
-        return self.pokedexData.count > 0
+        return pokedexData.count > 0
     }
 }
 
 extension PokedexViewController: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        if self.pokedexTable.editing == true {
-            return UITableViewCellEditingStyle.Delete;
-        }
-        return UITableViewCellEditingStyle.None;
-    }
-    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.pokedexTable.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
-    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        self.searchController.searchBar.resignFirstResponder()
-        self.searchController.searchBar.hidden = true
-        return indexPath
+        pokedexTable.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }
 
@@ -151,53 +117,51 @@ extension PokedexViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let pokemon: Pokemon
-        if self.searchController.active == true {
-            if self.searchData.count == 0 {
+        if searchController.active == true {
+            if searchData.count == 0 {
                 return PokedexCell()
             }
-            pokemon = self.searchData[indexPath.row]
+            pokemon = searchData[indexPath.row]
         } else {
-            pokemon = self.pokedexData[indexPath.row]
+            pokemon = pokedexData[indexPath.row]
         }
         
         let cell = tableView.dequeueReusableCellWithIdentifier("PokedexCell", forIndexPath: indexPath) as! PokedexCell
-        cell.idLabel.text = "#\(pokemon.id!)"
-        cell.nameLabel.text = pokemon.name
-        cell.pokemonImage.image = UIImage(named: pokemon.getListImageName())
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        cell.pokemon = pokemon
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.searchController.active == true {
-            return self.searchData.count
+        if searchController.active == true {
+            return searchData.count
         } else {
-            return self.pokedexData.count
+            return pokedexData.count
         }
     }
 }
 
 extension PokedexViewController: UISearchBarDelegate {
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        self.searchController.searchBar.resignFirstResponder()
-        self.navigationItem.titleView = nil
-        self.navigationItem.title = "Pokedex"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Search,
-                                                                 target: self,
-                                                                 action: #selector(PokedexViewController.showSearch))
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        if pokedexData.isEmpty == true {
+            let alert = UIAlertController(title: "Search not allowed",
+                                          message: "Pokedex data is not loaded yet. Wait or try again to download pokedex data.",
+                                          preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
+            return false
+        }
+        return true
     }
 }
 
 extension PokedexViewController: UISearchResultsUpdating {
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        self.searchData.removeAll(keepCapacity: false)
-        
-        let searchPredicate = NSPredicate(format: "SELF.name CONTAINS[c] %@", self.searchController.searchBar.text!)
-        let array = (self.pokedexData as NSArray) .filteredArrayUsingPredicate(searchPredicate)
-        
-        self.searchData = array as! [Pokemon]
-        self.pokedexTable.reloadData()
+        let searchText = searchController.searchBar.text?.lowercaseString
+        searchData = pokedexData.filter { pokemon in
+            return (pokemon.name?.lowercaseString.containsString(searchText!))!
+        }
+        pokedexTable.reloadData()
     }
 }

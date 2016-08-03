@@ -11,7 +11,7 @@
         <!--Pokedex-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="PokedexViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="9pv-A4-QxB" customClass="PokedexViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -24,11 +24,11 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PokedexCell" rowHeight="77" id="Erc-7Y-Bdw" customClass="PokedexCell" customModule="Pokedex" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="600" height="77"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PokedexCell" rowHeight="77" id="Erc-7Y-Bdw" customClass="PokedexCell" customModule="Pokedex" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Erc-7Y-Bdw" id="eFX-Tz-o0g">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="76"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="76"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GNz-VJ-Ajf">
@@ -78,12 +78,9 @@
                             <constraint firstItem="B8d-MQ-lV8" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="xyf-ED-Lyw"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Pokedex" id="Tab-So-reb">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="jnV-4A-1gK"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Pokedex" id="Tab-So-reb"/>
                     <connections>
                         <outlet property="pokedexTable" destination="B8d-MQ-lV8" id="sKA-dS-Phh"/>
-                        <outlet property="searchButton" destination="jnV-4A-1gK" id="Mvu-l5-GZj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>

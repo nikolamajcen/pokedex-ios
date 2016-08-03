@@ -13,4 +13,12 @@ class PokedexCell: UITableViewCell {
     @IBOutlet weak var pokemonImage: UIImageView!
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
+    
+    var pokemon: Pokemon! {
+        didSet {
+            idLabel.text = "#\(pokemon.id!)"
+            nameLabel.text = pokemon.name
+            pokemonImage.image = UIImage(named: pokemon.getListImageName())
+        }
+    }
 }

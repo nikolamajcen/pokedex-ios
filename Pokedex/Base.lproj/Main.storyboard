@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -17,6 +17,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="Bqm-xr-j67" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
+                        <segue destination="15j-zK-65x" kind="relationship" relationship="viewControllers" id="Zuz-I1-z6M"/>
                         <segue destination="yll-TO-Yfw" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                     </connections>
                 </tabBarController>
@@ -28,21 +29,31 @@
         <scene sceneID="toG-m9-ms7">
             <objects>
                 <viewControllerPlaceholder storyboardName="Pokemon" id="Bqm-xr-j67" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Rtm-M2-Gbx"/>
+                    <tabBarItem key="tabBarItem" title="Pokedex" id="Rtm-M2-Gbx"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tAL-Ji-zsl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="-174"/>
         </scene>
+        <!--Scanner-->
+        <scene sceneID="ZcJ-aQ-U0n">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Scanner" id="15j-zK-65x" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Scanner" id="olt-Jo-Qar"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x1n-60-2of" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="750" y="0.0"/>
+        </scene>
         <!--Trainer-->
         <scene sceneID="3Wk-Xc-AD5">
             <objects>
                 <viewControllerPlaceholder storyboardName="Trainer" id="yll-TO-Yfw" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Rc0-78-bPn"/>
+                    <tabBarItem key="tabBarItem" title="Trainer" id="Rc0-78-bPn"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pVn-yO-nVH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="744" y="188"/>
+            <point key="canvasLocation" x="750" y="188"/>
         </scene>
     </scenes>
 </document>

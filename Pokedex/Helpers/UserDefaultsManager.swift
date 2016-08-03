@@ -15,7 +15,7 @@ class UserDefaultsManager {
         get {
             let defaults = initializeUserDefaults()
             let trainerName = defaults.stringForKey("trainerName")
-            return trainerName!
+            return trainerName
         }
         set {
             let defaults = initializeUserDefaults()
@@ -33,7 +33,7 @@ class UserDefaultsManager {
             }
             
             let trainerImage = UIImage(data: trainerImageData!)
-            return trainerImage!
+            return trainerImage
         }
         set {
             let defaults = initializeUserDefaults()

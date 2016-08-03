@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBar = (tabController as! UITabBarController).tabBar
         tabBar.barStyle = UIBarStyle.Black
         tabBar.barTintColor = UIColor.flatWhiteColor()
-        
+                
         let navigationControllers = tabController!.childViewControllers
         for navigationController in navigationControllers {
             let navigationBar = (navigationController as! UINavigationController).navigationBar

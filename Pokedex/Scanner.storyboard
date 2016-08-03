@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="78E-zf-XqY">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Scanner-->
+        <scene sceneID="RF0-UA-v1U">
+            <objects>
+                <viewController id="1QO-e9-BVG" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="W8g-ot-bsl"/>
+                        <viewControllerLayoutGuide type="bottom" id="P4M-zP-RnQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cuw-sn-umb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please visit a website below on other device for scanning QR code." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chR-4X-uQo">
+                                <rect key="frame" x="20" y="350" width="560" height="80"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Kx-an-lKT">
+                                <rect key="frame" x="210" y="280" width="180" height="40"/>
+                                <color key="backgroundColor" red="0.15410047769546509" green="0.41306763887405396" blue="0.69063264131546021" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="a8l-Jt-Y1W"/>
+                                    <constraint firstAttribute="height" constant="40" id="dy3-w8-ohR"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Capture Pokemon">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="HUO-TB-DPL" kind="show" id="029-TY-DT2"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.13346317410469055" green="0.18231484293937683" blue="0.25190103054046631" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="chR-4X-uQo" firstAttribute="trailing" secondItem="Cuw-sn-umb" secondAttribute="trailingMargin" id="25t-yo-JxG"/>
+                            <constraint firstItem="P4M-zP-RnQ" firstAttribute="top" secondItem="chR-4X-uQo" secondAttribute="bottom" constant="121" id="4oe-1K-bpl"/>
+                            <constraint firstItem="chR-4X-uQo" firstAttribute="leading" secondItem="Cuw-sn-umb" secondAttribute="leadingMargin" id="9nj-sG-VyL"/>
+                            <constraint firstItem="chR-4X-uQo" firstAttribute="top" secondItem="1Kx-an-lKT" secondAttribute="bottom" constant="30" id="T7a-Mx-YUV"/>
+                            <constraint firstItem="1Kx-an-lKT" firstAttribute="centerX" secondItem="chR-4X-uQo" secondAttribute="centerX" id="gls-zi-69s"/>
+                            <constraint firstItem="1Kx-an-lKT" firstAttribute="centerY" secondItem="Cuw-sn-umb" secondAttribute="centerY" id="r14-lm-X6k"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Scanner" id="kJG-YA-qo9">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="bfS-2o-2NM"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BOx-Jc-XPi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1143" y="332"/>
+        </scene>
+        <!--Scanner-->
+        <scene sceneID="faG-lM-auw">
+            <objects>
+                <viewController id="HUO-TB-DPL" customClass="PokemonScannerViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Mwf-Vq-H4c"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cna-os-ocn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lFQ-Gw-xs4">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Scanner" id="TgL-eV-HFi"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eSd-NA-Dl8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1890" y="332"/>
+        </scene>
+        <!--Scanner-->
+        <scene sceneID="eJV-aT-Nn9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="78E-zf-XqY" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Scanner" id="0bY-y8-QMh"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="R30-fu-bqU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1QO-e9-BVG" kind="relationship" relationship="rootViewController" id="LZR-0n-uid"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lmE-91-ikV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="331" y="332"/>
+        </scene>
+    </scenes>
+</document>

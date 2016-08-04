@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import PNChart
 
 class TrainerViewController: UIViewController {
 
@@ -18,7 +17,7 @@ class TrainerViewController: UIViewController {
     @IBOutlet weak var trainerName: UILabel!
     @IBOutlet weak var chartView: UIView!
     
-    var captureRatioChart: PNCircleChart?
+    // var captureRatioChart: PNCircleChart?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,18 +36,19 @@ class TrainerViewController: UIViewController {
         self.trainerImage.layer.borderWidth = 5
         self.trainerImage.layer.borderColor = UIColor.flatWhiteColorDark().CGColor
         
-        self.captureRatioChart = PNCircleChart(frame: self.chartView.bounds,
+        /*self.captureRatioChart = PNCircleChart(frame: self.chartView.bounds,
                                                total: 100,
                                                current: 60,
                                                clockwise: true,
                                                shadow: true,
                                                shadowColor: UIColor.flatWhiteColorDark())
-        
+ 
         self.captureRatioChart?.backgroundColor = UIColor.flatWhiteColor()
         self.captureRatioChart!.strokeColor = UIColor.flatRedColorDark()
         self.captureRatioChart!.countingLabel.textColor = UIColor.flatWhiteColorDark()
         self.captureRatioChart!.strokeChart()
         self.chartView.addSubview(self.captureRatioChart!)
+        */
         
         if UserDefaultsManager.trainerImage != nil {
             self.trainerImage.image = UserDefaultsManager.trainerImage

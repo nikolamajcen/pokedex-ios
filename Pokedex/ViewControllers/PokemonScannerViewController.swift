@@ -26,14 +26,12 @@ class PokemonScannerViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        
         tabBarController?.tabBar.hidden = true
         changeCaptureState(turnOn: true)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(true)
-        
         tabBarController?.tabBar.hidden = false
         changeCaptureState(turnOn: false)
     }
@@ -56,8 +54,9 @@ class PokemonScannerViewController: UIViewController {
         } else {
             showAlert(type: CaptureStatus.Failure,
                       title: "Scanner Error",
-                      message: "You are not able to start QR code scanner.")
-            return;
+                      message: "You are not able to start QR code scanner.",
+                      image: nil)
+            return
         }
         
         let metadataOutput = AVCaptureMetadataOutput()
@@ -70,7 +69,8 @@ class PokemonScannerViewController: UIViewController {
         } else {
             showAlert(type: CaptureStatus.Failure,
                       title: "Scanner Error",
-                      message: "You are not able to start QR code scanner.")
+                      message: "You are not able to start QR code scanner.",
+                      image: nil)
             return
         }
     }
@@ -93,24 +93,27 @@ class PokemonScannerViewController: UIViewController {
         guard let jsonValue = Mapper<Pokemon>.parseJSONDictionary(value) else {
             showAlert(type: CaptureStatus.Failure,
                       title: "Incompatible QR code",
-                      message: "Please scan codes from provided site to catch pokemons.")
+                      message: "Please scan codes from provided site to catch pokemons.",
+                      image: nil)
             return
         }
         
         guard let _ = jsonValue["id"] as! Int?, let _ = jsonValue["name"] as! String? else {
             showAlert(type: CaptureStatus.Failure,
                       title: "Incompatible QR code",
-                      message: "Please scan codes from provided site to catch pokemons.")
+                      message: "Please scan codes from provided site to catch pokemons.",
+                      image: nil)
             return
         }
         
         let pokemon = Mapper<Pokemon>().map(jsonValue)
         showAlert(type: CaptureStatus.Success,
-                  title: "Captured \(pokemon!.name!)",
-                  message: "\(pokemon!.name!) is now available in Pokedex.")
+                  title: "Captured \(pokemon!.name!)!",
+                  message: "\(pokemon!.name!) is now available in Pokedex.",
+                  image: UIImage(named: pokemon!.getListImageName()))
     }
     
-    private func showAlert(type type: CaptureStatus, title: String, message: String) {
+    private func showAlert(type type: CaptureStatus, title: String, message: String, image: UIImage!) {
         let appearance = SCLAlertView.SCLAppearance (showCloseButton: false)
         let captureAlert = SCLAlertView(appearance: appearance)
         
@@ -119,9 +122,18 @@ class PokemonScannerViewController: UIViewController {
         }
         
         if type == CaptureStatus.Success {
-            captureAlert.showSuccess(title, subTitle: message)
+            let imageView = UIImageView(frame: CGRectMake(0, 0, 216, 100))
+            imageView.image = image
+            imageView.contentMode = .ScaleAspectFit
+            captureAlert.customSubview = imageView
+            
+            dispatch_async(dispatch_get_main_queue(), { 
+                captureAlert.showSuccess(title, subTitle: message)
+            })
         } else {
-            captureAlert.showError(title, subTitle: message)
+            dispatch_async(dispatch_get_main_queue(), { 
+                captureAlert.showError(title, subTitle: message)
+            })
         }
     }
     
@@ -161,7 +173,8 @@ extension PokemonScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
                 } else {
                     showAlert(type: CaptureStatus.Failure,
                               title: "Incompatible QR code",
-                              message: "Please scan codes from provided site to catch pokemons.")
+                              message: "Please scan codes from provided site to catch pokemons.",
+                              image: nil)
                 }
             }
         }

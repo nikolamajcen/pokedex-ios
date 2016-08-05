@@ -41,6 +41,18 @@ class UserDefaultsManager {
         }
     }
     
+    static var gameMode: Bool! {
+        get {
+            let defaults = initializeUserDefaults()
+            let gameStatus = defaults.boolForKey("gameMode")
+            return gameStatus
+        }
+        set {
+            let defaults = initializeUserDefaults()
+            defaults.setBool(newValue, forKey: "gameMode")
+        }
+    }
+    
     private static func initializeUserDefaults() -> NSUserDefaults {
         return NSUserDefaults.standardUserDefaults()
     }

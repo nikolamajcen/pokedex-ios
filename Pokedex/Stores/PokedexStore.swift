@@ -22,20 +22,18 @@ class PokedexStore: NSObject {
     
     func fetchPokemons(completion: ([Pokemon]!, NSError!) -> Void) -> Void {
         
-        // TODO: Add NSUserDefaults for database fetch (if game is on) or fetch from file
-        
-        let manager = DatabaseManager()
-        let pokemons = manager.getAllPokemons()
+        let pokemons: [Pokemon]
+        if UserDefaultsManager.gameMode == true {
+            let manager = DatabaseManager()
+            pokemons = manager.getAllPokemons()
+        } else {
+            let filePath = NSBundle.mainBundle().pathForResource("pokedex", ofType: "json")
+            let data = NSData(contentsOfFile: filePath!)
+            let value = String(data: data!, encoding: NSUTF8StringEncoding)
+            pokemons = Mapper<Pokemon>().mapArray(value!)!
+        }
         completion(pokemons, nil)
-        
-        /*
-        let filePath = NSBundle.mainBundle().pathForResource("pokedex", ofType: "json")
-        let data = NSData(contentsOfFile: filePath!)
-        let value = String(data: data!, encoding: NSUTF8StringEncoding)
-        let pokemons = Mapper<Pokemon>().mapArray(value!)
-        completion(pokemons, nil)
-        */
-        
+
         // TODO: Can be removed
         /*
         alamofireManager!

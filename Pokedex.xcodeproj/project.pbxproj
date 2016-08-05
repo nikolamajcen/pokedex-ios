@@ -14,6 +14,7 @@
 		4F325CB01CC56048004A00FA /* PokemonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F325CAF1CC56048004A00FA /* PokemonType.swift */; };
 		4F446C7D1D54CBF700F1F55B /* pokedex.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F446C7C1D54CBF700F1F55B /* pokedex.json */; };
 		4F446C811D550AA400F1F55B /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F446C801D550AA400F1F55B /* DatabaseManager.swift */; };
+		4F446C831D55344D00F1F55B /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F446C821D55344D00F1F55B /* SettingsTableViewController.swift */; };
 		4F572BAC1CDEB70F00695F37 /* PokemonEvolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F572BAB1CDEB70F00695F37 /* PokemonEvolution.swift */; };
 		4F6019EE1CE0CB8D0021FED6 /* PokemonStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6019ED1CE0CB8D0021FED6 /* PokemonStat.swift */; };
 		4F8A03171CEFA9C5003F3532 /* Pokemon.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F8A03161CEFA9C5003F3532 /* Pokemon.storyboard */; };
@@ -60,6 +61,7 @@
 		4F325CAF1CC56048004A00FA /* PokemonType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonType.swift; sourceTree = "<group>"; };
 		4F446C7C1D54CBF700F1F55B /* pokedex.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pokedex.json; sourceTree = "<group>"; };
 		4F446C801D550AA400F1F55B /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatabaseManager.swift; path = Managers/DatabaseManager.swift; sourceTree = "<group>"; };
+		4F446C821D55344D00F1F55B /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4F572BAB1CDEB70F00695F37 /* PokemonEvolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonEvolution.swift; sourceTree = "<group>"; };
 		4F6019ED1CE0CB8D0021FED6 /* PokemonStat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonStat.swift; sourceTree = "<group>"; };
 		4F8A03161CEFA9C5003F3532 /* Pokemon.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Pokemon.storyboard; path = Base.lproj/Pokemon.storyboard; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				4FA9B2871D5211D000953100 /* PokemonScannerViewController.swift */,
 				4F117CEB1CE7649D00C07075 /* PokemonStatsViewController.swift */,
 				4FF357A11CB2E8D2008A0F63 /* TrainerViewController.swift */,
+				4F446C821D55344D00F1F55B /* SettingsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				4FA5B8FF1CCA6525006BCC98 /* ErrorView.swift in Sources */,
 				4FCDB4291CE5F71400A3E4A5 /* PokemonEvolutionViewController.swift in Sources */,
 				4F117CEC1CE7649D00C07075 /* PokemonStatsViewController.swift in Sources */,
+				4F446C831D55344D00F1F55B /* SettingsTableViewController.swift in Sources */,
 				4F6019EE1CE0CB8D0021FED6 /* PokemonStat.swift in Sources */,
 				4FA5B8FD1CCA5DCE006BCC98 /* LoadingView.swift in Sources */,
 				4F325CB01CC56048004A00FA /* PokemonType.swift in Sources */,

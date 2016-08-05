@@ -93,8 +93,8 @@ class PokedexViewController: UIViewController {
     
     
     private func initializeUIColors() {
-        let navigationBar = navigationController?.navigationBar
-        navigationBar?.barTintColor = UIColor.flatRedColor()
+        // let navigationBar = navigationController?.navigationBar
+        // navigationBar?.barTintColor = UIColor.flatRedColor()
         
         let tabBar = tabBarController?.tabBar
         tabBar?.tintColor = UIColor.flatRedColor()

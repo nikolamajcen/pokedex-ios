@@ -10,7 +10,6 @@ import UIKit
 import AVFoundation
 import ObjectMapper
 import SCLAlertView
-import RealmSwift
 
 class PokemonScannerViewController: UIViewController {
     
@@ -53,7 +52,7 @@ class PokemonScannerViewController: UIViewController {
         if (captureSession!.canAddInput(videoInput)) {
             captureSession!.addInput(videoInput)
         } else {
-            showAlert(type: CaptureStatus.Failure,
+            showAlert(type: .Failure,
                       title: "Scanner Error",
                       message: "You are not able to start QR code scanner.",
                       image: nil)
@@ -68,7 +67,7 @@ class PokemonScannerViewController: UIViewController {
             metadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
             metadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
         } else {
-            showAlert(type: CaptureStatus.Failure,
+            showAlert(type: .Failure,
                       title: "Scanner Error",
                       message: "You are not able to start QR code scanner.",
                       image: nil)
@@ -105,7 +104,7 @@ class PokemonScannerViewController: UIViewController {
     
     private func readQRCode(value: String) {
         guard let jsonValue = Mapper<Pokemon>.parseJSONDictionary(value) else {
-            showAlert(type: CaptureStatus.Failure,
+            showAlert(type: .Failure,
                       title: "Incompatible QR code",
                       message: "Please scan codes from provided site to catch pokemons.",
                       image: nil)
@@ -113,7 +112,7 @@ class PokemonScannerViewController: UIViewController {
         }
         
         guard let _ = jsonValue["id"] as! Int?, let _ = jsonValue["name"] as! String? else {
-            showAlert(type: CaptureStatus.Failure,
+            showAlert(type: .Failure,
                       title: "Incompatible QR code",
                       message: "Please scan codes from provided site to catch pokemons.",
                       image: nil)
@@ -122,22 +121,33 @@ class PokemonScannerViewController: UIViewController {
         
         let pokemon = Mapper<Pokemon>().map(jsonValue)
         savePokemonToPokedex(pokemon!)
-        showAlert(type: CaptureStatus.Success,
-                  title: "Captured \(pokemon!.name)!",
-                  message: "\(pokemon!.name) is now available in Pokedex.",
-                  image: UIImage(named: pokemon!.getListImageName()))
+    }
+    
+    private func savePokemonToPokedex(pokemon: Pokemon) {
+        let manager = DatabaseManager()
+        if manager.addPokemon(pokemon) == .Success {
+            showAlert(type: .Success, title: "Captured \(pokemon.name)!",
+                      message: "", image: UIImage(named: pokemon.getListImageName()))
+        } else {
+            showAlert(type: .Success, title: "\(pokemon.name) already captured!",
+                      message: "", image: UIImage(named: pokemon.getListImageName()))
+        }
     }
     
     private func showAlert(type type: CaptureStatus, title: String, message: String, image: UIImage!) {
-        let appearance = SCLAlertView.SCLAppearance (showCloseButton: false)
+        let appearance = SCLAlertView.SCLAppearance (
+            kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 18)!,
+            kWindowWidth: 280.0,
+            showCloseButton: false
+        )
         let captureAlert = SCLAlertView(appearance: appearance)
         
         captureAlert.addButton("OK") {
             self.changeCaptureState(turnOn: true)
         }
         
-        if type == CaptureStatus.Success {
-            let imageView = UIImageView(frame: CGRectMake(0, 0, 216, 100))
+        if type == .Success {
+            let imageView = UIImageView(frame: CGRectMake(0, 0, 260, 100))
             imageView.image = image
             imageView.contentMode = .ScaleAspectFit
             captureAlert.customSubview = imageView
@@ -150,13 +160,6 @@ class PokemonScannerViewController: UIViewController {
                 captureAlert.showError(title, subTitle: message)
             })
         }
-    }
-    
-    private func savePokemonToPokedex(pokemon: Pokemon) {
-        let realm = try! Realm()
-        try! realm.write({
-            realm.add(pokemon)
-        })
     }
 }
 
@@ -180,7 +183,7 @@ extension PokemonScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
                 if metadataObject.stringValue != nil {
                     readQRCode(metadataObject.stringValue)
                 } else {
-                    showAlert(type: CaptureStatus.Failure,
+                    showAlert(type: .Failure,
                               title: "Incompatible QR code",
                               message: "Please scan codes from provided site to catch pokemons.",
                               image: nil)

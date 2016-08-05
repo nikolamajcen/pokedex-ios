@@ -22,16 +22,17 @@ class PokedexViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         definesPresentationContext = true
-        
         pokedexTable.delegate = self
         pokedexTable.dataSource = self
         
         initializeSearch()
         initializeStateViews()
         initializeUIColors()
-        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
         getPokedexData()
     }
     

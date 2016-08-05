@@ -24,8 +24,8 @@ class PokedexStore: NSObject {
         
         // TODO: Add NSUserDefaults for database fetch (if game is on) or fetch from file
         
-        let realm = try! Realm()
-        let pokemons = Array(realm.objects(Pokemon.self).sorted("id"))
+        let manager = DatabaseManager()
+        let pokemons = manager.getAllPokemons()
         completion(pokemons, nil)
         
         /*

@@ -8,6 +8,7 @@ target 'Pokedex' do
     pod 'ChameleonFramework/Swift'
     pod 'DGActivityIndicatorView'
     pod 'ObjectMapper', '~> 1.2'
+    pod 'RealmSwift'
     pod 'SCLAlertView'
     pod 'StatefulViewController', '~> 1.0'
 end

@@ -140,7 +140,7 @@ class PokemonDetailViewController: UIViewController {
         self.title = self.pokemon!.name
         self.pokemonImage.image = UIImage(named: self.pokemon!.getListImageName())
         
-        self.pokemonIdLabel.text =  "#\(self.pokemon!.id!)"
+        self.pokemonIdLabel.text =  "#\(self.pokemon!.id)"
         self.pokemonNameLabel.text = self.pokemon!.name
         self.showTypes(self.pokemon!)
         
@@ -154,9 +154,17 @@ class PokemonDetailViewController: UIViewController {
         }
         
         for index in  0...((pokemon.types?.count)! - 1) {
+            
+            let typeName = pokemon.types![index].name
+            
+            if typeName.isEmpty {
+                break
+            }
+            /*
             guard let typeName = (pokemon.types![index]).name else {
                 break
             }
+            */
             
             if index == 0 {
                 let navigationBar = self.navigationController?.navigationBar
@@ -194,7 +202,7 @@ class PokemonDetailViewController: UIViewController {
         viewController.createDescriptionText(name: (pokemon?.name)!,
                                              types: (pokemon?.types)!,
                                              description: (pokemon?.descriptionInfo?.text)!)
-        viewController.addColorStylesToView(primaryColor: TypeColor.getColorByType(self.pokemon!.types![0].name!),
+        viewController.addColorStylesToView(primaryColor: TypeColor.getColorByType(self.pokemon!.types![0].name),
                                             accentColor: UIColor.flatWhiteColor())
         self.addSubviewToTabContentView(viewController)
     }

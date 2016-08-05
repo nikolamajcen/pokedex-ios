@@ -11,9 +11,9 @@ import ObjectMapper
 
 class PokemonDescription: NSObject, Mappable {
     
-    var version: String?
-    var text: String?
-    var language: String?
+    var version = ""
+    var text = ""
+    var language = ""
     
     required init?(_ map: Map) { }
     

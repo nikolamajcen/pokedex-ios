@@ -11,18 +11,18 @@ import ObjectMapper
 
 class PokemonEvolution: NSObject, Mappable {
     
-    var identifier: Int?
-    var name: String?
-    var url: NSURL?
+    var identifier = 0
+    var name = ""
+    var url = ""
     
     required init?(_ map: Map) { }
     
     func mapping(map: Map) {
         name <- map["species.name"]
-        name = formatName(name!)
+        name = formatName(name)
         
-        url <- (map["species.url"], URLTransform())
-        identifier = Int((self.url?.absoluteURL.lastPathComponent)!)!
+        url <- map["species.url"]
+        identifier = Int(NSURL(string: url)!.absoluteURL.lastPathComponent!)!
     }
     
     private func formatName(name: String) -> String {

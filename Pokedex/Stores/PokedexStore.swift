@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import ObjectMapper
+import RealmSwift
 
 class PokedexStore: NSObject {
     
@@ -20,6 +21,23 @@ class PokedexStore: NSObject {
     }
     
     func fetchPokemons(completion: ([Pokemon]!, NSError!) -> Void) -> Void {
+        
+        // TODO: Add NSUserDefaults for database fetch (if game is on) or fetch from file
+        
+        let realm = try! Realm()
+        let pokemons = Array(realm.objects(Pokemon.self).sorted("id"))
+        completion(pokemons, nil)
+        
+        /*
+        let filePath = NSBundle.mainBundle().pathForResource("pokedex", ofType: "json")
+        let data = NSData(contentsOfFile: filePath!)
+        let value = String(data: data!, encoding: NSUTF8StringEncoding)
+        let pokemons = Mapper<Pokemon>().mapArray(value!)
+        completion(pokemons, nil)
+        */
+        
+        // TODO: Can be removed
+        /*
         alamofireManager!
             .request(.GET, "https://pokeapi.co/api/v2/pokemon/?limit=151&offset=0")
             .responseJSON { response in
@@ -30,7 +48,7 @@ class PokedexStore: NSObject {
                     let pokemons = Mapper<Pokemon>().mapArray(response.result.value!["results"])
                     completion(pokemons, nil)
                 }
-        }
+        }*/
     }
     
     func fetchPokemonDetails(id: Int, completion: (Pokemon!, NSError!) -> Void) -> Void {

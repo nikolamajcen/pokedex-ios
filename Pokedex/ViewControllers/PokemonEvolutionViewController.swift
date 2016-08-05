@@ -67,19 +67,19 @@ class PokemonEvolutionViewController: UIViewController {
     private func showEvolution(evolution: PokemonEvolution, evolutionNumber: Int) {
         switch evolutionNumber {
         case 0:
-            evolutionFirstIdentifierLabel.text = "#\(evolution.identifier!)"
+            evolutionFirstIdentifierLabel.text = "#\(evolution.identifier)"
             evolutionFirstNameLabel.text = evolution.name
-            evolutionFirstImage.image = UIImage(named: ImageHelper.getListImageName(evolution.identifier!))
+            evolutionFirstImage.image = UIImage(named: ImageHelper.getListImageName(evolution.identifier))
             break
         case 1:
-            evolutionSecondIdentifierLabel.text = "#\(evolution.identifier!)"
+            evolutionSecondIdentifierLabel.text = "#\(evolution.identifier)"
             evolutionSecondNameLabel.text = evolution.name
-            evolutionSecondImage.image = UIImage(named: ImageHelper.getListImageName(evolution.identifier!))
+            evolutionSecondImage.image = UIImage(named: ImageHelper.getListImageName(evolution.identifier))
             break
         case 2:
-            evolutionThirdIdentifierLabel.text = "#\(evolution.identifier!)"
+            evolutionThirdIdentifierLabel.text = "#\(evolution.identifier)"
             evolutionThirdNameLabel.text = evolution.name
-            evolutionThirdImage.image = UIImage(named: ImageHelper.getListImageName(evolution.identifier!))
+            evolutionThirdImage.image = UIImage(named: ImageHelper.getListImageName(evolution.identifier))
             break
         default:
             break

@@ -52,9 +52,9 @@ class PokemonDescriptionViewController: UIViewController {
         self.speechText = "\(name)... "
         
         if types.count == 1 {
-            self.speechText = self.speechText! + "\(types[0].name!) pokemon... "
+            self.speechText = self.speechText! + "\(types[0].name) pokemon... "
         } else {
-            self.speechText = self.speechText! + "\(types[0].name!) and \(types[1].name!) pokemon... "
+            self.speechText = self.speechText! + "\(types[0].name) and \(types[1].name) pokemon... "
         }
         
         self.speechText = self.speechText! + "\(description)"

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ImageHelper: NSObject {
+class ImageHelper {
     
     static func getListImageName(id: Int) -> String {
         var number = ""

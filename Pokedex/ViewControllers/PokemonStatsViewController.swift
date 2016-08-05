@@ -29,7 +29,7 @@ class PokemonStatsViewController: UIViewController {
     private func showStats() {
         for pokemonStat: PokemonStat in stats!{
             let stat = PokemonStatView(frame: statsContainerView.bounds)
-            stat.showStat(name: pokemonStat.name!, value: pokemonStat.value!)
+            stat.showStat(name: pokemonStat.name, value: pokemonStat.value)
             statsContainerView.addArrangedSubview(stat)
         }
     }

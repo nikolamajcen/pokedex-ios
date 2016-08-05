@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import ObjectMapper
 import SCLAlertView
+import RealmSwift
 
 class PokemonScannerViewController: UIViewController {
     
@@ -89,6 +90,19 @@ class PokemonScannerViewController: UIViewController {
         view.addSubview(QRCodeFrameView!)
     }
     
+    private func changeCaptureState(turnOn turnOn: Bool) {
+        if captureSession?.running != turnOn {
+            dispatch_async(dispatch_get_main_queue(), {
+                if turnOn == true {
+                    self.view.sendSubviewToBack(self.QRCodeFrameView!)
+                    self.captureSession?.startRunning()
+                } else {
+                    self.captureSession?.stopRunning()
+                }
+            })
+        }
+    }
+    
     private func readQRCode(value: String) {
         guard let jsonValue = Mapper<Pokemon>.parseJSONDictionary(value) else {
             showAlert(type: CaptureStatus.Failure,
@@ -107,9 +121,10 @@ class PokemonScannerViewController: UIViewController {
         }
         
         let pokemon = Mapper<Pokemon>().map(jsonValue)
+        savePokemonToPokedex(pokemon!)
         showAlert(type: CaptureStatus.Success,
-                  title: "Captured \(pokemon!.name!)!",
-                  message: "\(pokemon!.name!) is now available in Pokedex.",
+                  title: "Captured \(pokemon!.name)!",
+                  message: "\(pokemon!.name) is now available in Pokedex.",
                   image: UIImage(named: pokemon!.getListImageName()))
     }
     
@@ -137,17 +152,11 @@ class PokemonScannerViewController: UIViewController {
         }
     }
     
-    private func changeCaptureState(turnOn turnOn: Bool) {
-        if captureSession?.running != turnOn {
-            dispatch_async(dispatch_get_main_queue(), {
-                if turnOn == true {
-                    self.view.sendSubviewToBack(self.QRCodeFrameView!)
-                    self.captureSession?.startRunning()
-                } else {
-                    self.captureSession?.stopRunning()
-                }
-            })
-        }
+    private func savePokemonToPokedex(pokemon: Pokemon) {
+        let realm = try! Realm()
+        try! realm.write({
+            realm.add(pokemon)
+        })
     }
 }
 

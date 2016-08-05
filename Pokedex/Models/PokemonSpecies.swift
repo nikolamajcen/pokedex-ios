@@ -14,8 +14,8 @@ class PokemonSpecies: NSObject, Mappable {
     private var descriptions: [PokemonDescription]?
     
     var pokemonDescription: PokemonDescription?
-    var pokemonEvolutionChainId: Int?
-    var pokemonEvolutionChainUrl: NSURL?
+    var pokemonEvolutionChainId = 0
+    var pokemonEvolutionChainUrl = ""
     
     required init?(_ map: Map) { }
     
@@ -23,8 +23,8 @@ class PokemonSpecies: NSObject, Mappable {
         descriptions <- map["flavor_text_entries"]
         setEnglishDescriptionDefault()
         
-        pokemonEvolutionChainUrl <- (map["evolution_chain.url"], URLTransform())
-        pokemonEvolutionChainId = Int((pokemonEvolutionChainUrl?.absoluteURL.lastPathComponent)!)!
+        pokemonEvolutionChainUrl <- map["evolution_chain.url"]
+        pokemonEvolutionChainId = Int(NSURL(string: pokemonEvolutionChainUrl)!.absoluteURL.lastPathComponent!)!
     }
     
     private func setEnglishDescriptionDefault() {
@@ -37,7 +37,7 @@ class PokemonSpecies: NSObject, Mappable {
     }
     
     private func formatDescriptionText(description: PokemonDescription) -> PokemonDescription {
-        description.text = description.text?.stringByReplacingOccurrencesOfString("\n", withString: " ")
+        description.text = description.text.stringByReplacingOccurrencesOfString("\n", withString: " ")
         return description
     }
 }

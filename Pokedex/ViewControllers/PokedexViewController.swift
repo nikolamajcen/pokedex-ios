@@ -8,6 +8,7 @@
 
 import UIKit
 import StatefulViewController
+import RealmSwift
 
 class PokedexViewController: UIViewController {
 
@@ -44,7 +45,6 @@ class PokedexViewController: UIViewController {
         } else {
             pokemon = (pokedexData[(path?.row)!] as Pokemon)
         }
-        
         detailViewController.hidesBottomBarWhenPushed = true
         detailViewController.identifier = pokemon.id
         detailViewController.title = pokemon.name
@@ -160,7 +160,7 @@ extension PokedexViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         let searchText = searchController.searchBar.text?.lowercaseString
         searchData = pokedexData.filter { pokemon in
-            return (pokemon.name?.lowercaseString.containsString(searchText!))!
+            return pokemon.name.lowercaseString.containsString(searchText!)
         }
         pokedexTable.reloadData()
     }

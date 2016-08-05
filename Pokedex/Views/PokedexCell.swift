@@ -16,7 +16,7 @@ class PokedexCell: UITableViewCell {
     
     var pokemon: Pokemon! {
         didSet {
-            idLabel.text = "#\(pokemon.id!)"
+            idLabel.text = "#\(pokemon.id)"
             nameLabel.text = pokemon.name
             pokemonImage.image = UIImage(named: pokemon.getListImageName())
         }

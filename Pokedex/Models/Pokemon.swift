@@ -8,32 +8,43 @@
 
 import Foundation
 import ObjectMapper
+import RealmSwift
 
-class Pokemon: NSObject, Mappable {
+class Pokemon: Object, Mappable {
     
-    var url: NSURL?
-    var id: Int?
-    var name: String?
-    var types: [PokemonType]?
-    var descriptionInfo: PokemonDescription?
-    var evolutionChain: PokemonEvolutionChain?
-    var stats: [PokemonStat]?
+    dynamic var id = 0
+    dynamic var name = ""
+    dynamic var url = ""
+    dynamic var types: [PokemonType]?
+    dynamic var descriptionInfo: PokemonDescription?
+    dynamic var evolutionChain: PokemonEvolutionChain?
+    dynamic var stats: [PokemonStat]?
     
-    required init?(_ map: Map) { }
+    required convenience init?(_ map: Map) {
+        self.init()
+    }
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    override static func ignoredProperties() -> [String] {
+        return ["url", "types", "descriptionInfo", "evolutionChain", "stats"]
+    }
     
     func mapping(map: Map) {
         evolutionChain = PokemonEvolutionChain()
         
-        url <- (map["url"], URLTransform())
+        url <- map["url"]
 
-        if url != nil {
-            id = Int((url?.absoluteURL.lastPathComponent)!)!
+        if url.isEmpty == false {
+            id = Int(NSURL(string: url)!.absoluteURL.lastPathComponent!)!
         } else {
             id <- map["id"]
         }
         
         name <- map["name"]
-        name = formatName(name!)
+        name = formatName(name)
         
         types <- map["types"]
         types = types?.reverse()
@@ -45,11 +56,11 @@ class Pokemon: NSObject, Mappable {
     func getListImageName() -> String {
         let number: String
         if id < 10 {
-            number = "00\(id!)"
+            number = "00\(id)"
         } else if id < 100 {
-            number = "0\(id!)"
+            number = "0\(id)"
         } else {
-            number = "\(id!)"
+            number = "\(id)"
         }
         return "P\(number)S"
     }
@@ -79,7 +90,7 @@ class Pokemon: NSObject, Mappable {
         let endIndex = name.endIndex.predecessor()
         
         let sign: String
-        switch self.id! {
+        switch id {
         case 29:
             sign = "♀"
         case 32:

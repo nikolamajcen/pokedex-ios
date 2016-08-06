@@ -17,18 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        let tabController = window?.rootViewController
-        let tabBar = (tabController as! UITabBarController).tabBar
-        tabBar.barStyle = UIBarStyle.Black
-        tabBar.barTintColor = UIColor.flatWhiteColor()
-                
-        let navigationControllers = tabController!.childViewControllers
-        for navigationController in navigationControllers {
-            let navigationBar = (navigationController as! UINavigationController).navigationBar
-            navigationBar.barStyle = UIBarStyle.Black
-            navigationBar.tintColor = UIColor.flatWhiteColor()
-        }
-                
         return true
     }
 }

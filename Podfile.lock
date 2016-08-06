@@ -4,6 +4,7 @@ PODS:
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
   - DGActivityIndicatorView (2.0)
+  - GaugeKit (0.3.2)
   - ObjectMapper (1.2.0)
   - Realm (1.0.2):
     - Realm/Headers (= 1.0.2)
@@ -17,6 +18,7 @@ DEPENDENCIES:
   - Alamofire (~> 3.0)
   - ChameleonFramework/Swift
   - DGActivityIndicatorView
+  - GaugeKit
   - ObjectMapper (~> 1.2)
   - RealmSwift
   - SCLAlertView
@@ -26,12 +28,13 @@ SPEC CHECKSUMS:
   Alamofire: 9054db4a1b1ca9e363223183e01cea380159a27c
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   DGActivityIndicatorView: 52875b025a6ccf6a431a905285c12e2bb95eb559
+  GaugeKit: 4d5c3491521ed2d6e2f83cac5f51d0cd09db8989
   ObjectMapper: b1e9c7c8a9f6400b72690c80072c131504caa66f
   Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
   RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
   SCLAlertView: d7c6a48c7d340e60206d4ed0e8ebcbff3b9d2a44
   StatefulViewController: 2a0e5ab30d9ade8e366253fb759baa9fbf458f3e
 
-PODFILE CHECKSUM: 90a12592b52fbf4ac5f9a41af67a0e131c6340bb
+PODFILE CHECKSUM: d90509316edbf3a0f015bced5460654ccdc16d67
 
 COCOAPODS: 1.0.1

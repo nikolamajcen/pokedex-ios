@@ -7,6 +7,7 @@ target 'Pokedex' do
     pod 'Alamofire', '~> 3.0'
     pod 'ChameleonFramework/Swift'
     pod 'DGActivityIndicatorView'
+    pod "GaugeKit"
     pod 'ObjectMapper', '~> 1.2'
     pod 'RealmSwift'
     pod 'SCLAlertView'

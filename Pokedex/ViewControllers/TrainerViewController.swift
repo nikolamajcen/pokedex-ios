@@ -7,130 +7,88 @@
 //
 
 import UIKit
+import GaugeKit
+import SCLAlertView
 
 class TrainerViewController: UIViewController {
-
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var contentView: UIView!
     
     @IBOutlet weak var trainerImage: UIImageView!
-    @IBOutlet weak var trainerName: UILabel!
-    @IBOutlet weak var chartView: UIView!
-    
-    // var captureRatioChart: PNCircleChart?
+    @IBOutlet weak var trainerNameLabel: UILabel!
+    @IBOutlet weak var captureNumberLabel: UILabel!
+    @IBOutlet weak var capturePercentageLabel: UILabel!
+    @IBOutlet weak var gauge: Gauge!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializeUI()
         initializeControls()
     }
     
-    private func initializeUI() {
-        self.scrollView.backgroundColor = UIColor.flatWhiteColor()
-        self.contentView.backgroundColor = UIColor.flatWhiteColor()
-        
-        self.trainerName.textColor = UIColor.flatWhiteColorDark()
-        
-        self.trainerImage.clipsToBounds = true
-        self.trainerImage.layer.cornerRadius = self.trainerImage.frame.width / 2
-        self.trainerImage.layer.borderWidth = 5
-        self.trainerImage.layer.borderColor = UIColor.flatWhiteColorDark().CGColor
-        
-        /*self.captureRatioChart = PNCircleChart(frame: self.chartView.bounds,
-                                               total: 100,
-                                               current: 60,
-                                               clockwise: true,
-                                               shadow: true,
-                                               shadowColor: UIColor.flatWhiteColorDark())
- 
-        self.captureRatioChart?.backgroundColor = UIColor.flatWhiteColor()
-        self.captureRatioChart!.strokeColor = UIColor.flatRedColorDark()
-        self.captureRatioChart!.countingLabel.textColor = UIColor.flatWhiteColorDark()
-        self.captureRatioChart!.strokeChart()
-        self.chartView.addSubview(self.captureRatioChart!)
-        */
-        
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        initializeUI()
+    }
+
+    private func initializeUI() {        
         if UserDefaultsManager.trainerImage != nil {
-            self.trainerImage.image = UserDefaultsManager.trainerImage
+            trainerImage.image = UserDefaultsManager.trainerImage
         }
         
         if UserDefaultsManager.trainerName != nil {
-            self.trainerName.text = UserDefaultsManager.trainerName
+            trainerNameLabel.text = UserDefaultsManager.trainerName
+        }
+        
+        let numberOfCapturedPokemons = DatabaseManager().getAllPokemons().count
+        if numberOfCapturedPokemons == 0 {
+            gauge.rate = 0.0
+            captureNumberLabel.text = "0/151"
+            capturePercentageLabel.text = "0.00%"
+        } else {
+            let capturePercentage = (CGFloat(numberOfCapturedPokemons) / 151.0) * 100.0
+            gauge.rate = capturePercentage
+            captureNumberLabel.text = "\(numberOfCapturedPokemons)/151"
+            capturePercentageLabel.text = String(format: "%.2f", capturePercentage) + "%"
         }
     }
     
     private func initializeControls() {
-        let imageTap = UITapGestureRecognizer(target: self,
-                                                      action: #selector(TrainerViewController.changeTrainerPhoto))
-        let nameTap = UITapGestureRecognizer(target: self,
-                                             action: #selector(TrainerViewController.changeTrainerName))
-        
-        self.trainerImage.userInteractionEnabled = true
-        self.trainerImage.addGestureRecognizer(imageTap)
-        
-        self.trainerName.userInteractionEnabled = true
-        self.trainerName.addGestureRecognizer(nameTap)
-        
+        let imageTap = UITapGestureRecognizer(target: self, action: #selector(changeTrainerPhoto))
+        trainerImage.userInteractionEnabled = true
+        trainerImage.addGestureRecognizer(imageTap)
     }
     
     internal func changeTrainerPhoto() {
-        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
-            let imagePickerController = UIImagePickerController()
-            imagePickerController.delegate = self
-            imagePickerController.sourceType = .Camera
-            imagePickerController.allowsEditing = false
-            self.presentViewController(imagePickerController, animated: true, completion: nil)
-        } else if UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) {
-            let imagePickerController = UIImagePickerController()
-            imagePickerController.delegate = self
-            imagePickerController.sourceType = .PhotoLibrary
-            imagePickerController.allowsEditing = false
-            self.presentViewController(imagePickerController, animated: true, completion: nil)
+        if UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) {
+            dispatch_async(dispatch_get_main_queue(), {
+                let imagePickerController = UIImagePickerController()
+                imagePickerController.delegate = self
+                imagePickerController.sourceType = .PhotoLibrary
+                imagePickerController.allowsEditing = false
+                self.presentViewController(imagePickerController, animated: true, completion: nil)
+            })
+        } else if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+            dispatch_async(dispatch_get_main_queue(), {
+                let imagePickerController = UIImagePickerController()
+                imagePickerController.delegate = self
+                imagePickerController.sourceType = .Camera
+                imagePickerController.allowsEditing = false
+                self.presentViewController(imagePickerController, animated: true, completion: nil)
+            })
         } else {
-            let alertController = UIAlertController(title: "Error",
-                                                    message: "Cannot open camera or photo library.",
-                                                    preferredStyle: .Alert)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            let alert = SCLAlertView()
+            dispatch_async(dispatch_get_main_queue(), { 
+                alert.showError("Error", subTitle: "Cannot open camera or photo library.")
+            })
         }
-    }
-    
-    internal func changeTrainerName() {
-        let trainerName = UserDefaultsManager.trainerName
-        
-        let changeNameController = UIAlertController(title: "Trainer name",
-                                                     message: "Enter new name: ",
-                                                     preferredStyle: .Alert)
-        
-        changeNameController.addTextFieldWithConfigurationHandler { (textField) in
-            if (trainerName == nil || trainerName!.characters.count == 0) {
-                textField.placeholder = "Enter your name"
-            } else {
-                textField.text = self.trainerName.text
-            }
-        }
-        
-        let changeNameCancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        
-        let changeNameSaveAction = UIAlertAction(title: "Save", style: .Default) {
-            [unowned self, changeNameController] (action: UIAlertAction!) in
-                let name = changeNameController.textFields![0].text
-                if (name?.characters.count > 0) {
-                    self.trainerName.text = name
-                    UserDefaultsManager.trainerName = name
-            }
-        }
-        
-        changeNameController.addAction(changeNameCancelAction)
-        changeNameController.addAction(changeNameSaveAction)
-        self.presentViewController(changeNameController, animated: true, completion: nil)
     }
 }
 
 extension TrainerViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        self.trainerImage.image = image
         UserDefaultsManager.trainerImage = image
-        picker.dismissViewControllerAnimated(true, completion: nil)
+        dispatch_async(dispatch_get_main_queue()) { 
+            self.trainerImage.image = image
+            picker.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
 }
 

@@ -46,7 +46,6 @@ class PokedexViewController: UIViewController {
         } else {
             pokemon = (pokedexData[(path?.row)!] as Pokemon)
         }
-        detailViewController.hidesBottomBarWhenPushed = true
         detailViewController.identifier = pokemon.id
         detailViewController.title = pokemon.name
     }
@@ -96,8 +95,8 @@ class PokedexViewController: UIViewController {
         // let navigationBar = navigationController?.navigationBar
         // navigationBar?.barTintColor = UIColor.flatRedColor()
         
-        let tabBar = tabBarController?.tabBar
-        tabBar?.tintColor = UIColor.flatRedColor()
+        // let tabBar = tabBarController?.tabBar
+        // tabBar?.tintColor = UIColor.flatRedColor()
     }
 }
 

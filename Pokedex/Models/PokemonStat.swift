@@ -14,7 +14,11 @@ class PokemonStat: NSObject, Mappable {
     var name = ""
     var value = 0
     
-    required init?(_ map: Map) { }
+    override init() {
+        super.init()
+    }
+    
+    required  init?(_ map: Map) { }
     
     func mapping(map: Map) {
         name <- map["stat.name"]

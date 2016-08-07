@@ -9,83 +9,77 @@
 import UIKit
 import AVFoundation
 import DGActivityIndicatorView
+import GaugeKit
 
 class PokemonDescriptionViewController: UIViewController {
 
-    @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var circleView: Gauge!
     @IBOutlet weak var voiceAnimationView: UIView!
-    @IBOutlet weak var audioButton: UIButton!
     
     private var activityIndicatorView: DGActivityIndicatorView!
-    
-    private let pokedexStore = PokedexStore()
+    private var tintColor: UIColor?
     
     private let synth = AVSpeechSynthesizer()
     private var speechUtterance: AVSpeechUtterance!
-    
+
     private var descriptionText: String?
     private var speechText: String?
     
-    private var primaryColor: UIColor?
-    private var accentColor: UIColor?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        self.synth.delegate = self
-        self.initializeUIColors()
-        self.initializeUIControls()
-        self.initializeSpeechAnimation()
-        self.initializeSpeechText()
+        synth.delegate = self
+        initializeUI()
+        initializeSpeechAnimation()
     }
     
     override func viewWillDisappear(animated: Bool) {
-        synth.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+        synth.stopSpeakingAtBoundary(.Immediate)
     }
-    
-    @IBAction func startAudio(sender: UIButton) {
-        speechUtterance = AVSpeechUtterance(string: " \(self.speechText!)")
-        synth.speakUtterance(speechUtterance)
+
+    func addColorStylesToView(color: UIColor) {
+        tintColor = color
     }
     
     func createDescriptionText(name name: String, types: [PokemonType], description: String) {
-        self.speechText = "\(name)... "
-        
+        speechText = "\(name)... "
         if types.count == 1 {
-            self.speechText = self.speechText! + "\(types[0].name) pokemon... "
+            speechText = speechText! + "\(types[0].name) pokemon... "
         } else {
-            self.speechText = self.speechText! + "\(types[0].name) and \(types[1].name) pokemon... "
+            speechText = speechText! + "\(types[0].name) and \(types[1].name) pokemon... "
         }
-        
-        self.speechText = self.speechText! + "\(description)"
-        self.descriptionText = description
+        speechText = speechText! + "\(description)"
+        descriptionText = description
     }
     
-    func addColorStylesToView(primaryColor primaryColor: UIColor, accentColor: UIColor) {
-        self.primaryColor = primaryColor
-        self.accentColor = accentColor
+    func startSpeech() {
+        if synth.speaking == true {
+            stopSpeech()
+            return
+        }
+        speechUtterance = AVSpeechUtterance(string: " \(speechText!)")
+        synth.speakUtterance(speechUtterance)
     }
     
-    private func initializeUIColors() {
-        // COLOR
+    func stopSpeech() {
+        synth.stopSpeakingAtBoundary(.Immediate)
+        dispatch_async(dispatch_get_main_queue(), {
+            self.activityIndicatorView.stopAnimating()
+        })
     }
     
-    private func initializeUIControls() {
-        self.descriptionTextView.text = ""
-        self.audioButton.backgroundColor = self.primaryColor
-        self.audioButton.tintColor = self.accentColor
-        self.audioButton.layer.cornerRadius = 5
+    private func initializeUI() {
+        descriptionLabel.text = descriptionText
+        circleView.startColor = tintColor!
     }
     
     private func initializeSpeechAnimation() {
-        self.activityIndicatorView = DGActivityIndicatorView(type: DGActivityIndicatorAnimationType.LineScalePulseOut)
-        self.activityIndicatorView.tintColor = self.primaryColor
-        self.activityIndicatorView.frame = self.voiceAnimationView.bounds
-        self.voiceAnimationView.addSubview(self.activityIndicatorView)
-    }
-    
-    private func initializeSpeechText() {
-        self.descriptionTextView.text = self.descriptionText!
+        activityIndicatorView = DGActivityIndicatorView(type: .TriplePulse)
+        activityIndicatorView.tintColor = tintColor
+        activityIndicatorView.frame = self.voiceAnimationView.bounds
+        activityIndicatorView
+            .addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(startSpeech)))
+        voiceAnimationView.addSubview(self.activityIndicatorView)
     }
 }
 
@@ -93,15 +87,17 @@ extension PokemonDescriptionViewController: AVSpeechSynthesizerDelegate {
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didStartSpeechUtterance utterance: AVSpeechUtterance) {
         if self.activityIndicatorView.animating == false {
-            self.activityIndicatorView.startAnimating()
-            self.activityIndicatorView.hidden = false
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.activityIndicatorView.startAnimating()
+            })
         }
     }
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
         if self.activityIndicatorView.animating == true {
-            self.activityIndicatorView.stopAnimating()
-            self.activityIndicatorView.hidden = true
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.activityIndicatorView.stopAnimating()
+            })
         }
     }
 }

@@ -17,6 +17,10 @@ class PokemonSpecies: NSObject, Mappable {
     var pokemonEvolutionChainId = 0
     var pokemonEvolutionChainUrl = ""
     
+    override init() {
+        super.init()
+    }
+    
     required init?(_ map: Map) { }
     
     func mapping(map: Map) {

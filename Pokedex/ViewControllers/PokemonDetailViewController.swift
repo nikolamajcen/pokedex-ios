@@ -21,6 +21,7 @@ class PokemonDetailViewController: UIViewController {
     @IBOutlet weak var tabContentView: UIView!
     
     private var currentViewController: UIViewController?
+    private var typeTintColor: UIColor?
     
     var identifier: Int?
     
@@ -35,7 +36,8 @@ class PokemonDetailViewController: UIViewController {
         self.initializeStateViews()
         self.initializeUIControls()
         
-        self.getPokemonDetails()
+        showMockData()
+        // self.getPokemonDetails()
     }
     
     @IBAction func valueChanged(sender: UISegmentedControl) {
@@ -60,6 +62,83 @@ class PokemonDetailViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    func showMockData() {
+        let mock = Pokemon()
+        mock.id = 1
+        mock.name = "Bulbasaur"
+        mock.url = "http://nikolamajcen.com"
+        
+        // Types
+        let type1 = PokemonType()
+        type1.name = "grass"
+        type1.url = ""
+        
+        let type2 = PokemonType()
+        type2.name = "poison"
+        type2.url = ""
+        
+        mock.types = [type1, type2]
+        
+        // Description
+        mock.descriptionInfo = PokemonDescription()
+        mock.descriptionInfo?.language = "en"
+        mock.descriptionInfo?.version = "v1"
+        mock.descriptionInfo?.text = "Bulbasaur can be seen napping in bright sunlight. There is a seed on its back. By soaking up the sun's rays, the seed grows progressively larger."
+        
+        // Evolution
+        let evolution1 = PokemonEvolution()
+        evolution1.identifier = 1
+        evolution1.name = "Bulbasaur"
+        evolution1.url = ""
+        
+        let evolution2 = PokemonEvolution()
+        evolution2.identifier = 2
+        evolution2.name = "Ivysaur"
+        evolution2.url = ""
+        
+        let evolution3 = PokemonEvolution()
+        evolution3.identifier = 3
+        evolution3.name = "Venesaur"
+        evolution3.url = ""
+        
+        mock.evolutionChain = PokemonEvolutionChain()
+        mock.evolutionChain?.identifier = 1
+        mock.evolutionChain?.evolutions.append(evolution1)
+        mock.evolutionChain?.evolutions.append(evolution2)
+        mock.evolutionChain?.evolutions.append(evolution3)
+        
+        // Stats
+        let stat1 = PokemonStat()
+        stat1.name = "Attack"
+        stat1.value = 50
+        
+        let stat2 = PokemonStat()
+        stat2.name = "Defence"
+        stat2.value = 50
+        
+        let stat3 = PokemonStat()
+        stat3.name = "Special"
+        stat3.value = 50
+        
+        let stat4 = PokemonStat()
+        stat4.name = "Lalalla"
+        stat4.value = 50
+        
+        let stat5 = PokemonStat()
+        stat5.name = "Lalalala"
+        stat5.value = 50
+        
+        let stat6 = PokemonStat()
+        stat6.name = "Lalalala"
+        stat6.value = 50
+        
+        mock.stats = [stat1, stat2, stat3, stat4, stat5, stat6]
+        // endLoading()
+        pokemon = mock
+        isContentDownloaded = true
+        showPokemonDetalView()
     }
     
     func getPokemonDetails() {
@@ -102,15 +181,15 @@ class PokemonDetailViewController: UIViewController {
     }
     
     private func initializeStateViews() {
-        loadingView = LoadingView(frame: view.frame)
-        emptyView = EmptyView(frame: view.frame)
+        // loadingView = LoadingView(frame: view.frame)
+        // emptyView = EmptyView(frame: view.frame)
         
-        let customErrorView = ErrorView(frame: view.frame)
-        customErrorView.reloadButton
+        // let customErrorView = ErrorView(frame: view.frame)
+        /*customErrorView.reloadButton
             .addTarget(self, action: #selector(PokemonDetailViewController.getPokemonDetails),
                        forControlEvents: UIControlEvents.TouchUpInside)
         
-        errorView = customErrorView
+        errorView = customErrorView*/
     }
     
     private func initializeUIControls() {
@@ -123,15 +202,9 @@ class PokemonDetailViewController: UIViewController {
     }
     
     private func initializeUIColors() {
-        let color = self.pokemonTypeLabelFirst.backgroundColor
-        
-        let navigationBar = self.navigationController?.navigationBar
-        navigationBar?.barTintColor = color
-        
-        let tabBar = self.tabBarController?.tabBar
-        tabBar?.tintColor = color
-        
-        self.tabSegmentControl.tintColor = color
+        typeTintColor = pokemonTypeLabelFirst.backgroundColor
+        navigationController?.navigationBar.barTintColor = typeTintColor
+        tabSegmentControl.tintColor = typeTintColor
         
         // COLOR
     }
@@ -202,8 +275,7 @@ class PokemonDetailViewController: UIViewController {
         viewController.createDescriptionText(name: (pokemon?.name)!,
                                              types: (pokemon?.types)!,
                                              description: (pokemon?.descriptionInfo?.text)!)
-        viewController.addColorStylesToView(primaryColor: TypeColor.getColorByType(self.pokemon!.types![0].name),
-                                            accentColor: UIColor.flatWhiteColor())
+        viewController.addColorStylesToView(typeTintColor!)
         self.addSubviewToTabContentView(viewController)
     }
     

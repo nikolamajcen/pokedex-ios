@@ -168,10 +168,10 @@
 		4FF357911CB2E8D2008A0F63 = {
 			isa = PBXGroup;
 			children = (
-				4FF3579C1CB2E8D2008A0F63 /* Pokedex */,
-				4FF3579B1CB2E8D2008A0F63 /* Products */,
 				CFE65F1F444B9223724FF63A /* Frameworks */,
 				DFABCACF627CE74EAD136460 /* Pods */,
+				4FF3579C1CB2E8D2008A0F63 /* Pokedex */,
+				4FF3579B1CB2E8D2008A0F63 /* Products */,
 			);
 			sourceTree = "<group>";
 		};

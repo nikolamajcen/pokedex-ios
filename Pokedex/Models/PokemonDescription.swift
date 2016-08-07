@@ -15,6 +15,10 @@ class PokemonDescription: NSObject, Mappable {
     var text = ""
     var language = ""
     
+    override init() {
+        super.init()
+    }
+    
     required init?(_ map: Map) { }
     
     func mapping(map: Map) {

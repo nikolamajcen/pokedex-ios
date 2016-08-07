@@ -15,6 +15,10 @@ class PokemonEvolution: NSObject, Mappable {
     var name = ""
     var url = ""
     
+    override init() {
+        super.init()
+    }
+    
     required init?(_ map: Map) { }
     
     func mapping(map: Map) {

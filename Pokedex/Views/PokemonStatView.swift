@@ -38,7 +38,8 @@ class PokemonStatView: StateView {
     
     private func initializeBarBackLayer(color color: UIColor) {
         statBarBackLayer.layer.cornerRadius = CGFloat(barCornerRadius)
-        statBarBackLayer.backgroundColor = color.colorWithAlphaComponent(0.33)
+        statBarBackLayer.backgroundColor = UIColor.flatWhiteColorDark()
+        // statBarBackLayer.backgroundColor = color.colorWithAlphaComponent(0.33)
     }
     
     private func initializeBarFrontLayer(statValue statValue: Int, color: UIColor) {

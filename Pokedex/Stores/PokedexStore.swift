@@ -93,7 +93,7 @@ class PokedexStore: NSObject {
     
     private func configurateRequestTimeout() {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        configuration.timeoutIntervalForRequest = 5
+        configuration.timeoutIntervalForRequest = 15
         self.alamofireManager = Alamofire.Manager(configuration: configuration)
     }
     

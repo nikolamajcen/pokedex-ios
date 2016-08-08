@@ -21,7 +21,15 @@ class PokemonType: NSObject, Mappable {
     required init?(_ map: Map) { }
     
     func mapping(map: Map) {
-        name <- map["type.name"]
+        name <- map["type.name"]        
         url <- map["type.url"]
+    }
+    
+    func formatName(name: String) -> String{
+        return name.uppercaseString
+    }
+    
+    func getTypeColor() -> UIColor {
+        return TypeColor.getColorByType(name)
     }
 }

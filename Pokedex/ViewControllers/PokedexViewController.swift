@@ -11,14 +11,16 @@ import StatefulViewController
 import RealmSwift
 
 class PokedexViewController: UIViewController {
-
+    
+    @IBOutlet weak var pokedexTable: UITableView!
+    
     let pokedexStore = PokedexStore()
     var pokedexData = [Pokemon]()
-
+    
     var searchController: UISearchController!
     var searchData = [Pokemon]()
     
-    @IBOutlet weak var pokedexTable: UITableView!
+    var tintColor: UIColor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,13 +28,13 @@ class PokedexViewController: UIViewController {
         pokedexTable.delegate = self
         pokedexTable.dataSource = self
         
-        initializeSearch()
         initializeStateViews()
-        initializeUIColors()
+        initializeSearch()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        initializeUIColors()
         getPokedexData()
     }
     
@@ -92,11 +94,11 @@ class PokedexViewController: UIViewController {
     
     
     private func initializeUIColors() {
-        // let navigationBar = navigationController?.navigationBar
-        // navigationBar?.barTintColor = UIColor.flatRedColor()
-        
-        // let tabBar = tabBarController?.tabBar
-        // tabBar?.tintColor = UIColor.flatRedColor()
+        if tintColor == nil {
+            tintColor = navigationController?.navigationBar.barTintColor
+        } else {
+            navigationController?.navigationBar.barTintColor = tintColor
+        }
     }
 }
 

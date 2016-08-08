@@ -16,18 +16,19 @@ class PokemonDetailViewController: UIViewController {
     @IBOutlet weak var pokemonNameLabel: UILabel!
     @IBOutlet weak var pokemonTypeLabelFirst: UILabel!
     @IBOutlet weak var pokemonTypeLabelSecond: UILabel!
-    
     @IBOutlet weak var tabSegmentControl: UISegmentedControl!
     @IBOutlet weak var tabContentView: UIView!
     
     private var currentViewController: UIViewController?
-    private var typeTintColor: UIColor?
-    
-    var identifier: Int?
+    private var textColor: UIColor?
+    private var tintColor: UIColor?
+    private var backgroundColor: UIColor?
     
     private let pokedexStore = PokedexStore()
     private var pokemon: Pokemon?
     private var isContentDownloaded = false
+    
+    var identifier: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -193,32 +194,32 @@ class PokemonDetailViewController: UIViewController {
     }
     
     private func initializeUIControls() {
-        self.pokemonIdLabel.text = ""
-        self.pokemonNameLabel.text = ""
-        self.pokemonTypeLabelFirst.text = ""
-        self.pokemonTypeLabelSecond.text = ""
-        
-        self.tabSegmentControl.selectedSegmentIndex = 0
+        pokemonIdLabel.text = ""
+        pokemonNameLabel.text = ""
+        pokemonTypeLabelFirst.text = ""
+        pokemonTypeLabelSecond.text = ""
+        tabSegmentControl.selectedSegmentIndex = 0
     }
     
     private func initializeUIColors() {
-        typeTintColor = pokemonTypeLabelFirst.backgroundColor
-        navigationController?.navigationBar.barTintColor = typeTintColor
-        tabSegmentControl.tintColor = typeTintColor
+        textColor = pokemonIdLabel.textColor
+        tintColor = pokemonTypeLabelFirst.backgroundColor
+        backgroundColor = view.backgroundColor
         
-        // COLOR
+        tabSegmentControl.tintColor = tintColor
+        navigationController?.navigationBar.barTintColor = tintColor
     }
     
     private func showPokemonDetalView() {
-        self.title = self.pokemon!.name
-        self.pokemonImage.image = UIImage(named: self.pokemon!.getListImageName())
+        title = pokemon!.name
+        pokemonImage.image = UIImage(named: pokemon!.getListImageName())
         
-        self.pokemonIdLabel.text =  "#\(self.pokemon!.id)"
-        self.pokemonNameLabel.text = self.pokemon!.name
-        self.showTypes(self.pokemon!)
+        pokemonIdLabel.text =  "#\(pokemon!.id)"
+        pokemonNameLabel.text = pokemon!.name
+        showTypes(pokemon!)
         
-        self.initializeUIColors()
-        self.openDescriptionTabContentView()
+        initializeUIColors()
+        openDescriptionTabContentView()
     }
     
     private func showTypes(pokemon: Pokemon) {
@@ -233,11 +234,6 @@ class PokemonDetailViewController: UIViewController {
             if typeName.isEmpty {
                 break
             }
-            /*
-            guard let typeName = (pokemon.types![index]).name else {
-                break
-            }
-            */
             
             if index == 0 {
                 let navigationBar = self.navigationController?.navigationBar
@@ -269,29 +265,26 @@ class PokemonDetailViewController: UIViewController {
     }
     
     private func openDescriptionTabContentView() {
-        let viewController = self.storyboard?
-            .instantiateViewControllerWithIdentifier("PokemonDescriptionViewController")
+        let viewController = storyboard?.instantiateViewControllerWithIdentifier("PokemonDescriptionViewController")
             as! PokemonDescriptionViewController
-        viewController.createDescriptionText(name: (pokemon?.name)!,
-                                             types: (pokemon?.types)!,
-                                             description: (pokemon?.descriptionInfo?.text)!)
-        viewController.addColorStylesToView(typeTintColor!)
+        viewController.pokemon = pokemon
+        viewController.setColors(tintColor: tintColor!)
         self.addSubviewToTabContentView(viewController)
     }
     
     private func openEvolutionChainTabContentView() {
-        let viewController = self.storyboard?
-            .instantiateViewControllerWithIdentifier("PokemonEvolutionChainViewController")
-        as! PokemonEvolutionViewController
-        viewController.evolutions = self.pokemon?.evolutionChain?.evolutions
+        let viewController = storyboard?.instantiateViewControllerWithIdentifier("PokemonEvolutionChainViewController")
+            as! PokemonEvolutionViewController
+        viewController.pokemon = pokemon
+        viewController.setColors(textColor: textColor!)
         self.addSubviewToTabContentView(viewController)
     }
     
     private func openStatsTabContentView() {
-        let viewController = self.storyboard?
-            .instantiateViewControllerWithIdentifier("PokemonStatsViewController")
-        as! PokemonStatsViewController
-        viewController.stats = self.pokemon?.stats
+        let viewController = storyboard?.instantiateViewControllerWithIdentifier("PokemonStatsViewController")
+            as! PokemonStatsViewController
+        viewController.pokemon = pokemon
+        viewController.setColors(textColor: textColor!, tintColor: tintColor!, backgroundColor: backgroundColor!)
         self.addSubviewToTabContentView(viewController)
     }
 }

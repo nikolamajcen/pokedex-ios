@@ -146,8 +146,8 @@
 				4FB127871CC5017D0081EC07 /* PokemonDetailViewController.swift */,
 				4FE2C0721CD7DF2A0067049C /* PokemonDescriptionViewController.swift */,
 				4FCDB4281CE5F71400A3E4A5 /* PokemonEvolutionViewController.swift */,
-				4FA9B2871D5211D000953100 /* PokemonScannerViewController.swift */,
 				4F117CEB1CE7649D00C07075 /* PokemonStatsViewController.swift */,
+				4FA9B2871D5211D000953100 /* PokemonScannerViewController.swift */,
 				4FF357A11CB2E8D2008A0F63 /* TrainerViewController.swift */,
 				4F446C821D55344D00F1F55B /* SettingsTableViewController.swift */,
 			);

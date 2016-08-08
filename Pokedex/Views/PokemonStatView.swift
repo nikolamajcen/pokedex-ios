@@ -11,51 +11,48 @@ import UIKit
 class PokemonStatView: StateView {
     
     @IBOutlet var view: UIView!
-    
     @IBOutlet weak var statLabel: UILabel!
     @IBOutlet weak var statBarBackLayer: UIView!
     @IBOutlet weak var statBarFrontLayer: UIView!
     @IBOutlet weak var statBarFrontLayerWidth: NSLayoutConstraint!
     
-    var barTintColor = UIColor.flatGrayColorDark()
-    var barBackgroundColor = UIColor.flatWhiteColorDark()
-    
     var statMaxValue = 180.0
-    var barBorderWidth = 5
-    var barRadius = 5
+    var barCornerRadius = 5.0
     
     override func setupView() {
         initializeNib(self, viewName: "PokemonStatView")
         initializeView(self, view: view)
     }
     
-    func showStat(name name: String, value: Int) {
-        self.statLabel.text = name
-        self.initializeBarBackLayer()
-        self.initializeBarFrontLayer(value)
+    func showStat(name name: String, value: Int, labelColor: UIColor, tintColor: UIColor, backgroundColor: UIColor) {
+        view.backgroundColor = backgroundColor
+        initializeLabel(text: name, textColor: labelColor)
+        initializeBarFrontLayer(statValue: value, color: tintColor)
+        initializeBarBackLayer(color: tintColor)
     }
     
-    private func initializeBarBackLayer() {
-        self.statBarBackLayer.layer.cornerRadius = CGFloat(self.barRadius)
-        self.statBarBackLayer.backgroundColor = self.barBackgroundColor
+    private func initializeLabel(text text: String, textColor: UIColor) {
+        statLabel.text = text
+        statLabel.textColor = textColor
     }
     
-    private func initializeBarFrontLayer(value: Int) {
-        self.statBarFrontLayer.layer.cornerRadius = CGFloat(self.barRadius)
-        self.statBarFrontLayer.backgroundColor = self.barTintColor
+    private func initializeBarBackLayer(color color: UIColor) {
+        statBarBackLayer.layer.cornerRadius = CGFloat(barCornerRadius)
+        statBarBackLayer.backgroundColor = color.colorWithAlphaComponent(0.33)
+    }
+    
+    private func initializeBarFrontLayer(statValue statValue: Int, color: UIColor) {
+        statBarFrontLayer.layer.cornerRadius = CGFloat(barCornerRadius)
+        statBarFrontLayer.backgroundColor = color
         
-        var barWidthMultiplier = CGFloat(Double(value) / self.statMaxValue)
+        var barWidthMultiplier = CGFloat(Double(statValue) / statMaxValue)
         if barWidthMultiplier > 1 {
             barWidthMultiplier = 1
         }
         
-        self.statBarFrontLayerWidth = NSLayoutConstraint(item: self.statBarFrontLayer,
-                                                         attribute: .Width,
-                                                         relatedBy: .Equal,
-                                                         toItem: self.statBarBackLayer,
-                                                         attribute: .Width,
-                                                         multiplier: barWidthMultiplier,
-                                                         constant: 0)
-        self.view.addConstraint(self.statBarFrontLayerWidth)
+        statBarFrontLayerWidth = NSLayoutConstraint(item: statBarFrontLayer, attribute: .Width, relatedBy: .Equal,
+                                                    toItem: statBarBackLayer, attribute: .Width,
+                                                    multiplier: barWidthMultiplier, constant: 0)
+        view.addConstraint(statBarFrontLayerWidth)
     }
 }

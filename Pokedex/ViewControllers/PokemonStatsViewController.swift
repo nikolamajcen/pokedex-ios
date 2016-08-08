@@ -10,27 +10,37 @@ import UIKit
 
 class PokemonStatsViewController: UIViewController {
 
-    
     @IBOutlet weak var statsContainerView: UIStackView!
     
-    var stats: [PokemonStat]?
+    var textColor: UIColor?
+    var tintColor: UIColor?
+    var backgroundColor: UIColor?
+    
+    var pokemon: Pokemon?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.showStats()
+        showStats()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        self.view.setNeedsDisplay()
+        view.setNeedsDisplay()
+    }
+    
+    func setColors(textColor textColor: UIColor, tintColor: UIColor, backgroundColor: UIColor) {
+        self.textColor = textColor
+        self.tintColor = tintColor
+        self.backgroundColor = backgroundColor
     }
     
     private func showStats() {
-        for pokemonStat: PokemonStat in stats!{
-            let stat = PokemonStatView(frame: statsContainerView.bounds)
-            stat.showStat(name: pokemonStat.name, value: pokemonStat.value)
-            statsContainerView.addArrangedSubview(stat)
+        for stat: PokemonStat in (pokemon?.stats)! {
+            let statView = PokemonStatView(frame: statsContainerView.bounds)
+            statView.showStat(name: stat.name, value: stat.value, labelColor: textColor!,
+                              tintColor: tintColor!, backgroundColor: backgroundColor!)
+            statsContainerView.addArrangedSubview(statView)
         }
     }
 }

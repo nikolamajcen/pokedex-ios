@@ -358,7 +358,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="b6r-yJ-vPX" userLabel="Container View">
                                 <rect key="frame" x="20" y="0.0" width="560" height="600"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="eJU-hu-nH6" userLabel="Content View">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="eJU-hu-nH6" userLabel="Content View">
                                         <rect key="frame" x="8" y="0.0" width="544" height="600"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="atA-Q5-Avl" userLabel="Evolution 1st">
@@ -489,15 +489,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="61P-ss-gR9" userLabel="Stats Container">
-                                <rect key="frame" x="40" y="15" width="520" height="565"/>
+                                <rect key="frame" x="20" y="12" width="560" height="588"/>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.15868747229999999" green="0.2182204425" blue="0.30320093040000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="61P-ss-gR9" secondAttribute="trailing" constant="20" id="FaX-kP-v18"/>
-                            <constraint firstItem="Iyl-aL-eKs" firstAttribute="top" secondItem="61P-ss-gR9" secondAttribute="bottom" constant="20" id="J14-Sf-TGE"/>
-                            <constraint firstItem="61P-ss-gR9" firstAttribute="leading" secondItem="tv9-2c-e8d" secondAttribute="leadingMargin" constant="20" id="L46-jS-Msj"/>
-                            <constraint firstItem="61P-ss-gR9" firstAttribute="top" secondItem="SBf-ud-Rda" secondAttribute="bottom" constant="15" id="nmA-cw-3TN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="61P-ss-gR9" secondAttribute="trailing" id="FaX-kP-v18"/>
+                            <constraint firstItem="Iyl-aL-eKs" firstAttribute="top" secondItem="61P-ss-gR9" secondAttribute="bottom" id="J14-Sf-TGE"/>
+                            <constraint firstItem="61P-ss-gR9" firstAttribute="leading" secondItem="tv9-2c-e8d" secondAttribute="leadingMargin" id="L46-jS-Msj"/>
+                            <constraint firstItem="61P-ss-gR9" firstAttribute="top" secondItem="SBf-ud-Rda" secondAttribute="bottom" constant="12" id="nmA-cw-3TN"/>
                         </constraints>
                     </view>
                     <connections>

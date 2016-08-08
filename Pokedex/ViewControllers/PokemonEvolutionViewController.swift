@@ -26,41 +26,44 @@ class PokemonEvolutionViewController: UIViewController {
     @IBOutlet weak var evolutionSecondNameLabel: UILabel!
     @IBOutlet weak var evolutionThirdNameLabel: UILabel!
     
-    var evolutions: [PokemonEvolution]?
-    var imageNames: [String]?
+    private var textColor: UIColor?
+    
+    var pokemon: Pokemon?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.initializeUI()
-        self.showEvolutions()
+        initializeUI()
+        showEvolutions()
+    }
+    
+    func setColors(textColor textColor: UIColor) {
+        self.textColor = textColor
     }
     
     private func initializeUI() {
-        self.evolutionFirstNameLabel.text = ""
-        self.evolutionSecondNameLabel.text = ""
-        self.evolutionThirdNameLabel.text = ""
+        evolutionFirstNameLabel.textColor = textColor
+        evolutionSecondNameLabel.textColor = textColor
+        evolutionThirdNameLabel.textColor = textColor
         
-        self.evolutionFirstIdentifierLabel.text = ""
-        self.evolutionSecondIdentifierLabel.text = ""
-        self.evolutionThirdIdentifierLabel.text = ""
+        evolutionFirstIdentifierLabel.textColor = textColor
+        evolutionSecondIdentifierLabel.textColor = textColor
+        evolutionThirdIdentifierLabel.textColor = textColor
     }
     
     private func showEvolutions() {
-        switch (self.evolutions?.count)! {
+        let evolutions = pokemon?.evolutionChain?.evolutions
+        switch (evolutions!.count) {
         case 1:
-            self.evolutionSecondView.hidden = true
-            self.evolutionThirdView.hidden = true
-            break
+            evolutionSecondView.hidden = true
+            evolutionThirdView.hidden = true
         case 2:
-            self.evolutionThirdView.hidden = true
-            break
+            evolutionThirdView.hidden = true
         default:
             break
         }
         
-        for evolution: PokemonEvolution in self.evolutions! {
-            showEvolution(evolution, evolutionNumber: (self.evolutions?.indexOf(evolution))!)
+        for evolution: PokemonEvolution in evolutions! {
+            showEvolution(evolution, evolutionNumber: (evolutions?.indexOf(evolution))!)
         }
     }
     
@@ -70,17 +73,14 @@ class PokemonEvolutionViewController: UIViewController {
             evolutionFirstIdentifierLabel.text = "#\(evolution.identifier)"
             evolutionFirstNameLabel.text = evolution.name
             evolutionFirstImage.image = UIImage(named: ImageHelper.getListImageName(evolution.identifier))
-            break
         case 1:
             evolutionSecondIdentifierLabel.text = "#\(evolution.identifier)"
             evolutionSecondNameLabel.text = evolution.name
             evolutionSecondImage.image = UIImage(named: ImageHelper.getListImageName(evolution.identifier))
-            break
         case 2:
             evolutionThirdIdentifierLabel.text = "#\(evolution.identifier)"
             evolutionThirdNameLabel.text = evolution.name
             evolutionThirdImage.image = UIImage(named: ImageHelper.getListImageName(evolution.identifier))
-            break
         default:
             break
         }

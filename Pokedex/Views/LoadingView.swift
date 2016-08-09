@@ -15,7 +15,7 @@ class LoadingView: StateView {
     @IBOutlet weak var activityIndicatorView: UIView!
     @IBOutlet weak var loadingLabel: UILabel!
     
-    var activityIndicator: DGActivityIndicatorView?
+    var activityIndicator = DGActivityIndicatorView()
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -25,18 +25,29 @@ class LoadingView: StateView {
         super.init(frame: CGRectZero)
         initializeNib(self, name: "LoadingView")
         initializeView(self, view: contentView)
-        initializeActivityIndicator()
     }
     
-    override func willMoveToSuperview(newSuperview: UIView?) {
+    override func willMoveToWindow(newWindow: UIWindow?) {
+        if activityIndicator.animating == false {
+            startAnimating()
+        } else {
+            stopAnimating()
+        }
+    }
+    
+    private func startAnimating() {
+        activityIndicator = DGActivityIndicatorView(type: .BallClipRotateMultiple, tintColor: UIColor.flatRedColorDark())
+        activityIndicator.frame = activityIndicatorView.bounds
         performUpdatesOnMain({
-            self.activityIndicator!.startAnimating()
+            self.activityIndicatorView.addSubview(self.activityIndicator)
+            self.activityIndicator.startAnimating()
         })
     }
     
-    private func initializeActivityIndicator() {
-        activityIndicator = DGActivityIndicatorView(type: .BallClipRotateMultiple, tintColor: UIColor.flatRedColorDark())
-        activityIndicator?.frame = activityIndicatorView.bounds
-        activityIndicatorView.addSubview(activityIndicator!)
+    private func stopAnimating() {
+        performUpdatesOnMain({
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.removeFromSuperview()
+        })
     }
 }

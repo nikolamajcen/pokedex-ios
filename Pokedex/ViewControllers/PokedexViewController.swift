@@ -81,7 +81,6 @@ class PokedexViewController: UIViewController {
         navigationItem.titleView = searchController.searchBar
     }
     
-    
     private func initializeUIColors() {
         if tintColor == nil {
             tintColor = navigationController?.navigationBar.barTintColor

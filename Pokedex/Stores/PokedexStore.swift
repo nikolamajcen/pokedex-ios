@@ -105,7 +105,6 @@ class PokedexStore: NSObject {
         
         if response.result.isFailure {
             return NSError(domain: "Bad request.", code: (response.response?.statusCode)!, userInfo: nil)
-            
         }
         
         if response.result.value == nil {

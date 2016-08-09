@@ -91,7 +91,7 @@ class PokemonScannerViewController: UIViewController {
     
     private func changeCaptureState(turnOn turnOn: Bool) {
         if captureSession?.running != turnOn {
-            dispatch_async(dispatch_get_main_queue(), {
+            performUpdatesOnMain({ 
                 if turnOn == true {
                     self.view.sendSubviewToBack(self.QRCodeFrameView!)
                     self.captureSession?.startRunning()
@@ -151,12 +151,11 @@ class PokemonScannerViewController: UIViewController {
             imageView.image = image
             imageView.contentMode = .ScaleAspectFit
             captureAlert.customSubview = imageView
-            
-            dispatch_async(dispatch_get_main_queue(), { 
+            performUpdatesOnMain({ 
                 captureAlert.showSuccess(title, subTitle: message)
             })
         } else {
-            dispatch_async(dispatch_get_main_queue(), { 
+            performUpdatesOnMain({ 
                 captureAlert.showError(title, subTitle: message)
             })
         }

@@ -28,7 +28,8 @@ class TrainerViewController: UIViewController {
         initializeUI()
     }
 
-    private func initializeUI() {        
+    private func initializeUI() {
+        trainerImage.layer.borderColor = UIColor.flatWhiteColorDark().CGColor
         if UserDefaultsManager.trainerImage != nil {
             trainerImage.image = UserDefaultsManager.trainerImage
         }
@@ -58,37 +59,34 @@ class TrainerViewController: UIViewController {
     
     internal func changeTrainerPhoto() {
         if UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) {
-            dispatch_async(dispatch_get_main_queue(), {
-                let imagePickerController = UIImagePickerController()
-                imagePickerController.delegate = self
-                imagePickerController.sourceType = .PhotoLibrary
-                imagePickerController.allowsEditing = false
-                self.presentViewController(imagePickerController, animated: true, completion: nil)
-            })
+            showImagePicker(.PhotoLibrary)
         } else if UIImagePickerController.isSourceTypeAvailable(.Camera) {
-            dispatch_async(dispatch_get_main_queue(), {
-                let imagePickerController = UIImagePickerController()
-                imagePickerController.delegate = self
-                imagePickerController.sourceType = .Camera
-                imagePickerController.allowsEditing = false
-                self.presentViewController(imagePickerController, animated: true, completion: nil)
-            })
+            showImagePicker(.Camera)
         } else {
-            let alert = SCLAlertView()
-            dispatch_async(dispatch_get_main_queue(), { 
-                alert.showError("Error", subTitle: "Cannot open camera or photo library.")
+            performUpdatesOnMain({
+                SCLAlertView().showError("Error", subTitle: "Cannot open camera or photo library.")
             })
         }
+    }
+    
+    private func showImagePicker(sourceType: UIImagePickerControllerSourceType) {
+        performUpdatesOnMain({
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = sourceType
+            imagePickerController.allowsEditing = false
+            self.presentViewController(imagePickerController, animated: true, completion: nil)
+        })
     }
 }
 
 extension TrainerViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        UserDefaultsManager.trainerImage = image
-        dispatch_async(dispatch_get_main_queue()) { 
+        performUpdatesOnMain { 
             self.trainerImage.image = image
             picker.dismissViewControllerAnimated(true, completion: nil)
         }
+        UserDefaultsManager.trainerImage = image
     }
 }
 

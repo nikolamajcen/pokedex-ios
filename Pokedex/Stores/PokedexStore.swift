@@ -20,7 +20,7 @@ class PokedexStore: NSObject {
         configurateRequestTimeout()
     }
     
-    func fetchPokemons(completion: ([Pokemon]!, NSError!) -> Void) -> Void {
+    func fetchPokemons(completion: ([Pokemon]!) -> Void) -> Void {
         
         let pokemons: [Pokemon]
         if UserDefaultsManager.gameMode == true {
@@ -32,9 +32,9 @@ class PokedexStore: NSObject {
             let value = String(data: data!, encoding: NSUTF8StringEncoding)
             pokemons = Mapper<Pokemon>().mapArray(value!)!
         }
-        completion(pokemons, nil)
+        completion(pokemons)
 
-        // TODO: Can be removed
+        // Can be removed
         /*
         alamofireManager!
             .request(.GET, "https://pokeapi.co/api/v2/pokemon/?limit=151&offset=0")
@@ -46,7 +46,8 @@ class PokedexStore: NSObject {
                     let pokemons = Mapper<Pokemon>().mapArray(response.result.value!["results"])
                     completion(pokemons, nil)
                 }
-        }*/
+        }
+        */
     }
     
     func fetchPokemonDetails(id: Int, completion: (Pokemon!, NSError!) -> Void) -> Void {

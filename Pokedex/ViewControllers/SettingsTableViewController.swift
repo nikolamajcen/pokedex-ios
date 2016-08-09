@@ -35,13 +35,11 @@ class SettingsTableViewController: UITableViewController {
         let changeUsernameWindow = SCLAlertView(appearance: appearance)
         let textField = changeUsernameWindow.addTextField("Enter username...")
         changeUsernameWindow.addButton("Confirm") {
-            dispatch_async(dispatch_get_main_queue(), { 
-                self.usernameLabel.text = textField.text
-            })
+            self.usernameLabel.text = textField.text
             UserDefaultsManager.trainerName = textField.text
         }
         changeUsernameWindow.addButton("Cancel") { }
-        dispatch_async(dispatch_get_main_queue()) { 
+        performUpdatesOnMain { 
             changeUsernameWindow.showEdit(title, subTitle: message)
         }
     }
@@ -56,7 +54,7 @@ class SettingsTableViewController: UITableViewController {
             manager.deleteAllPokemons()
         }
         messageWindow.addButton("No") { }
-        dispatch_async(dispatch_get_main_queue()) { 
+        performUpdatesOnMain { 
             messageWindow.showError(title, subTitle: message)
         }
     }

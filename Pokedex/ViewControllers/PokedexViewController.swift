@@ -9,6 +9,7 @@
 import UIKit
 import StatefulViewController
 import RealmSwift
+import SCLAlertView
 
 class PokedexViewController: UIViewController {
     
@@ -53,15 +54,10 @@ class PokedexViewController: UIViewController {
     }
     
     func getPokedexData() {
-        startLoading()
-        pokedexStore.fetchPokemons { (pokemons, error) in
-            if error == nil {
-                self.pokedexData = pokemons
-                self.pokedexTable.reloadData()
-                self.endLoading()
-            } else {
-                self.endLoading(error: error)
-            }
+        pokedexStore.fetchPokemons { (pokemons) in
+            self.pokedexData = pokemons
+            self.pokedexTable.reloadData()
+            self.endLoading()
         }
     }
     
@@ -139,11 +135,11 @@ extension PokedexViewController: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
         if pokedexData.isEmpty == true {
-            let alert = UIAlertController(title: "Search not allowed",
-                                          message: "Pokedex data is not loaded yet. Wait or try again to download pokedex data.",
-                                          preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            presentViewController(alert, animated: true, completion: nil)
+            performUpdatesOnMain({
+                let alert = SCLAlertView(appearance: SCLAlertView.SCLAppearance(showCloseButton: false))
+                alert.addButton("OK", action: { })
+                alert.showError("Search is not allowed", subTitle: "Pokedex is currently empty.")
+            })
             return false
         }
         return true

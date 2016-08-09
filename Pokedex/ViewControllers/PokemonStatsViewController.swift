@@ -18,7 +18,6 @@ class PokemonStatsViewController: UIViewController {
     
     var pokemon: Pokemon?
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         showStats()

@@ -90,7 +90,7 @@ class PokemonDescriptionViewController: UIViewController {
     
     private func startVoiceAnimation() {
         if self.activityIndicatorView.animating == false {
-            dispatch_async(dispatch_get_main_queue(), {
+            performUpdatesOnMain({ 
                 self.activityIndicatorView.startAnimating()
             })
         }
@@ -98,7 +98,7 @@ class PokemonDescriptionViewController: UIViewController {
     
     private func stopVoiceAnimation() {
         if self.activityIndicatorView.animating == true {
-            dispatch_async(dispatch_get_main_queue(), {
+            performUpdatesOnMain({ 
                 self.activityIndicatorView.stopAnimating()
             })
         }

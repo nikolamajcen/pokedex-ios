@@ -7,19 +7,36 @@
 //
 
 import UIKit
+import DGActivityIndicatorView
 
 class LoadingView: StateView {
     
-    @IBOutlet var view: UIView!
-    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet var contentView: UIView!
+    @IBOutlet weak var activityIndicatorView: UIView!
     @IBOutlet weak var loadingLabel: UILabel!
     
-    override func setupView() {
-        initializeNib(self, viewName: "LoadingView")
-        initializeView(self, view: view)
-        
-        loadingLabel.text = "Loading..."
-        loadingLabel.textColor = UIColor.flatRedColor()
-        loadingIndicator.startAnimating()
+    var activityIndicator: DGActivityIndicatorView?
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    init(owner: UIViewController) {
+        super.init(frame: CGRectZero)
+        initializeNib(self, name: "LoadingView")
+        initializeView(self, view: contentView)
+        initializeActivityIndicator()
+    }
+    
+    override func willMoveToSuperview(newSuperview: UIView?) {
+        performUpdatesOnMain({
+            self.activityIndicator!.startAnimating()
+        })
+    }
+    
+    private func initializeActivityIndicator() {
+        activityIndicator = DGActivityIndicatorView(type: .BallClipRotateMultiple, tintColor: UIColor.flatRedColorDark())
+        activityIndicator?.frame = activityIndicatorView.bounds
+        activityIndicatorView.addSubview(activityIndicator!)
     }
 }

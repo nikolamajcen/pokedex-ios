@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TypeColor {
+class ColorHelper {
     
     static func getColorByType(type: String) -> UIColor {
         var colors = [Int]()

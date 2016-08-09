@@ -10,14 +10,16 @@ import UIKit
 
 class EmptyView: StateView {
     
-    @IBOutlet var view: UIView!
+    @IBOutlet var contentView: UIView!
     @IBOutlet weak var messageLabel: UILabel!
     
-    override func setupView() {
-        initializeNib(self, viewName: "EmptyView")
-        initializeView(self, view: view)
-        
-        self.messageLabel.text = "No data."
-        self.messageLabel.textColor = UIColor.flatRedColor()
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    init(owner: UIViewController) {
+        super.init(frame: CGRectZero)
+        initializeNib(self, name: "EmptyView")
+        initializeView(self, view: contentView)
     }
 }

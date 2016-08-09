@@ -30,6 +30,6 @@ class PokemonType: NSObject, Mappable {
     }
     
     func getTypeColor() -> UIColor {
-        return TypeColor.getColorByType(name)
+        return ColorHelper.getColorByType(name)
     }
 }

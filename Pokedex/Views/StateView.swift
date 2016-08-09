@@ -10,20 +10,8 @@ import UIKit
 
 class StateView: UIView {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setupView()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.setupView()
-    }
-    
-    func setupView() { }
-    
-    func initializeNib(container: UIView, viewName: String) {
-        NSBundle.mainBundle().loadNibNamed(viewName, owner: container, options: nil)
+    func initializeNib(owner: UIView, name: String) {
+        NSBundle.mainBundle().loadNibNamed(name, owner: owner, options: nil)
     }
     
     func initializeView(container: UIView, view: UIView) {

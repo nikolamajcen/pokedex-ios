@@ -3,13 +3,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadingView" customModule="Pokedex" customModuleProvider="target">
             <connections>
-                <outlet property="loadingIndicator" destination="e7S-ky-iLc" id="TEB-RX-GVR"/>
+                <outlet property="activityIndicatorView" destination="1hM-g0-Dut" id="cAK-sD-BmY"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="UkO-Rw-b5V"/>
                 <outlet property="loadingLabel" destination="vpe-uZ-EJE" id="bcZ-S0-gWG"/>
-                <outlet property="view" destination="iN0-l3-epB" id="Qk7-Cd-k0R"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -17,22 +18,30 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="e7S-ky-iLc">
-                    <rect key="frame" x="290" y="290" width="20" height="20"/>
-                </activityIndicatorView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpe-uZ-EJE">
-                    <rect key="frame" x="266" y="330" width="68" height="18"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Teu-TF-lqX">
+                    <rect key="frame" x="266" y="259" width="68" height="82"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1hM-g0-Dut">
+                            <rect key="frame" x="4" y="0.0" width="60" height="60"/>
+                            <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="YK1-7F-ouh"/>
+                                <constraint firstAttribute="width" secondItem="1hM-g0-Dut" secondAttribute="height" multiplier="1:1" id="obH-0H-92M"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpe-uZ-EJE">
+                            <rect key="frame" x="0.0" y="64" width="68" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.12637259070000001" green="0.12639245390000001" blue="0.1263653636" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
             </subviews>
             <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="vpe-uZ-EJE" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="iho-FI-Bnr"/>
-                <constraint firstItem="e7S-ky-iLc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="mqN-vp-v3b"/>
-                <constraint firstItem="e7S-ky-iLc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ws9-S6-rcD"/>
-                <constraint firstItem="vpe-uZ-EJE" firstAttribute="top" secondItem="e7S-ky-iLc" secondAttribute="bottom" constant="20" id="xca-iM-79q"/>
+                <constraint firstItem="Teu-TF-lqX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="dPj-G1-Tex"/>
+                <constraint firstItem="Teu-TF-lqX" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="vK5-SP-6x9"/>
             </constraints>
         </view>
     </objects>

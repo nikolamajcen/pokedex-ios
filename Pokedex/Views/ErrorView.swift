@@ -10,15 +10,19 @@ import UIKit
 
 class ErrorView: StateView {
     
-    @IBOutlet var view: UIView!
+    @IBOutlet var contentView: UIView!
+    @IBOutlet weak var errorImage: UIImageView!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var reloadButton: UIButton!
-    @IBOutlet weak var errorImage: UIImageView!
     
-    override func setupView() {
-        initializeNib(self, viewName: "ErrorView")
-        initializeView(self, view: view)
-        
-        self.errorImage.image = UIImage(named: "Pokeball Empty")
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    init(owner: UIViewController, action: Selector) {
+        super.init(frame: CGRectZero)
+        initializeNib(self, name: "ErrorView")
+        initializeView(self, view: contentView)
+        reloadButton.addTarget(owner, action: action, forControlEvents: .TouchUpInside)
     }
 }

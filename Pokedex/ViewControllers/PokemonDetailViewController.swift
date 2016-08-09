@@ -32,7 +32,6 @@ class PokemonDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupInitialViewState()
         initializeStateViews()
         getPokemonDetails()
         // showMockData()
@@ -99,15 +98,10 @@ class PokemonDetailViewController: UIViewController {
     }
     
     private func initializeStateViews() {
-        loadingView = LoadingView(frame: view.frame)
-        emptyView = EmptyView(frame: view.frame)
-        
-        let customErrorView = ErrorView(frame: view.frame)
-        customErrorView.reloadButton
-            .addTarget(self, action: #selector(PokemonDetailViewController.getPokemonDetails),
-                       forControlEvents: UIControlEvents.TouchUpInside)
-        
-        errorView = customErrorView
+        setupInitialViewState()
+        loadingView = LoadingView(owner: self)
+        emptyView = EmptyView(owner: self)
+        errorView = ErrorView(owner: self, action: #selector(getPokemonDetails))
     }
     
     private func initializeUI() {

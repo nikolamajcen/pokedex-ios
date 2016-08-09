@@ -20,7 +20,6 @@ class ImageHelper {
         } else {
             number = "\(id)"
         }
-        
         return "P\(number)S"
     }
 }

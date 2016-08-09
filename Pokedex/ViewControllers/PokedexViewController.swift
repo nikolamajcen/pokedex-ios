@@ -67,16 +67,9 @@ class PokedexViewController: UIViewController {
     
     private func initializeStateViews() {
         setupInitialViewState()
-        
-        loadingView = LoadingView(frame: view.frame)
-        emptyView = EmptyView(frame: view.frame)
-        
-        let customErrorView = ErrorView(frame: view.frame)
-        customErrorView.reloadButton
-            .addTarget(self, action: #selector(PokedexViewController.getPokedexData),
-                       forControlEvents: UIControlEvents.TouchUpInside)
-        
-        errorView = customErrorView
+        loadingView = LoadingView(owner: self)
+        emptyView = EmptyView(owner: self)
+        errorView = ErrorView(owner: self, action: #selector(getPokedexData))
     }
     
     private func initializeSearch() {

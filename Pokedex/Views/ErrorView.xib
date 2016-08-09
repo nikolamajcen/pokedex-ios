@@ -8,10 +8,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ErrorView" customModule="Pokedex" customModuleProvider="target">
             <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="2yH-hD-64v"/>
                 <outlet property="errorImage" destination="TSc-5k-Iim" id="Tmt-C7-agT"/>
                 <outlet property="messageLabel" destination="KYD-PN-xEI" id="afR-ag-OLr"/>
-                <outlet property="reloadButton" destination="dKl-2n-p2H" id="Nwo-o0-Qkv"/>
-                <outlet property="view" destination="iN0-l3-epB" id="2qo-bP-RCq"/>
+                <outlet property="reloadButton" destination="dKl-2n-p2H" id="cJO-hP-nvu"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -19,33 +19,48 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dKl-2n-p2H">
-                    <rect key="frame" x="277" y="329" width="47" height="30"/>
-                    <state key="normal" title="Reload"/>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something went wrong." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KYD-PN-xEI">
-                    <rect key="frame" x="219" y="291" width="162" height="18"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TSc-5k-Iim">
-                    <rect key="frame" x="250" y="171" width="100" height="100"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="100" id="Fb1-VG-Zui" userLabel="height = 100"/>
-                        <constraint firstAttribute="width" secondItem="TSc-5k-Iim" secondAttribute="height" multiplier="1:1" id="szZ-DM-Mnr"/>
-                    </constraints>
-                </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="tgX-wv-4pF">
+                    <rect key="frame" x="219" y="210" width="162" height="180"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pokeball Empty" translatesAutoresizingMaskIntoConstraints="NO" id="TSc-5k-Iim">
+                            <rect key="frame" x="31" y="0.0" width="100" height="100"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="100" id="Fb1-VG-Zui" userLabel="height = 100"/>
+                                <constraint firstAttribute="width" secondItem="TSc-5k-Iim" secondAttribute="height" multiplier="1:1" id="szZ-DM-Mnr"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something went wrong." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KYD-PN-xEI">
+                            <rect key="frame" x="0.0" y="116" width="162" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.12637259070000001" green="0.12639245390000001" blue="0.1263653636" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dKl-2n-p2H">
+                            <rect key="frame" x="46" y="150" width="70" height="30"/>
+                            <color key="backgroundColor" red="0.67455112930000005" green="0.15692374110000001" blue="0.10914970929999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="70" id="6oH-7Q-Ilc"/>
+                            </constraints>
+                            <state key="normal" title="Reload">
+                                <color key="titleColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                    </subviews>
+                </stackView>
             </subviews>
             <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="KYD-PN-xEI" firstAttribute="top" secondItem="TSc-5k-Iim" secondAttribute="bottom" constant="20" id="5hR-Ou-ybe"/>
-                <constraint firstItem="KYD-PN-xEI" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Pwz-2K-m05"/>
-                <constraint firstItem="dKl-2n-p2H" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Zyd-27-qrM"/>
-                <constraint firstItem="KYD-PN-xEI" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gJY-VB-ZpT"/>
-                <constraint firstItem="dKl-2n-p2H" firstAttribute="top" secondItem="KYD-PN-xEI" secondAttribute="bottom" constant="20" id="m3N-jD-pRC"/>
-                <constraint firstItem="TSc-5k-Iim" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="sf5-5o-plz"/>
+                <constraint firstItem="tgX-wv-4pF" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="OCu-hL-PNC"/>
+                <constraint firstItem="tgX-wv-4pF" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="uca-Fv-rwh"/>
             </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="Pokeball Empty" width="200" height="200"/>
+    </resources>
 </document>

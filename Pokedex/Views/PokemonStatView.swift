@@ -19,8 +19,13 @@ class PokemonStatView: StateView {
     var statMaxValue = 180.0
     var barCornerRadius = 5.0
     
-    override func setupView() {
-        initializeNib(self, viewName: "PokemonStatView")
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    init() {
+        super.init(frame: CGRectZero)
+        initializeNib(self, name: "PokemonStatView")
         initializeView(self, view: view)
     }
     

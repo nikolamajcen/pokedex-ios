@@ -62,8 +62,7 @@ class PokemonDescriptionViewController: UIViewController {
     }
     
     private func initializeSpeechAnimation() {
-        activityIndicatorView = DGActivityIndicatorView(type: .TriplePulse)
-        activityIndicatorView.tintColor = tintColor
+        activityIndicatorView = DGActivityIndicatorView(type: .TriplePulse, tintColor: tintColor)
         activityIndicatorView.frame = self.voiceAnimationView.bounds
         activityIndicatorView
             .addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(manageSpeech)))

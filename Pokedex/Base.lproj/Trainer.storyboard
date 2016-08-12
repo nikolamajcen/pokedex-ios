@@ -25,7 +25,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="93T-0R-XqZ" userLabel="Trainer Info">
                                         <rect key="frame" x="45" y="0.0" width="128" height="166"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8QW-am-QMc">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8QW-am-QMc">
                                                 <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="8QW-am-QMc" secondAttribute="height" multiplier="1:1" id="8p2-9C-cms"/>
@@ -416,7 +416,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="iEO-f1-1Rk" firstAttribute="centerY" secondItem="f6u-yG-OLA" secondAttribute="centerY" id="Vue-z1-rkg"/>
                             <constraint firstItem="iEO-f1-1Rk" firstAttribute="centerX" secondItem="f6u-yG-OLA" secondAttribute="centerX" id="hpU-LE-hVe"/>

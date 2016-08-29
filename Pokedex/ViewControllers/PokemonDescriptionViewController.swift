@@ -27,8 +27,7 @@ class PokemonDescriptionViewController: UIViewController {
     
     var pokemon: Pokemon? {
         didSet {
-            formatTextForSpeech(name: (pokemon?.name)!,
-                                types: (pokemon?.types)!,
+            formatTextForSpeech(name: (pokemon?.name)!, types: (pokemon?.types)!,
                                 description: (pokemon?.descriptionInfo?.text)!)
         }
     }
@@ -89,18 +88,14 @@ class PokemonDescriptionViewController: UIViewController {
     }
     
     private func startVoiceAnimation() {
-        if self.activityIndicatorView.animating == false {
-            performUpdatesOnMain({ 
-                self.activityIndicatorView.startAnimating()
-            })
+        if activityIndicatorView.animating == false {
+            activityIndicatorView.startAnimating()
         }
     }
     
     private func stopVoiceAnimation() {
-        if self.activityIndicatorView.animating == true {
-            performUpdatesOnMain({ 
-                self.activityIndicatorView.stopAnimating()
-            })
+        if activityIndicatorView.animating == true {
+            activityIndicatorView.stopAnimating()
         }
     }
 }

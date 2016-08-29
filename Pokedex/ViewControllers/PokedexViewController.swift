@@ -134,11 +134,9 @@ extension PokedexViewController: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
         if pokedexData.isEmpty == true {
-            performUpdatesOnMain({
-                let alert = SCLAlertView(appearance: SCLAlertView.SCLAppearance(showCloseButton: false))
-                alert.addButton("OK", action: { })
-                alert.showError("Search is not allowed", subTitle: "Pokedex is currently empty.")
-            })
+            let alert = SCLAlertView(appearance: SCLAlertView.SCLAppearance(showCloseButton: false))
+            alert.addButton("OK", action: { })
+            alert.showError("Search is not allowed", subTitle: "Pokedex is currently empty.")
             return false
         }
         return true

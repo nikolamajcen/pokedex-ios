@@ -27,7 +27,7 @@ class TrainerViewController: UIViewController {
         super.viewWillAppear(true)
         initializeUI()
     }
-
+    
     private func initializeUI() {
         trainerImage.layer.borderColor = UIColor.flatWhiteColorDark().CGColor
         if UserDefaultsManager.trainerImage != nil {
@@ -63,29 +63,23 @@ class TrainerViewController: UIViewController {
         } else if UIImagePickerController.isSourceTypeAvailable(.Camera) {
             showImagePicker(.Camera)
         } else {
-            performUpdatesOnMain({
-                SCLAlertView().showError("Error", subTitle: "Cannot open camera or photo library.")
-            })
+            SCLAlertView().showError("Error", subTitle: "Cannot open camera or photo library.")
         }
     }
     
     private func showImagePicker(sourceType: UIImagePickerControllerSourceType) {
-        performUpdatesOnMain({
-            let imagePickerController = UIImagePickerController()
-            imagePickerController.delegate = self
-            imagePickerController.sourceType = sourceType
-            imagePickerController.allowsEditing = false
-            self.presentViewController(imagePickerController, animated: true, completion: nil)
-        })
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = sourceType
+        imagePickerController.allowsEditing = false
+        presentViewController(imagePickerController, animated: true, completion: nil)
     }
 }
 
 extension TrainerViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        performUpdatesOnMain { 
-            self.trainerImage.image = image
-            picker.dismissViewControllerAnimated(true, completion: nil)
-        }
+        trainerImage.image = image
+        picker.dismissViewControllerAnimated(true, completion: nil)
         UserDefaultsManager.trainerImage = image
     }
 }

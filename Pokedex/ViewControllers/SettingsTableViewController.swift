@@ -29,9 +29,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     private func showChangeUsernameWindow(title: String, message: String) {
-        let appearance = SCLAlertView.SCLAppearance(
-            showCloseButton: false
-        )
+        let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
         let changeUsernameWindow = SCLAlertView(appearance: appearance)
         let textField = changeUsernameWindow.addTextField("Enter username...")
         changeUsernameWindow.addButton("Confirm") {
@@ -39,9 +37,7 @@ class SettingsTableViewController: UITableViewController {
             UserDefaultsManager.trainerName = textField.text
         }
         changeUsernameWindow.addButton("Cancel") { }
-        performUpdatesOnMain { 
-            changeUsernameWindow.showEdit(title, subTitle: message)
-        }
+        changeUsernameWindow.showEdit(title, subTitle: message)
     }
     
     private func showMessageWindow(title: String, message: String) {
@@ -54,9 +50,7 @@ class SettingsTableViewController: UITableViewController {
             manager.deleteAllPokemons()
         }
         messageWindow.addButton("No") { }
-        performUpdatesOnMain { 
-            messageWindow.showError(title, subTitle: message)
-        }
+        messageWindow.showError(title, subTitle: message)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

@@ -38,16 +38,12 @@ class LoadingView: StateView {
     private func startAnimating() {
         activityIndicator = DGActivityIndicatorView(type: .BallClipRotateMultiple, tintColor: UIColor.flatRedColorDark())
         activityIndicator.frame = activityIndicatorView.bounds
-        performUpdatesOnMain({
-            self.activityIndicatorView.addSubview(self.activityIndicator)
-            self.activityIndicator.startAnimating()
-        })
+        activityIndicatorView.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
     }
     
     private func stopAnimating() {
-        performUpdatesOnMain({
-            self.activityIndicator.stopAnimating()
-            self.activityIndicator.removeFromSuperview()
-        })
+        activityIndicator.stopAnimating()
+        activityIndicator.removeFromSuperview()
     }
 }

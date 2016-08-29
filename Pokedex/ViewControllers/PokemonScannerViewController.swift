@@ -91,14 +91,16 @@ class PokemonScannerViewController: UIViewController {
     
     private func changeCaptureState(turnOn turnOn: Bool) {
         if captureSession?.running != turnOn {
-            performUpdatesOnMain({ 
-                if turnOn == true {
-                    self.view.sendSubviewToBack(self.QRCodeFrameView!)
+            if turnOn == true {
+                view.sendSubviewToBack(self.QRCodeFrameView!)
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     self.captureSession?.startRunning()
-                } else {
+                })
+            } else {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     self.captureSession?.stopRunning()
-                }
-            })
+                })
+            }
         }
     }
     
@@ -142,7 +144,7 @@ class PokemonScannerViewController: UIViewController {
         )
         let captureAlert = SCLAlertView(appearance: appearance)
         
-        captureAlert.addButton("OK") {
+        captureAlert.addButton("OK") { [unowned self] in
             self.changeCaptureState(turnOn: true)
         }
         
@@ -151,13 +153,9 @@ class PokemonScannerViewController: UIViewController {
             imageView.image = image
             imageView.contentMode = .ScaleAspectFit
             captureAlert.customSubview = imageView
-            performUpdatesOnMain({ 
-                captureAlert.showSuccess(title, subTitle: message)
-            })
+            captureAlert.showSuccess(title, subTitle: message)
         } else {
-            performUpdatesOnMain({ 
-                captureAlert.showError(title, subTitle: message)
-            })
+            captureAlert.showError(title, subTitle: message)
         }
     }
 }
@@ -165,29 +163,32 @@ class PokemonScannerViewController: UIViewController {
 extension PokemonScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
     
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
-        captureSession!.stopRunning()
-        
-        if let metadataObject = metadataObjects.first {
-            let readableObject = metadataObject as! AVMetadataMachineReadableCodeObject
-            
-            if readableObject.type == AVMetadataObjectTypeQRCode {
-                let barCodeObject = videoPreviewLayer?
-                    .transformedMetadataObjectForMetadataObject(metadataObject as! AVMetadataMachineReadableCodeObject)
-                    as! AVMetadataMachineReadableCodeObject
-                
-                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-                QRCodeFrameView?.frame = barCodeObject.bounds;
-                view.bringSubviewToFront(QRCodeFrameView!)
-                
-                if metadataObject.stringValue != nil {
-                    readQRCode(metadataObject.stringValue)
-                } else {
-                    showAlert(type: .Failure,
-                              title: "Incompatible QR code",
-                              message: "Please scan codes from provided site to catch pokemons.",
-                              image: nil)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            self.captureSession!.stopRunning()
+            dispatch_async(dispatch_get_main_queue(), { [unowned self] in
+                if let metadataObject = metadataObjects.first {
+                    let readableObject = metadataObject as! AVMetadataMachineReadableCodeObject
+                    
+                    if readableObject.type == AVMetadataObjectTypeQRCode {
+                        let barCodeObject = self.videoPreviewLayer?
+                            .transformedMetadataObjectForMetadataObject(metadataObject as! AVMetadataMachineReadableCodeObject)
+                            as! AVMetadataMachineReadableCodeObject
+                        
+                        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+                        self.QRCodeFrameView?.frame = barCodeObject.bounds;
+                        self.view.bringSubviewToFront(self.QRCodeFrameView!)
+                        
+                        if metadataObject.stringValue != nil {
+                            self.readQRCode(metadataObject.stringValue)
+                        } else {
+                            self.showAlert(type: .Failure,
+                                title: "Incompatible QR code",
+                                message: "Please scan codes from provided site to catch pokemons.",
+                                image: nil)
+                        }
+                    }
                 }
-            }
+            })
         }
     }
 }

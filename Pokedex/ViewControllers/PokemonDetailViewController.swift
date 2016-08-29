@@ -171,20 +171,16 @@ class PokemonDetailViewController: UIViewController {
     
     private func removeViewControllerFromTabContentView() {
         let currentViewController = childViewControllers.last
-        performUpdatesOnMain { 
-            currentViewController?.willMoveToParentViewController(nil)
-            currentViewController!.view.removeFromSuperview()
-            currentViewController?.removeFromParentViewController()
-        }
+        currentViewController?.willMoveToParentViewController(nil)
+        currentViewController!.view.removeFromSuperview()
+        currentViewController?.removeFromParentViewController()
     }
     
     private func addViewControllerToTabContentView(viewController: UIViewController) {
-        performUpdatesOnMain { 
-            self.addChildViewController(viewController)
-            viewController.view.frame = self.tabContentView.bounds
-            viewController.didMoveToParentViewController(self)
-            self.tabContentView.addSubview(viewController.view)
-        }
+        addChildViewController(viewController)
+        viewController.view.frame = tabContentView.bounds
+        viewController.didMoveToParentViewController(self)
+        tabContentView.addSubview(viewController.view)
         currentTabViewController = viewController
     }
 }

@@ -2,7 +2,12 @@
 
 [![Build Status](https://travis-ci.org/aschuch/StatefulViewController.svg)](https://travis-ci.org/aschuch/StatefulViewController)
 ![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)
-![Swift 2](https://img.shields.io/badge/Swift-2-orange.svg)
+![Swift 2.2](https://img.shields.io/badge/Swift-2.2-orange.svg)
+![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20tvOS-lightgrey.svg)
+
+> This project is [Migrating to Swift 3](http://www.jessesquires.com/migrating-to-swift-3/).
+> * Swift 2.3 is currently available from the [`swift2.3` branch](https://github.com/aschuch/StatefulViewController/tree/swift2.3)
+> * Swift 3.0 is currently available from the [`swift3.0` branch](https://github.com/aschuch/StatefulViewController/tree/swift3.0)
 
 A protocol to enable `UIViewController`s or `UIView`s to present placeholder views based on content, loading, error or empty states.
 
@@ -24,20 +29,20 @@ As trivial as this flow may sound, there are a lot of cases that result in a rat
 ## Usage
 > This guide describes the use of the `StatefulViewController` protocol on `UIViewController`. However, you can also adopt the `StatefulViewController` protocol on any `UIViewController` subclass, such as `UITableViewController` or `UICollectionViewController`, as well as your custom `UIView` subclasses.
 
-First, make sure your view controller adopts to the `StatefulViewController` protocol. 
+First, make sure your view controller adopts to the `StatefulViewController` protocol.
 
-```swift 
+```swift
 class MyViewController: UIViewController, StatefulViewController {
     // ...
 }
-``` 
+```
 
 Then, configure the `loadingView`, `emptyView` and `errorView` properties (provided by the `StatefulViewController` protocol) in `viewDidLoad`.
 
 ```swift
 override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     // Setup placeholder views
     loadingView = // UIView
     emptyView = // UIView
@@ -50,7 +55,7 @@ In addition, call the `setupInitialViewState()` method in `viewWillAppear:` in o
 ```swift
 override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-        
+
     setupInitialViewState()
 }
 ```
@@ -60,13 +65,13 @@ After that, simply tell the view controller whenever content is loading and `Sta
 ```swift
 override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-        
+
     loadDeliciousWines()
 }
 
 func loadDeliciousWines() {
 	startLoading()
-	
+
 	let url = NSURL(string: "http://example.com/api")
 	let session = NSURLSession.sharedSession()
 	session.dataTaskWithURL(url) { (let data, let response, let error) in
@@ -97,7 +102,24 @@ func handleErrorWhenContentAvailable(error: ErrorType) {
 }
 ```
 
+
+
+### Custom Placeholder View insets
+
+Per default, StatefulViewController presents all configured placeholder views fullscreen (i.e. with 0 insets from top, bottom, left & right from the superview). In case a placeholder view should have custom insets the configured placeholderview may conform to the `StatefulPlaceholderView` protocol and override the `placeholderViewInsets` method to return custom edge insets.
+
+```swift
+class MyPlaceholderView: UIView, StatefulPlaceholderView {
+  func placeholderViewInsets() -> UIEdgeInsets {
+	return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+  }
+}
+```
+
+
+
 <a name="viewstatemachine"></a>
+
 ### View State Machine
 
 > Note: The following section is only intended for those, who want to create a stateful controller that differs from the flow described above.
@@ -129,12 +151,12 @@ stateMachine.transitionToState(.None, animated: true) {
 Add the following line to your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile).
 
 ```
-github "aschuch/StatefulViewController", ~> 1.0
+github "aschuch/StatefulViewController" ~> 1.0
 ```
 
 Then run `carthage update`.
 
-#### Cocoapods
+#### CocoaPods
 
 Add the following line to your Podfile.
 
@@ -142,7 +164,7 @@ Add the following line to your Podfile.
 pod "StatefulViewController", "~> 1.0"
 ```
 
-Then run `pod install` with Cocoapods 0.36 or newer.
+Then run `pod install` with CocoaPods 0.36 or newer.
 
 #### Manually
 

@@ -19,7 +19,7 @@ class PokemonDescription: NSObject, Mappable {
         super.init()
     }
     
-    required init?(_ map: Map) { }
+    required init?(map: Map) { }
     
     func mapping(map: Map) {
         version <- map["version.name"]

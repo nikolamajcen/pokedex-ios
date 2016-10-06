@@ -22,12 +22,12 @@ class LoadingView: StateView {
     }
     
     init(owner: UIViewController) {
-        super.init(frame: CGRectZero)
-        initializeNib(self, name: "LoadingView")
-        initializeView(self, view: contentView)
+        super.init(frame: CGRect.zero)
+        initializeNib(owner: self, name: "LoadingView")
+        initializeView(container: self, view: contentView)
     }
     
-    override func willMoveToWindow(newWindow: UIWindow?) {
+    override func willMove(toWindow newWindow: UIWindow?) {
         if activityIndicator.animating == false {
             startAnimating()
         } else {
@@ -36,7 +36,7 @@ class LoadingView: StateView {
     }
     
     private func startAnimating() {
-        activityIndicator = DGActivityIndicatorView(type: .BallClipRotateMultiple, tintColor: UIColor.flatRedColorDark())
+        activityIndicator = DGActivityIndicatorView(type: .ballClipRotateMultiple, tintColor: UIColor.flatRedColorDark())
         activityIndicator.frame = activityIndicatorView.bounds
         activityIndicatorView.addSubview(activityIndicator)
         activityIndicator.startAnimating()

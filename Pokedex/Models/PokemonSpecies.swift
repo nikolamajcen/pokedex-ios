@@ -21,27 +21,27 @@ class PokemonSpecies: NSObject, Mappable {
         super.init()
     }
     
-    required init?(_ map: Map) { }
+    required init?(map: Map) { }
     
     func mapping(map: Map) {
         descriptions <- map["flavor_text_entries"]
         setEnglishDescriptionDefault()
         
         pokemonEvolutionChainUrl <- map["evolution_chain.url"]
-        pokemonEvolutionChainId = Int(NSURL(string: pokemonEvolutionChainUrl)!.absoluteURL.lastPathComponent!)!
+        pokemonEvolutionChainId = Int((NSURL(string: pokemonEvolutionChainUrl)!.absoluteURL?.lastPathComponent)!)!
     }
     
     private func setEnglishDescriptionDefault() {
         for description: PokemonDescription in descriptions! {
             if description.language == "en" {
-                pokemonDescription = formatDescriptionText(description)
+                pokemonDescription = formatDescriptionText(description: description)
                 break
             }
         }
     }
     
     private func formatDescriptionText(description: PokemonDescription) -> PokemonDescription {
-        description.text = description.text.stringByReplacingOccurrencesOfString("\n", withString: " ")
+        description.text = description.text.replacingOccurrences(of: "\n", with: " ")
         return description
     }
 }

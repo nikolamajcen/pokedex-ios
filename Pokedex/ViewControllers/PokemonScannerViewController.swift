@@ -24,23 +24,23 @@ class PokemonScannerViewController: UIViewController {
         initializeQRCodeFrame()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        tabBarController?.tabBar.hidden = true
+        tabBarController?.tabBar.isHidden = true
         changeCaptureState(turnOn: true)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        tabBarController?.tabBar.hidden = false
+        tabBarController?.tabBar.isHidden = false
         changeCaptureState(turnOn: false)
     }
     
     private func configureVideoCapture() {
-        view.backgroundColor = UIColor.blackColor()
+        view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         
-        let videoCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        let videoCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         let videoInput: AVCaptureDeviceInput
         
         do {
@@ -64,7 +64,7 @@ class PokemonScannerViewController: UIViewController {
         if (captureSession!.canAddOutput(metadataOutput)) {
             captureSession!.addOutput(metadataOutput)
             
-            metadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
+            metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             metadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
         } else {
             showAlert(type: .Failure,
@@ -84,29 +84,29 @@ class PokemonScannerViewController: UIViewController {
     
     private func initializeQRCodeFrame() {
         QRCodeFrameView = UIView()
-        QRCodeFrameView?.layer.borderColor = UIColor.flatMintColor().CGColor
+        QRCodeFrameView?.layer.borderColor = UIColor.flatMint().cgColor
         QRCodeFrameView?.layer.borderWidth = 2
         view.addSubview(QRCodeFrameView!)
     }
     
-    private func changeCaptureState(turnOn turnOn: Bool) {
-        if captureSession?.running != turnOn {
+    fileprivate func changeCaptureState(turnOn: Bool) {
+        if captureSession?.isRunning != turnOn {
             if turnOn == true {
-                view.sendSubviewToBack(self.QRCodeFrameView!)
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                view.sendSubview(toBack: self.QRCodeFrameView!)
+                DispatchQueue.global(qos: .background).async {
                     self.captureSession?.startRunning()
-                })
+                }
             } else {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                DispatchQueue.global(qos: .background).async {
                     self.captureSession?.stopRunning()
-                })
+                }
             }
         }
     }
     
-    private func readQRCode(value: String) {
-        guard let jsonValue = Mapper<Pokemon>.parseJSONDictionary(value) else {
-            showAlert(type: .Failure,
+    fileprivate func readQRCode(value: String) {
+        guard let jsonValue = Mapper<Pokemon>.parseJSONStringIntoDictionary(JSONString: value) else {
+            self.showAlert(type: .Failure,
                       title: "Incompatible QR code",
                       message: "Please scan codes from provided site to catch pokemons.",
                       image: nil)
@@ -121,13 +121,13 @@ class PokemonScannerViewController: UIViewController {
             return
         }
         
-        let pokemon = Mapper<Pokemon>().map(jsonValue)
-        savePokemonToPokedex(pokemon!)
+        let pokemon = Mapper<Pokemon>().map(JSON: jsonValue)
+        savePokemonToPokedex(pokemon: pokemon!)
     }
     
-    private func savePokemonToPokedex(pokemon: Pokemon) {
+    fileprivate func savePokemonToPokedex(pokemon: Pokemon) {
         let manager = DatabaseManager()
-        if manager.addPokemon(pokemon) == .Success {
+        if manager.addPokemon(pokemon: pokemon) == .Success {
             showAlert(type: .Success, title: "Captured \(pokemon.name)!",
                       message: "", image: UIImage(named: pokemon.getListImageName()))
         } else {
@@ -136,9 +136,9 @@ class PokemonScannerViewController: UIViewController {
         }
     }
     
-    private func showAlert(type type: CaptureStatus, title: String, message: String, image: UIImage!) {
+    fileprivate func showAlert(type: CaptureStatus, title: String, message: String, image: UIImage!) {
         let appearance = SCLAlertView.SCLAppearance (
-            kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 18)!,
+            // kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 18)!,
             kWindowWidth: 280.0,
             showCloseButton: false
         )
@@ -149,9 +149,9 @@ class PokemonScannerViewController: UIViewController {
         }
         
         if type == .Success {
-            let imageView = UIImageView(frame: CGRectMake(0, 0, 260, 100))
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 260, height: 100))
             imageView.image = image
-            imageView.contentMode = .ScaleAspectFit
+            imageView.contentMode = .scaleAspectFit
             captureAlert.customSubview = imageView
             captureAlert.showSuccess(title, subTitle: message)
         } else {
@@ -163,23 +163,23 @@ class PokemonScannerViewController: UIViewController {
 extension PokemonScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
     
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        DispatchQueue.global(qos: .background).async {
             self.captureSession!.stopRunning()
-            dispatch_async(dispatch_get_main_queue(), { [unowned self] in
+            DispatchQueue.main.async(execute: { [unowned self] in
                 if let metadataObject = metadataObjects.first {
                     let readableObject = metadataObject as! AVMetadataMachineReadableCodeObject
                     
                     if readableObject.type == AVMetadataObjectTypeQRCode {
                         let barCodeObject = self.videoPreviewLayer?
-                            .transformedMetadataObjectForMetadataObject(metadataObject as! AVMetadataMachineReadableCodeObject)
+                            .transformedMetadataObject(for: metadataObject as! AVMetadataMachineReadableCodeObject)
                             as! AVMetadataMachineReadableCodeObject
                         
                         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
                         self.QRCodeFrameView?.frame = barCodeObject.bounds;
-                        self.view.bringSubviewToFront(self.QRCodeFrameView!)
+                        self.view.bringSubview(toFront: self.QRCodeFrameView!)
                         
                         if metadataObject.stringValue != nil {
-                            self.readQRCode(metadataObject.stringValue)
+                            self.readQRCode(value: metadataObject.stringValue)
                         } else {
                             self.showAlert(type: .Failure,
                                 title: "Incompatible QR code",

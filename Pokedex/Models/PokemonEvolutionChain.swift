@@ -18,28 +18,28 @@ class PokemonEvolutionChain: NSObject, Mappable {
         super.init()
     }
     
-    required init?(_ map: Map) { }
+    required init?(map: Map) { }
     
     func mapping(map: Map) {
         identifier <- map["id"]
         
-        let json = map.JSONDictionary["chain"]
-        let evolution = Mapper<PokemonEvolution>().map(json)
+        let json = map.JSON["chain"] as! [String: Any]
+        let evolution = Mapper<PokemonEvolution>().map(JSON: json)
         
-        if isPokemonFromFirstGeneration((evolution?.identifier)!) == true {
+        if isPokemonFromFirstGeneration(identifier: (evolution?.identifier)!) == true {
             evolutions.append(evolution!)
         }
         
-        var jsonArray = json!["evolves_to"]!! as! [AnyObject]
+        var jsonArray = json["evolves_to"]! as! [AnyObject]
         if jsonArray.count == 0 {
             return
         }
         for _ in 1...2 {
             let jsonObject = jsonArray[0]
             
-            if let evolution = Mapper<PokemonEvolution>().map(jsonObject) {
+            if let evolution = Mapper<PokemonEvolution>().map(JSONObject: jsonObject) {
                 // Only adds evolutions from first generation
-                if isPokemonFromFirstGeneration(evolution.identifier) == true {
+                if isPokemonFromFirstGeneration(identifier: evolution.identifier) == true {
                     evolutions.append(evolution)
                 }
             } else {

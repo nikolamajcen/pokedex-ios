@@ -18,19 +18,19 @@ class PokemonStat: NSObject, Mappable {
         super.init()
     }
     
-    required  init?(_ map: Map) { }
+    required  init?(map: Map) { }
     
     func mapping(map: Map) {
         name <- map["stat.name"]
-        name = name.uppercaseString
+        name = name.uppercased()
         
         value <- map["base_stat"]
         formatSpecialStatsForm()
     }
     
     private func formatSpecialStatsForm() {
-        if name.containsString("-") == true {
-            name = name.stringByReplacingOccurrencesOfString("SPECIAL-", withString: "SP.")
+        if name.contains("-") == true {
+            name = name.replacingOccurrences(of: "SPECIAL-", with: "SP.")
         }
     }
 }

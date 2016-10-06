@@ -24,30 +24,30 @@ class PokemonStatView: StateView {
     }
     
     init() {
-        super.init(frame: CGRectZero)
-        initializeNib(self, name: "PokemonStatView")
-        initializeView(self, view: view)
+        super.init(frame: CGRect.zero)
+        initializeNib(owner: self, name: "PokemonStatView")
+        initializeView(container: self, view: view)
     }
     
-    func showStat(name name: String, value: Int, labelColor: UIColor, tintColor: UIColor, backgroundColor: UIColor) {
+    func showStat(name: String, value: Int, labelColor: UIColor, tintColor: UIColor, backgroundColor: UIColor) {
         view.backgroundColor = backgroundColor
         initializeLabel(text: name, textColor: labelColor)
         initializeBarFrontLayer(statValue: value, color: tintColor)
         initializeBarBackLayer(color: tintColor)
     }
     
-    private func initializeLabel(text text: String, textColor: UIColor) {
+    private func initializeLabel(text: String, textColor: UIColor) {
         statLabel.text = text
         statLabel.textColor = textColor
     }
     
-    private func initializeBarBackLayer(color color: UIColor) {
+    private func initializeBarBackLayer(color: UIColor) {
         statBarBackLayer.layer.cornerRadius = CGFloat(barCornerRadius)
         statBarBackLayer.backgroundColor = UIColor.flatWhiteColorDark()
         // statBarBackLayer.backgroundColor = color.colorWithAlphaComponent(0.33)
     }
     
-    private func initializeBarFrontLayer(statValue statValue: Int, color: UIColor) {
+    private func initializeBarFrontLayer(statValue: Int, color: UIColor) {
         statBarFrontLayer.layer.cornerRadius = CGFloat(barCornerRadius)
         statBarFrontLayer.backgroundColor = color
         
@@ -56,8 +56,8 @@ class PokemonStatView: StateView {
             barWidthMultiplier = 1
         }
         
-        statBarFrontLayerWidth = NSLayoutConstraint(item: statBarFrontLayer, attribute: .Width, relatedBy: .Equal,
-                                                    toItem: statBarBackLayer, attribute: .Width,
+        statBarFrontLayerWidth = NSLayoutConstraint(item: statBarFrontLayer, attribute: .width, relatedBy: .equal,
+                                                    toItem: statBarBackLayer, attribute: .width,
                                                     multiplier: barWidthMultiplier, constant: 0)
         view.addConstraint(statBarFrontLayerWidth)
     }

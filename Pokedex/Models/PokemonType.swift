@@ -18,7 +18,7 @@ class PokemonType: NSObject, Mappable {
         super.init()
     }
     
-    required init?(_ map: Map) { }
+    required init?(map: Map) { }
     
     func mapping(map: Map) {
         name <- map["type.name"]        
@@ -26,10 +26,10 @@ class PokemonType: NSObject, Mappable {
     }
     
     func formatName(name: String) -> String{
-        return name.uppercaseString
+        return name.uppercased()
     }
     
     func getTypeColor() -> UIColor {
-        return ColorHelper.getColorByType(name)
+        return ColorHelper.getColorByType(type: name)
     }
 }

@@ -18,8 +18,8 @@ class EmptyView: StateView {
     }
     
     init(owner: UIViewController) {
-        super.init(frame: CGRectZero)
-        initializeNib(self, name: "EmptyView")
-        initializeView(self, view: contentView)
+        super.init(frame: CGRect.zero)
+        initializeNib(owner: self, name: "EmptyView")
+        initializeView(container: self, view: contentView)
     }
 }

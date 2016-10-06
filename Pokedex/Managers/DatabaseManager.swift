@@ -16,7 +16,7 @@ enum DatabaseResult {
 class DatabaseManager: Object {
     
     func addPokemon(pokemon: Pokemon) -> DatabaseResult {
-        if pokemonAlreadyExists(pokemon) == true { return .Failure }
+        if pokemonAlreadyExists(pokemon: pokemon) == true { return .Failure }
         let realm = try! Realm()
         try! realm.write({
             realm.add(pokemon)
@@ -25,7 +25,7 @@ class DatabaseManager: Object {
     }
     
     func deletePokemon(pokemon: Pokemon) -> DatabaseResult {
-        if pokemonAlreadyExists(pokemon) == true { return .Failure }
+        if pokemonAlreadyExists(pokemon: pokemon) == true { return .Failure }
         let realm = try! Realm()
         try! realm.write({
             realm.delete(pokemon)
@@ -35,7 +35,7 @@ class DatabaseManager: Object {
     
     func getAllPokemons() -> [Pokemon] {
         let realm = try! Realm()
-        return Array(realm.objects(Pokemon.self).sorted("id"))
+        return Array(realm.objects(Pokemon.self).sorted(byProperty: "id"))
     }
     
     func deleteAllPokemons() {
@@ -47,7 +47,7 @@ class DatabaseManager: Object {
     
     private func pokemonAlreadyExists(pokemon: Pokemon) -> Bool {
         let realm = try! Realm()
-        if realm.objectForPrimaryKey(Pokemon.self, key: pokemon.id) != nil {
+        if realm.object(ofType: Pokemon.self, forPrimaryKey: pokemon.id as AnyObject) != nil {
             return true
         }
         return false

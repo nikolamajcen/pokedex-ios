@@ -28,23 +28,23 @@ class CreditsTableViewController: UITableViewController {
         super.viewDidLoad()
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return credits.count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionName = Array(credits.keys).sort()[section]
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let sectionName = Array(credits.keys).sorted()[section]
         return (credits[sectionName]?.count)!
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let sectionNames = Array(credits.keys).sort()
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sectionNames = Array(credits.keys).sorted()
         return sectionNames[section]
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CreditCell", forIndexPath: indexPath)
-        let sectionTitle = Array(credits.keys).sort()[indexPath.section]
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CreditCell", for: indexPath as IndexPath)
+        let sectionTitle = Array(credits.keys).sorted()[indexPath.section]
         let creditsValues = credits[sectionTitle]![indexPath.row]
         
         cell.textLabel?.text = creditsValues[0]
@@ -53,10 +53,10 @@ class CreditsTableViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+        let cell = tableView.cellForRow(at: indexPath as IndexPath)
         let url = cell?.accessibilityHint
-        UIApplication.sharedApplication().openURL(NSURL(string: url!)!)
+        UIApplication.shared.openURL(NSURL(string: url!)! as URL)
     }
 }

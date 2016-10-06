@@ -20,12 +20,12 @@ class SettingsTableViewController: UITableViewController {
     }
     
     @IBAction func changeGameStatus(sender: UISwitch) {
-        UserDefaultsManager.gameMode = sender.on
+        UserDefaultsManager.gameMode = sender.isOn
     }
     
     private func initializeUI() {
         usernameLabel.text = UserDefaultsManager.trainerName
-        gameModeSwitch.on = UserDefaultsManager.gameMode
+        gameModeSwitch.isOn = UserDefaultsManager.gameMode
     }
     
     private func showChangeUsernameWindow(title: String, message: String) {
@@ -53,12 +53,12 @@ class SettingsTableViewController: UITableViewController {
         messageWindow.showError(title, subTitle: message)
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.row == 0 {
-            showChangeUsernameWindow("Change username", message: "Please enter new username:")
+            showChangeUsernameWindow(title: "Change username", message: "Please enter new username:")
         } else if indexPath.section == 0 && indexPath.row == 2 {
-            showMessageWindow("Clear game data", message: "Are you really want to delete current game data?")
+            showMessageWindow(title: "Clear game data", message: "Are you really want to delete current game data?")
         }
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
 }

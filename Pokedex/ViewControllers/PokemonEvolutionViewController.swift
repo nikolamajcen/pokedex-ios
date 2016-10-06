@@ -36,7 +36,7 @@ class PokemonEvolutionViewController: UIViewController {
         showEvolutions()
     }
     
-    func setColors(textColor textColor: UIColor) {
+    func setColors(textColor: UIColor) {
         self.textColor = textColor
     }
     
@@ -54,16 +54,16 @@ class PokemonEvolutionViewController: UIViewController {
         let evolutions = pokemon?.evolutionChain?.evolutions
         switch (evolutions!.count) {
         case 1:
-            evolutionSecondView.hidden = true
-            evolutionThirdView.hidden = true
+            evolutionSecondView.isHidden = true
+            evolutionThirdView.isHidden = true
         case 2:
-            evolutionThirdView.hidden = true
+            evolutionThirdView.isHidden = true
         default:
             break
         }
         
         for evolution: PokemonEvolution in evolutions! {
-            showEvolution(evolution, evolutionNumber: (evolutions?.indexOf(evolution))!)
+            showEvolution(evolution: evolution, evolutionNumber: (evolutions?.index(of: evolution))!)
         }
     }
     
@@ -72,15 +72,15 @@ class PokemonEvolutionViewController: UIViewController {
         case 0:
             evolutionFirstIdentifierLabel.text = "#\(evolution.identifier)"
             evolutionFirstNameLabel.text = evolution.name
-            evolutionFirstImage.image = UIImage(named: ImageHelper.getListImageName(evolution.identifier))
+            evolutionFirstImage.image = UIImage(named: ImageHelper.getListImageName(id: evolution.identifier))
         case 1:
             evolutionSecondIdentifierLabel.text = "#\(evolution.identifier)"
             evolutionSecondNameLabel.text = evolution.name
-            evolutionSecondImage.image = UIImage(named: ImageHelper.getListImageName(evolution.identifier))
+            evolutionSecondImage.image = UIImage(named: ImageHelper.getListImageName(id: evolution.identifier))
         case 2:
             evolutionThirdIdentifierLabel.text = "#\(evolution.identifier)"
             evolutionThirdNameLabel.text = evolution.name
-            evolutionThirdImage.image = UIImage(named: ImageHelper.getListImageName(evolution.identifier))
+            evolutionThirdImage.image = UIImage(named: ImageHelper.getListImageName(id: evolution.identifier))
         default:
             break
         }

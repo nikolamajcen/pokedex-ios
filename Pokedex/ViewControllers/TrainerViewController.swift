@@ -77,10 +77,12 @@ class TrainerViewController: UIViewController {
 }
 
 extension TrainerViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        trainerImage.image = image
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            trainerImage.image = image
+            UserDefaultsManager.trainerImage = image
+        }
         picker.dismiss(animated: true, completion: nil)
-        UserDefaultsManager.trainerImage = image
     }
 }
 

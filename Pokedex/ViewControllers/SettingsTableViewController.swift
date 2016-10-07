@@ -19,7 +19,7 @@ class SettingsTableViewController: UITableViewController {
         initializeUI()
     }
     
-    @IBAction func changeGameStatus(sender: UISwitch) {
+    @IBAction func changeGameStatus(_ sender: UISwitch) {
         UserDefaultsManager.gameMode = sender.isOn
     }
     

@@ -14,7 +14,7 @@ class UserDefaultsManager {
     static var trainerName: String! {
         get {
             let defaults = initializeUserDefaults()
-            let trainerName = defaults.stringForKey("trainerName")
+            let trainerName = defaults.string(forKey: "trainerName")
             return trainerName
         }
         set {
@@ -26,7 +26,7 @@ class UserDefaultsManager {
     static var trainerImage: UIImage! {
         get {
             let defaults = initializeUserDefaults()
-            let trainerImageData = defaults.dataForKey("trainerImage")
+            let trainerImageData = defaults.data(forKey: "trainerImage")
             
             guard trainerImageData != nil else {
                 return nil
@@ -44,16 +44,16 @@ class UserDefaultsManager {
     static var gameMode: Bool! {
         get {
             let defaults = initializeUserDefaults()
-            let gameStatus = defaults.boolForKey("gameMode")
+            let gameStatus = defaults.bool(forKey: "gameMode")
             return gameStatus
         }
         set {
             let defaults = initializeUserDefaults()
-            defaults.setBool(newValue, forKey: "gameMode")
+            defaults.set(newValue, forKey: "gameMode")
         }
     }
     
-    private static func initializeUserDefaults() -> NSUserDefaults {
-        return NSUserDefaults.standardUserDefaults()
+    private static func initializeUserDefaults() -> UserDefaults {
+        return UserDefaults.standard
     }
 }

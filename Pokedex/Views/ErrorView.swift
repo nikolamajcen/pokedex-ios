@@ -20,9 +20,9 @@ class ErrorView: StateView {
     }
     
     init(owner: UIViewController, action: Selector) {
-        super.init(frame: CGRectZero)
-        initializeNib(self, name: "ErrorView")
-        initializeView(self, view: contentView)
-        reloadButton.addTarget(owner, action: action, forControlEvents: .TouchUpInside)
+        super.init(frame: CGRect.zero)
+        initializeNib(owner: self, name: "ErrorView")
+        initializeView(container: self, view: contentView)
+        reloadButton.addTarget(owner, action: action, for: .touchUpInside)
     }
 }

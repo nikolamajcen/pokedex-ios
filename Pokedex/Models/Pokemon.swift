@@ -20,7 +20,7 @@ class Pokemon: Object, Mappable {
     dynamic var evolutionChain: PokemonEvolutionChain?
     dynamic var stats: [PokemonStat]?
     
-    required convenience init?(_ map: Map) {
+    required convenience init?(map: Map) {
         self.init()
     }
     
@@ -38,19 +38,19 @@ class Pokemon: Object, Mappable {
         url <- map["url"]
 
         if url.isEmpty == false {
-            id = Int(NSURL(string: url)!.absoluteURL.lastPathComponent!)!
+            id = Int((NSURL(string: url)!.absoluteURL?.lastPathComponent)!)!
         } else {
             id <- map["id"]
         }
         
         name <- map["name"]
-        name = formatName(name)
+        name = formatName(name: name)
         
         types <- map["types"]
-        types = types?.reverse()
+        types = types?.reversed()
         
         stats <- map["stats"]
-        stats = stats?.reverse()
+        stats = stats?.reversed()
     }
     
     func getListImageName() -> String {
@@ -66,19 +66,19 @@ class Pokemon: Object, Mappable {
     }
     
     private func formatName(name: String) -> String {
-        var formattedName = formatFirstLetterToUppercase(name)
+        var formattedName = formatFirstLetterToUppercase(name: name)
         
         if isGenderSpecified() == true {
-            formattedName = addGenderSign(formattedName)
+            formattedName = addGenderSign(name: formattedName)
         }
         return formattedName
     }
     
     private func formatFirstLetterToUppercase(name: String) -> String {
         let startIndex = name.startIndex
-        let endIndex = name.startIndex
-        let firstLetter = String(name.characters.first! as Character).uppercaseString
-        return name.stringByReplacingCharactersInRange(startIndex...endIndex, withString: firstLetter)
+        let endIndex = name.index(name.startIndex, offsetBy: 1)
+        let firstLetter = String(name.characters.first! as Character).uppercased()
+        return name.replacingCharacters(in: startIndex..<endIndex, with: firstLetter)
     }
     
     private func isGenderSpecified() -> Bool {
@@ -86,8 +86,8 @@ class Pokemon: Object, Mappable {
     }
     
     private func addGenderSign(name: String) -> String {
-        let startIndex = name.endIndex.advancedBy(-2)
-        let endIndex = name.endIndex.predecessor()
+        let startIndex = name.index(name.endIndex, offsetBy: -2)
+        let endIndex = name.endIndex
         
         let sign: String
         switch id {
@@ -98,6 +98,6 @@ class Pokemon: Object, Mappable {
         default:
             sign = ""
         }
-        return name.stringByReplacingCharactersInRange(startIndex...endIndex, withString: sign)
+        return name.replacingCharacters(in: startIndex..<endIndex, with: sign)
     }
 }

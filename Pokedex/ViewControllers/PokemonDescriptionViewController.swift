@@ -39,16 +39,16 @@ class PokemonDescriptionViewController: UIViewController {
         initializeSpeechAnimation()
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        speechSynthesizer.stopSpeakingAtBoundary(.Immediate)
+    override func viewWillDisappear(_ animated: Bool) {
+        speechSynthesizer.stopSpeaking(at: .immediate)
     }
     
-    func setColors(tintColor tintColor: UIColor) {
+    func setColors(tintColor: UIColor) {
         self.tintColor = tintColor
     }
     
     func manageSpeech() {
-        if speechSynthesizer.speaking == false {
+        if speechSynthesizer.isSpeaking == false {
             startSpeech()
         } else {
             stopSpeech()
@@ -61,14 +61,33 @@ class PokemonDescriptionViewController: UIViewController {
     }
     
     private func initializeSpeechAnimation() {
-        activityIndicatorView = DGActivityIndicatorView(type: .TriplePulse, tintColor: tintColor)
-        activityIndicatorView.frame = self.voiceAnimationView.bounds
-        activityIndicatorView
-            .addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(manageSpeech)))
-        voiceAnimationView.addSubview(self.activityIndicatorView)
+        activityIndicatorView = DGActivityIndicatorView(type: .triplePulse, tintColor: tintColor)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        voiceAnimationView.addSubview(activityIndicatorView)
+        voiceAnimationView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(manageSpeech)))
+        
+        voiceAnimationView.addConstraint(NSLayoutConstraint(item: activityIndicatorView, attribute: .width,
+                                                            relatedBy: .equal,
+                                                            toItem: voiceAnimationView, attribute: .width,
+                                                            multiplier: 1, constant: 0))
+        
+        voiceAnimationView.addConstraint(NSLayoutConstraint(item: activityIndicatorView, attribute: .height,
+                                                            relatedBy: .equal,
+                                                            toItem: voiceAnimationView, attribute: .height,
+                                                            multiplier: 1, constant: 0))
+        
+        voiceAnimationView.addConstraint(NSLayoutConstraint(item: activityIndicatorView, attribute: .centerX,
+                                                            relatedBy: .equal,
+                                                            toItem: voiceAnimationView, attribute: .centerX,
+                                                            multiplier: 1, constant: 0))
+        
+        voiceAnimationView.addConstraint(NSLayoutConstraint(item: activityIndicatorView, attribute: .centerY,
+                                                            relatedBy: .equal,
+                                                            toItem: voiceAnimationView, attribute: .centerY,
+                                                            multiplier: 1, constant: 0))
     }
     
-    private func formatTextForSpeech(name name: String, types: [PokemonType], description: String) {
+    private func formatTextForSpeech(name: String, types: [PokemonType], description: String) {
         speechText = "\(name)... "
         if types.count == 1 {
             speechText = speechText! + "\(types[0].name) pokemon... "
@@ -80,20 +99,20 @@ class PokemonDescriptionViewController: UIViewController {
     
     private func startSpeech() {
         speechUtterance = AVSpeechUtterance(string: " \(speechText!)")
-        speechSynthesizer.speakUtterance(speechUtterance)
+        speechSynthesizer.speak(speechUtterance)
     }
     
     private func stopSpeech() {
-        speechSynthesizer.stopSpeakingAtBoundary(.Immediate)
+        speechSynthesizer.stopSpeaking(at: .immediate)
     }
     
-    private func startVoiceAnimation() {
+    fileprivate func startVoiceAnimation() {
         if activityIndicatorView.animating == false {
             activityIndicatorView.startAnimating()
         }
     }
     
-    private func stopVoiceAnimation() {
+    fileprivate func stopVoiceAnimation() {
         if activityIndicatorView.animating == true {
             activityIndicatorView.stopAnimating()
         }
@@ -102,15 +121,15 @@ class PokemonDescriptionViewController: UIViewController {
 
 extension PokemonDescriptionViewController: AVSpeechSynthesizerDelegate {
     
-    func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didStartSpeechUtterance utterance: AVSpeechUtterance) {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
         startVoiceAnimation()
     }
-    
-    func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didCancelSpeechUtterance utterance: AVSpeechUtterance) {
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
         stopVoiceAnimation()
     }
     
-    func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         stopVoiceAnimation()
     }
 }

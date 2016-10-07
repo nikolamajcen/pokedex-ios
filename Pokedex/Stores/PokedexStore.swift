@@ -13,7 +13,7 @@ import RealmSwift
 
 class PokedexStore: NSObject {
     
-    var alamofireManager: Alamofire.Manager?
+    // var alamofireManager: Alamofire.Manager?
     
     override init() {
         super.init()
@@ -27,10 +27,10 @@ class PokedexStore: NSObject {
             let manager = DatabaseManager()
             pokemons = manager.getAllPokemons()
         } else {
-            let filePath = NSBundle.mainBundle().pathForResource("pokedex", ofType: "json")
+            let filePath = Bundle.main.path(forResource: "pokedex", ofType: "json")
             let data = NSData(contentsOfFile: filePath!)
-            let value = String(data: data!, encoding: NSUTF8StringEncoding)
-            pokemons = Mapper<Pokemon>().mapArray(value!)!
+            let value = String(data: data! as Data, encoding: String.Encoding.utf8)
+            pokemons = Mapper<Pokemon>().mapArray(JSONString: value!)!
         }
         completion(pokemons)
 
@@ -50,55 +50,58 @@ class PokedexStore: NSObject {
         */
     }
     
-    func fetchPokemonDetails(id: Int, completion: (Pokemon!, NSError!) -> Void) -> Void {
-        alamofireManager!
-            .request(.GET, "https://pokeapi.co/api/v2/pokemon/\(id)/")
+    func fetchPokemonDetails(id: Int, completion: @escaping (Pokemon?, NSError?) -> Void) -> Void {
+        // alamofireManager!
+        Alamofire
+            .request("https://pokeapi.co/api/v2/pokemon/\(id)/", method: .get)
             .responseJSON { (response) in
                 
-                if let error = self.evaluateResponse(response) {
+                if let error = self.evaluateResponse(response: response) {
                     completion(nil, error)
                 } else {
-                    let pokemon = Mapper<Pokemon>().map(response.result.value)
+                    let pokemon = Mapper<Pokemon>().map(JSONObject: response.result.value)
                     completion(pokemon, nil)
                 }
         }
     }
     
-    func fetchPokemonSpecies(id: Int, completion: (PokemonSpecies!, NSError!) -> Void) -> Void {
-        alamofireManager!
-            .request(.GET, "https://pokeapi.co/api/v2/pokemon-species/\(id)/")
+    func fetchPokemonSpecies(id: Int, completion: @escaping (PokemonSpecies?, NSError?) -> Void) -> Void {
+        // alamofireManager!
+        Alamofire
+            .request("https://pokeapi.co/api/v2/pokemon-species/\(id)/", method: .get)
             .responseJSON { (response) in
 
-                if let error = self.evaluateResponse(response) {
+                if let error = self.evaluateResponse(response: response) {
                     completion(nil, error)
                 } else {
-                    let pokemonSpecies = Mapper<PokemonSpecies>().map(response.result.value)
+                    let pokemonSpecies = Mapper<PokemonSpecies>().map(JSONObject: response.result.value)
                     completion(pokemonSpecies, nil)
                 }
         }
     }
     
-    func fetchPokemonEvolutionChain(id: Int, completion: (PokemonEvolutionChain!, NSError!) -> Void) -> Void {
-        alamofireManager!
-            .request(.GET, "https://pokeapi.co/api/v2/evolution-chain/\(id)/")
+    func fetchPokemonEvolutionChain(id: Int, completion: @escaping (PokemonEvolutionChain?, NSError?) -> Void) -> Void {
+        // alamofireManager!
+        Alamofire
+            .request("https://pokeapi.co/api/v2/evolution-chain/\(id)/", method: .get)
             .responseJSON { (response) in
                 
-                if let error = self.evaluateResponse(response) {
+                if let error = self.evaluateResponse(response: response) {
                     completion(nil, error)
                 } else {
-                    let pokemonEvolutionChain = Mapper<PokemonEvolutionChain>().map(response.result.value)
+                    let pokemonEvolutionChain = Mapper<PokemonEvolutionChain>().map(JSONObject: response.result.value)
                     completion(pokemonEvolutionChain, nil)
                 }
         }
     }
     
     private func configurateRequestTimeout() {
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 15
-        self.alamofireManager = Alamofire.Manager(configuration: configuration)
+        // self.alamofireManager = Alamofire.Manager(configuration: configuration)
     }
     
-    private func evaluateResponse(response: Response<AnyObject, NSError>) -> NSError! {
+    private func evaluateResponse(response: DataResponse<Any>) -> NSError! {
         if response.response == nil {
             return NSError(domain: "No network connection.", code: 0, userInfo: nil)
         }

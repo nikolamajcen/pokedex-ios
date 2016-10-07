@@ -33,18 +33,18 @@ class PokedexViewController: UIViewController {
         initializeSearch()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         initializeUIColors()
         getPokedexData()
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let path = pokedexTable.indexPathForSelectedRow
-        let detailViewController = segue.destinationViewController as! PokemonDetailViewController
+        let detailViewController = segue.destination as! PokemonDetailViewController
         
         let pokemon: Pokemon
-        if searchController.active == true {
+        if searchController.isActive == true {
             pokemon = (searchData[(path?.row)!] as Pokemon)
         } else {
             pokemon = (pokedexData[(path?.row)!] as Pokemon)
@@ -98,16 +98,16 @@ extension PokedexViewController: StatefulViewController {
 
 extension PokedexViewController: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        pokedexTable.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        pokedexTable.deselectRow(at: indexPath as IndexPath, animated: true)
     }
 }
 
 extension PokedexViewController: UITableViewDataSource {
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let pokemon: Pokemon
-        if searchController.active == true {
+        if searchController.isActive == true {
             if searchData.count == 0 {
                 return PokedexCell()
             }
@@ -116,13 +116,13 @@ extension PokedexViewController: UITableViewDataSource {
             pokemon = pokedexData[indexPath.row]
         }
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("PokedexCell", forIndexPath: indexPath) as! PokedexCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PokedexCell", for: indexPath as IndexPath) as! PokedexCell
         cell.pokemon = pokemon
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.active == true {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchController.isActive == true {
             return searchData.count
         } else {
             return pokedexData.count
@@ -132,7 +132,7 @@ extension PokedexViewController: UITableViewDataSource {
 
 extension PokedexViewController: UISearchBarDelegate {
     
-    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         if pokedexData.isEmpty == true {
             let alert = SCLAlertView(appearance: SCLAlertView.SCLAppearance(showCloseButton: false))
             alert.addButton("OK", action: { })
@@ -145,10 +145,10 @@ extension PokedexViewController: UISearchBarDelegate {
 
 extension PokedexViewController: UISearchResultsUpdating {
     
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        let searchText = searchController.searchBar.text?.lowercaseString
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchText = searchController.searchBar.text!.lowercased()
         searchData = pokedexData.filter { pokemon in
-            return pokemon.name.lowercaseString.containsString(searchText!)
+            return pokemon.name.lowercased().contains(searchText)
         }
         pokedexTable.reloadData()
     }

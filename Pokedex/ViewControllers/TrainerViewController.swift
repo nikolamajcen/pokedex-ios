@@ -23,13 +23,13 @@ class TrainerViewController: UIViewController {
         initializeControls()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         initializeUI()
     }
     
     private func initializeUI() {
-        trainerImage.layer.borderColor = UIColor.flatWhiteColorDark().CGColor
+        trainerImage.layer.borderColor = UIColor.flatWhiteColorDark().cgColor
         if UserDefaultsManager.trainerImage != nil {
             trainerImage.image = UserDefaultsManager.trainerImage
         }
@@ -53,15 +53,15 @@ class TrainerViewController: UIViewController {
     
     private func initializeControls() {
         let imageTap = UITapGestureRecognizer(target: self, action: #selector(changeTrainerPhoto))
-        trainerImage.userInteractionEnabled = true
+        trainerImage.isUserInteractionEnabled = true
         trainerImage.addGestureRecognizer(imageTap)
     }
     
     internal func changeTrainerPhoto() {
-        if UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) {
-            showImagePicker(.PhotoLibrary)
-        } else if UIImagePickerController.isSourceTypeAvailable(.Camera) {
-            showImagePicker(.Camera)
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            showImagePicker(sourceType: .photoLibrary)
+        } else if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            showImagePicker(sourceType: .camera)
         } else {
             SCLAlertView().showError("Error", subTitle: "Cannot open camera or photo library.")
         }
@@ -72,15 +72,17 @@ class TrainerViewController: UIViewController {
         imagePickerController.delegate = self
         imagePickerController.sourceType = sourceType
         imagePickerController.allowsEditing = false
-        presentViewController(imagePickerController, animated: true, completion: nil)
+        present(imagePickerController, animated: true, completion: nil)
     }
 }
 
 extension TrainerViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        trainerImage.image = image
-        picker.dismissViewControllerAnimated(true, completion: nil)
-        UserDefaultsManager.trainerImage = image
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            trainerImage.image = image
+            UserDefaultsManager.trainerImage = image
+        }
+        picker.dismiss(animated: true, completion: nil)
     }
 }
 

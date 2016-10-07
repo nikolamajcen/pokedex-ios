@@ -11,7 +11,7 @@ import UIKit
 class StateView: UIView {
     
     func initializeNib(owner: UIView, name: String) {
-        NSBundle.mainBundle().loadNibNamed(name, owner: owner, options: nil)
+        Bundle.main.loadNibNamed(name, owner: owner, options: nil)
     }
     
     func initializeView(container: UIView, view: UIView) {

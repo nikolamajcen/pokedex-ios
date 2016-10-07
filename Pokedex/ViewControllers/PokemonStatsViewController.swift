@@ -23,12 +23,12 @@ class PokemonStatsViewController: UIViewController {
         showStats()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         view.setNeedsDisplay()
     }
     
-    func setColors(textColor textColor: UIColor, tintColor: UIColor, backgroundColor: UIColor) {
+    func setColors(textColor: UIColor, tintColor: UIColor, backgroundColor: UIColor) {
         self.textColor = textColor
         self.tintColor = tintColor
         self.backgroundColor = backgroundColor

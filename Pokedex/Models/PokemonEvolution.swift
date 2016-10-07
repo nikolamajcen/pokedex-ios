@@ -19,20 +19,20 @@ class PokemonEvolution: NSObject, Mappable {
         super.init()
     }
     
-    required init?(_ map: Map) { }
+    required init?(map: Map) { }
     
     func mapping(map: Map) {
         name <- map["species.name"]
-        name = formatName(name)
+        name = formatName(name: name)
         
         url <- map["species.url"]
-        identifier = Int(NSURL(string: url)!.absoluteURL.lastPathComponent!)!
+        identifier = Int(NSURL(string: url)!.absoluteURL!.lastPathComponent)!
     }
     
     private func formatName(name: String) -> String {
         let startIndex = name.startIndex
-        let endIndex = name.startIndex
-        let firstLetter = String(name.characters.first! as Character).uppercaseString
-        return name.stringByReplacingCharactersInRange(startIndex...endIndex, withString: firstLetter)
+        let endIndex = name.index(name.startIndex, offsetBy: 1)
+        let firstLetter = String(name.characters.first! as Character).uppercased()
+        return name.replacingCharacters(in: startIndex..<endIndex, with: firstLetter)
     }
 }

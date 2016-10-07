@@ -107,9 +107,9 @@ class PokemonScannerViewController: UIViewController {
     fileprivate func readQRCode(value: String) {
         guard let jsonValue = Mapper<Pokemon>.parseJSONStringIntoDictionary(JSONString: value) else {
             self.showAlert(type: .Failure,
-                      title: "Incompatible QR code",
-                      message: "Please scan codes from provided site to catch pokemons.",
-                      image: nil)
+                           title: "Incompatible QR code",
+                           message: "Please scan codes from provided site to catch pokemons.",
+                           image: nil)
             return
         }
         
@@ -129,17 +129,17 @@ class PokemonScannerViewController: UIViewController {
         let manager = DatabaseManager()
         if manager.addPokemon(pokemon: pokemon) == .Success {
             showAlert(type: .Success, title: "Captured \(pokemon.name)!",
-                      message: "", image: UIImage(named: pokemon.getListImageName()))
+                message: "", image: UIImage(named: pokemon.getListImageName()))
         } else {
             showAlert(type: .Success, title: "\(pokemon.name) already captured!",
-                      message: "", image: UIImage(named: pokemon.getListImageName()))
+                message: "", image: UIImage(named: pokemon.getListImageName()))
         }
     }
     
     fileprivate func showAlert(type: CaptureStatus, title: String, message: String, image: UIImage!) {
         let appearance = SCLAlertView.SCLAppearance (
-            // kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 18)!,
             kWindowWidth: 280.0,
+            kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 16.0)!,
             showCloseButton: false
         )
         let captureAlert = SCLAlertView(appearance: appearance)
@@ -162,7 +162,7 @@ class PokemonScannerViewController: UIViewController {
 
 extension PokemonScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
     
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         DispatchQueue.global(qos: .background).async {
             self.captureSession!.stopRunning()
             DispatchQueue.main.async(execute: { [unowned self] in
@@ -178,13 +178,13 @@ extension PokemonScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
                         self.QRCodeFrameView?.frame = barCodeObject.bounds;
                         self.view.bringSubview(toFront: self.QRCodeFrameView!)
                         
-                        if metadataObject.stringValue != nil {
-                            self.readQRCode(value: metadataObject.stringValue)
+                        if (metadataObject as AnyObject).stringValue != nil {
+                            self.readQRCode(value: (metadataObject as AnyObject).stringValue)
                         } else {
                             self.showAlert(type: .Failure,
-                                title: "Incompatible QR code",
-                                message: "Please scan codes from provided site to catch pokemons.",
-                                image: nil)
+                                           title: "Incompatible QR code",
+                                           message: "Please scan codes from provided site to catch pokemons.",
+                                           image: nil)
                         }
                     }
                 }

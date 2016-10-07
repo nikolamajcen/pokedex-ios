@@ -62,10 +62,29 @@ class PokemonDescriptionViewController: UIViewController {
     
     private func initializeSpeechAnimation() {
         activityIndicatorView = DGActivityIndicatorView(type: .triplePulse, tintColor: tintColor)
-        activityIndicatorView.frame = self.voiceAnimationView.bounds
-        activityIndicatorView
-            .addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(manageSpeech)))
-        voiceAnimationView.addSubview(self.activityIndicatorView)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        voiceAnimationView.addSubview(activityIndicatorView)
+        voiceAnimationView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(manageSpeech)))
+        
+        voiceAnimationView.addConstraint(NSLayoutConstraint(item: activityIndicatorView, attribute: .width,
+                                                            relatedBy: .equal,
+                                                            toItem: voiceAnimationView, attribute: .width,
+                                                            multiplier: 1, constant: 0))
+        
+        voiceAnimationView.addConstraint(NSLayoutConstraint(item: activityIndicatorView, attribute: .height,
+                                                            relatedBy: .equal,
+                                                            toItem: voiceAnimationView, attribute: .height,
+                                                            multiplier: 1, constant: 0))
+        
+        voiceAnimationView.addConstraint(NSLayoutConstraint(item: activityIndicatorView, attribute: .centerX,
+                                                            relatedBy: .equal,
+                                                            toItem: voiceAnimationView, attribute: .centerX,
+                                                            multiplier: 1, constant: 0))
+        
+        voiceAnimationView.addConstraint(NSLayoutConstraint(item: activityIndicatorView, attribute: .centerY,
+                                                            relatedBy: .equal,
+                                                            toItem: voiceAnimationView, attribute: .centerY,
+                                                            multiplier: 1, constant: 0))
     }
     
     private func formatTextForSpeech(name: String, types: [PokemonType], description: String) {
@@ -105,7 +124,7 @@ extension PokemonDescriptionViewController: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
         startVoiceAnimation()
     }
-    
+
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
         stopVoiceAnimation()
     }
